@@ -103,11 +103,11 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+    <div className="relative top-0 left-0 mx-auto w-full max-w-7xl px-4 py-20 text-center md:py-40 md:text-left">
+      <h1 className="text-2xl font-bold md:text-7xl dark:text-white">
         Building Excellence, <br /> Rooted in Family Values.
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+      <p className="mx-auto mt-8 max-w-2xl text-base md:mx-0 md:text-xl dark:text-neutral-200">
         From custom homes to commercial spaces, GP Contracting Group delivers
         precision, craftsmanship, and integrity across every project in
         Greater Vancouver. Built on a family legacy of doing what is right.

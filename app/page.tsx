@@ -34,7 +34,7 @@ export default function Home() {
             alt="GP Contracting Group"
             width={140}
             height={36}
-            className="h-auto w-[140px]"
+            className="h-auto w-[180px] md:w-[140px]"
             priority
           />
         </Link>
