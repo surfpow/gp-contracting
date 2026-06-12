@@ -35,25 +35,25 @@ function swapProductsInRow(
   return nextRow;
 }
 
-function swapBarConstructionAndRestaurantBuild(
+function swapCommercialConstructionAndRestaurantBuild(
   secondRow: ParallaxProduct[],
   thirdRow: ParallaxProduct[]
 ) {
-  const barIndex = thirdRow.findIndex(
-    (product) => product.title === "Bar Construction"
+  const commercialConstructionIndex = thirdRow.findIndex(
+    (product) => product.title === "Commercial Construction"
   );
   const restaurantIndex = secondRow.findIndex(
     (product) => product.title === "Restaurant Build"
   );
 
-  if (barIndex === -1 || restaurantIndex === -1) {
+  if (commercialConstructionIndex === -1 || restaurantIndex === -1) {
     return { secondRow, thirdRow };
   }
 
   const nextSecondRow = [...secondRow];
   const nextThirdRow = [...thirdRow];
-  nextSecondRow[restaurantIndex] = thirdRow[barIndex];
-  nextThirdRow[barIndex] = secondRow[restaurantIndex];
+  nextSecondRow[restaurantIndex] = thirdRow[commercialConstructionIndex];
+  nextThirdRow[commercialConstructionIndex] = secondRow[restaurantIndex];
 
   return { secondRow: nextSecondRow, thirdRow: nextThirdRow };
 }
@@ -63,11 +63,11 @@ function getMobileRows(
   thirdRow: ParallaxProduct[]
 ) {
   const { secondRow: swappedSecondRow, thirdRow: mobileThirdRow } =
-    swapBarConstructionAndRestaurantBuild(secondRow, thirdRow);
+    swapCommercialConstructionAndRestaurantBuild(secondRow, thirdRow);
 
   const mobileSecondRow = swapProductsInRow(
     swappedSecondRow,
-    "Home Renovation",
+    "Custom Home Build",
     "Acoustic Ceilings"
   );
 

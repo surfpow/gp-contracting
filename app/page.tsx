@@ -24,19 +24,19 @@ const projectImages = {
 } as const;
 
 export const projects = [
-  { title: "Custom Home Build", link: "#", thumbnail: projectImages.residentialFarmhouse },
-  { title: "Commercial Renovation", link: "#", thumbnail: projectImages.commercialFoundation },
+  { title: "Modern Farmhouse Build", link: "#", thumbnail: projectImages.residentialFarmhouse },
+  { title: "Multi-Family Development", link: "#", thumbnail: projectImages.commercialFoundation },
   { title: "Steel Framing", link: "#", thumbnail: projectImages.residentialHillside },
   { title: "Kitchen Remodel", link: "#", thumbnail: projectImages.residentialKitchen },
   { title: "Roofing Project", link: "#", thumbnail: projectImages.residentialLuxuryHillside },
-  { title: "Home Renovation", link: "#", thumbnail: projectImages.residentialConstructionGarage },
-  { title: "Bathroom Upgrade", link: "#", thumbnail: projectImages.residentialStaircase },
+  { title: "Custom Home Build", link: "#", thumbnail: projectImages.residentialConstructionGarage },
+  { title: "Custom Interior Finishes", link: "#", thumbnail: projectImages.residentialStaircase },
   { title: "Restaurant Build", link: "#", thumbnail: projectImages.commercialDominosExterior },
   { title: "Acoustic Ceilings", link: "#", thumbnail: projectImages.residentialLivingRoom },
-  { title: "Multi-Family Development", link: "#", thumbnail: projectImages.residentialFramingHilltop },
+  { title: "Wood Frame Construction", link: "#", thumbnail: projectImages.residentialFramingHilltop },
   { title: "Fitness Facility", link: "#", thumbnail: projectImages.tenantDominosInterior },
   {
-    title: "Bar Construction",
+    title: "Commercial Construction",
     link: "#",
     thumbnail: projectImages.tenantDominosGrandOpening,
     objectPosition: "center 55%",

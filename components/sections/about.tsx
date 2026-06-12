@@ -5,13 +5,6 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-const stats = [
-  { value: "15+", label: "Years Experience" },
-  { value: "200+", label: "Projects Completed" },
-  { value: "3", label: "Regions Served" },
-  { value: "100%", label: "Family Owned" },
-];
-
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
   visible: (delay: number) => ({
@@ -64,28 +57,8 @@ export function About() {
           family.
         </motion.p>
 
-        <div className="mt-16 grid grid-cols-2 gap-10 md:mt-20 md:grid-cols-4 md:gap-8">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              custom={0.3 + index * 0.1}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              variants={fadeUp}
-              className="text-center md:text-left"
-            >
-              <div className="font-serif text-4xl tracking-tight text-neutral-50 md:text-5xl">
-                {stat.value}
-              </div>
-              <div className="mt-2 text-sm tracking-wide text-neutral-500 uppercase">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
         <motion.div
-          custom={0.75}
+          custom={0.3}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={fadeUp}
