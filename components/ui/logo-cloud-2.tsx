@@ -98,16 +98,18 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
       <LogoCard
         className="border-r"
         logo={{
-          src: "https://svgl.app/library/claude-ai-wordmark-icon_light.svg",
-          alt: "Claude AI Logo",
+          src: "/logo-uppal.png",
+          alt: "Uppal Building Supplies Logo",
+          imgClassName: "h-5 w-auto origin-center scale-[1.35] md:h-6 md:scale-[1.35]",
         }}
       />
 
       <LogoCard
         className="bg-secondary dark:bg-secondary/30"
         logo={{
-          src: "https://svgl.app/library/vercel_wordmark.svg",
-          alt: "Vercel Logo",
+          src: "/logo-countrylumber.png",
+          alt: "Country Lumber Logo",
+          imgClassName: "h-6 w-auto origin-center scale-[1.65] md:h-7 md:scale-[1.65]",
         }}
       />
 
