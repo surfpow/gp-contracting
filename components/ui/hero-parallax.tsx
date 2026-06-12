@@ -17,6 +17,7 @@ export const HeroParallax = ({
     title: string;
     link: string;
     thumbnail: string;
+    objectPosition?: string;
   }[];
 }) => {
   const firstRow = products.slice(0, 5);
@@ -124,6 +125,7 @@ export const ProductCard = ({
     title: string;
     link: string;
     thumbnail: string;
+    objectPosition?: string;
   };
   translate: MotionValue<number>;
 }) => {
@@ -146,7 +148,8 @@ export const ProductCard = ({
           src={product.thumbnail}
           height="600"
           width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: product.objectPosition ?? "left top" }}
           alt={product.title}
         />
       </Link>

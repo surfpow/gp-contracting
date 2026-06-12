@@ -18,8 +18,7 @@ const sections: FeatureSection[] = [
     title: "Residential",
     description:
       "From custom home builds to kitchen and bathroom renovations, we bring precision craftsmanship to every residential project. Whether ground-up construction or a thoughtful remodel, we treat your home as if it were our own.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+    imageUrl: "/images/projects/residential-modern-farmhouse-exterior.png",
     reverse: false,
   },
   {
@@ -27,8 +26,7 @@ const sections: FeatureSection[] = [
     title: "Commercial",
     description:
       "Office spaces, retail storefronts, and industrial facilities built to code and delivered on schedule. GP Contracting Group brings the same integrity and attention to detail to every commercial project across Greater Vancouver.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800",
+    imageUrl: "/images/projects/commercial-foundation-concrete-pump-site.png",
     reverse: true,
   },
   {
@@ -36,8 +34,7 @@ const sections: FeatureSection[] = [
     title: "Tenant Improvements",
     description:
       "Full build-outs and fit-outs for restaurants, fitness facilities, retail spaces, and more. We work closely with landlords and tenants to deliver spaces that are ready for business — on time and on budget.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800",
+    imageUrl: "/images/projects/tenant-improvement-marble-slab-bay-centre.png",
     reverse: false,
   },
 ];

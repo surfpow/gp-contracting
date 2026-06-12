@@ -1,48 +1,55 @@
-import Image from "next/image";
-import Link from "next/link";
 import { HeroParallax } from "@/components/ui/hero-parallax";
-import { SiteNav } from "@/components/site-nav";
+import { SiteHeader } from "@/components/site-header";
 import { About } from "@/components/sections/about";
 import { ParallaxScrollFeatureSection } from "@/components/ui/parallax-scroll-feature-section";
 import { Partners } from "@/components/sections/partners";
 import { Footer } from "@/components/sections/footer";
 
+const projectImages = {
+  residentialFarmhouse: "/images/projects/residential-modern-farmhouse-exterior.png",
+  residentialHillside: "/images/projects/residential-modern-hillside-home-under-construction.png",
+  residentialLuxuryHillside: "/images/projects/residential-luxury-hillside-construction.png",
+  residentialKitchen: "/images/projects/residential-modern-kitchen-island.png",
+  residentialLivingRoom: "/images/projects/residential-modern-living-room-fireplace.png",
+  residentialStaircase: "/images/projects/residential-floating-staircase-glass-railing.png",
+  residentialFramingHilltop: "/images/projects/residential-framing-hilltop-view.png",
+  residentialConstructionGarage: "/images/projects/residential-construction-in-progress-garage.png",
+  commercialDominosExterior: "/images/projects/commercial-dominos-storefront-exterior.png",
+  commercialFoundation: "/images/projects/commercial-foundation-concrete-pump-site.png",
+  commercialTdBank: "/images/projects/commercial-td-bank-atm-exterior.png",
+  siteDevelopmentCrane: "/images/projects/site-development-crane-excavator-forest.png",
+  tenantMarbleSlab: "/images/projects/tenant-improvement-marble-slab-bay-centre.png",
+  tenantDominosInterior: "/images/projects/tenant-improvement-dominos-interior.png",
+  tenantDominosGrandOpening: "/images/projects/tenant-improvement-dominos-grand-opening-exterior.png",
+} as const;
+
 export const projects = [
-  { title: "Custom Home Build", link: "#", thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" },
-  { title: "Commercial Renovation", link: "#", thumbnail: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600" },
-  { title: "Steel Framing", link: "#", thumbnail: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600" },
-  { title: "Kitchen Remodel", link: "#", thumbnail: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600" },
-  { title: "Roofing Project", link: "#", thumbnail: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600" },
-  { title: "Tenant Improvement", link: "#", thumbnail: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600" },
-  { title: "Fitness Facility", link: "#", thumbnail: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600" },
-  { title: "Restaurant Build", link: "#", thumbnail: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600" },
-  { title: "Multi-Family Development", link: "#", thumbnail: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600" },
-  { title: "Acoustic Ceilings", link: "#", thumbnail: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600" },
-  { title: "Bathroom Upgrade", link: "#", thumbnail: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600" },
-  { title: "Bar Construction", link: "#", thumbnail: "https://images.unsplash.com/photo-1525268323446-0505b6fe7778?w=600" },
-  { title: "Home Renovation", link: "#", thumbnail: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600" },
-  { title: "Commercial Exterior", link: "#", thumbnail: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600" },
-  { title: "Smart Home Integration", link: "#", thumbnail: "https://images.unsplash.com/photo-1558002038-1055e2dae1d7?w=600" },
+  { title: "Custom Home Build", link: "#", thumbnail: projectImages.residentialFarmhouse },
+  { title: "Commercial Renovation", link: "#", thumbnail: projectImages.commercialFoundation },
+  { title: "Steel Framing", link: "#", thumbnail: projectImages.residentialHillside },
+  { title: "Kitchen Remodel", link: "#", thumbnail: projectImages.residentialKitchen },
+  { title: "Roofing Project", link: "#", thumbnail: projectImages.residentialLuxuryHillside },
+  { title: "Home Renovation", link: "#", thumbnail: projectImages.residentialConstructionGarage },
+  { title: "Bathroom Upgrade", link: "#", thumbnail: projectImages.residentialStaircase },
+  { title: "Restaurant Build", link: "#", thumbnail: projectImages.commercialDominosExterior },
+  { title: "Acoustic Ceilings", link: "#", thumbnail: projectImages.residentialLivingRoom },
+  { title: "Multi-Family Development", link: "#", thumbnail: projectImages.residentialFramingHilltop },
+  { title: "Fitness Facility", link: "#", thumbnail: projectImages.tenantDominosInterior },
+  {
+    title: "Bar Construction",
+    link: "#",
+    thumbnail: projectImages.tenantDominosGrandOpening,
+    objectPosition: "center 55%",
+  },
+  { title: "Tenant Improvement", link: "#", thumbnail: projectImages.tenantMarbleSlab },
+  { title: "Commercial Exterior", link: "#", thumbnail: projectImages.commercialTdBank },
+  { title: "Smart Home Integration", link: "#", thumbnail: projectImages.siteDevelopmentCrane },
 ];
 
 export default function Home() {
   return (
     <>
-      <header className="pointer-events-none fixed top-0 left-0 right-0 z-50 flex w-full items-center justify-between px-4 py-4 md:px-8">
-        <Link href="/" className="pointer-events-auto shrink-0">
-          <Image
-            src="https://vfqcqhylftsunnhxqysq.supabase.co/storage/v1/object/public/puzzle-bucket/GPlogo-removebg.png"
-            alt="GP Contracting Group"
-            width={140}
-            height={36}
-            className="h-auto w-[180px] md:w-[140px]"
-            priority
-          />
-        </Link>
-        <div className="pointer-events-auto">
-          <SiteNav />
-        </div>
-      </header>
+      <SiteHeader />
       <HeroParallax products={projects} />
       <About />
       <Partners />
