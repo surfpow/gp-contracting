@@ -27,7 +27,7 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         logo={{
           src: "/logo-marbleslab.png",
           alt: "Marble Slab Creamery Logo",
-          imgClassName: "h-4 w-auto origin-center scale-[2] md:h-5 md:scale-[2]",
+          imgClassName: "h-4 w-auto origin-center scale-[1.85] md:h-5 md:scale-[1.85]",
         }}
       >
         <PlusIcon
