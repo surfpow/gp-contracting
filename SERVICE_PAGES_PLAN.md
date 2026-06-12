@@ -39,15 +39,15 @@ Implementation guardrails:
 
 ### Tasks
 
-- [ ] **1.1** Create route files for:
+- [x] **1.1** Create route files for:
   - `/services/residential`
   - `/services/commercial`
   - `/services/tenant-improvements`
   - `/services/specialized`
-- [ ] **1.2** Wire each route to the shared page scaffold (`SitePageShell` + `SiteHeader` + `Footer`) with a stable `<main>` region.
-- [ ] **1.3** Add a reusable `ServicePageLayout` (or equivalent shared section shell components) so all four pages share structure and avoid duplicated JSX.
-- [ ] **1.4** Ensure each route has a temporary minimal render using shared layout + placeholder data state (before full content sections are implemented).
-- [ ] **1.5** Smoke-test all four routes resolve with nav + footer continuity and no layout shift.
+- [x] **1.2** Wire each route to the shared page scaffold (`SitePageShell` + `SiteHeader` + `Footer`) with a stable `<main>` region.
+- [x] **1.3** Add a reusable `ServicePageLayout` (or equivalent shared section shell components) so all four pages share structure and avoid duplicated JSX.
+- [x] **1.4** Ensure each route has a temporary minimal render using shared layout + placeholder data state (before full content sections are implemented).
+- [x] **1.5** Smoke-test all four routes resolve with nav + footer continuity and no layout shift.
 
 ### Files to create / touch
 
@@ -75,24 +75,24 @@ components/site-page-shell.tsx                     (touch, only if shared API ne
 
 ### Tasks
 
-- [ ] **2.1** Create `lib/services-content.ts` with a typed model for all four service pages.
-- [ ] **2.2** Define shared per-page fields:
+- [x] **2.1** Create `lib/services-content.ts` with a typed model for all four service pages.
+- [x] **2.2** Define shared per-page fields:
   - `slug`
   - `heroHeading`
   - `heroSubheading`
   - `heroImage` (src + alt)
   - `overview` copy (brand-voice paragraph(s))
   - `contentMode`: `"subServices"` or `"deepDive"`
-- [ ] **2.3** Define `subServices` schema for multi-item pages:
+- [x] **2.3** Define `subServices` schema for multi-item pages:
   - `{ name, summary, bullets[], image }`
   - Keep detailed offering points data-driven in bullets (not embedded in JSX).
-- [ ] **2.4** Define `deepDive` schema for Tenant Improvements:
+- [x] **2.4** Define `deepDive` schema for Tenant Improvements:
   - `serviceName`
   - `intro`
   - `focusAreas[]` (space planning, modern finishes, lighting design, mechanical optimization)
   - `projectContexts[]` (office tenant build-outs, retail tenant build-outs)
   - optional `outcomes[]` / `processNotes[]` if needed for layout richness
-- [ ] **2.5** Populate content for all four pages:
+- [x] **2.5** Populate content for all four pages:
   - **Residential**:
     - Custom Home Construction (architectural collaboration, premium materials, energy-efficient design, smart home integration)
     - Home Renovations (kitchen remodeling, bathroom upgrades, space optimization, modern fixtures)
@@ -112,8 +112,8 @@ components/site-page-shell.tsx                     (touch, only if shared API ne
     - Accessibility Renovations (aging-in-place modifications, wheelchair accessibility)
     - EV Charging & Electrical Upgrades
     - Custom Outdoor Features / Sport Courts (backyard basketball courts, custom outdoor recreation spaces)
-- [ ] **2.6** Keep all copy data-driven (no hardcoded marketing copy in route-level JSX).
-- [ ] **2.7** Reuse `lib/service-sections.ts` where relevant to avoid duplicated slug/label constants.
+- [x] **2.6** Keep all copy data-driven (no hardcoded marketing copy in route-level JSX).
+- [x] **2.7** Reuse `lib/service-sections.ts` where relevant to avoid duplicated slug/label constants.
 
 ### Files to create / touch
 
@@ -342,8 +342,8 @@ Notes:
 |------|-------|--------|-------|
 | 2026-06-12 | Scope Revision | - [x] | Plan updated from 3 pages to 4 pages; detailed service content requirements expanded |
 | 2026-06-12 | Phase 5 Decision | - [x] | Specialized page: `Get a Quote` only — no "View Projects" CTA |
-| 2026-06-12 | 1 | - [ ] | Not started (four-route scaffold) |
-| 2026-06-12 | 2 | - [ ] | Not started (detailed model + deep-dive structure) |
+| 2026-06-12 | 1 | - [x] | `ServicePageLayout` + four `/services/*` routes; `npm run build` passes |
+| 2026-06-12 | 2 | - [x] | `lib/services-content.ts` with subServices + deepDive models; routes consume data |
 | 2026-06-12 | 3 | - [ ] | Not started (hero + overview) |
 | 2026-06-12 | 4 | - [ ] | Not started (sub-services + TI deep-dive body) |
 | 2026-06-12 | 5 | - [ ] | Not started (CTAs/nav; Specialized = Get a Quote only) |

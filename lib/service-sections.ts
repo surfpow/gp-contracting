@@ -1,5 +1,7 @@
 export type ServiceSlug = "residential" | "commercial" | "tenant-improvements";
 
+export type ServicePageSlug = ServiceSlug | "specialized";
+
 export type ServiceSection = {
   id: number;
   slug: ServiceSlug;
@@ -16,6 +18,18 @@ export type ServiceSection = {
 
 export function serviceSectionAnchor(slug: ServiceSlug) {
   return `services-${slug}`;
+}
+
+export function getServiceSection(slug: ServiceSlug) {
+  const section = serviceSections.find((entry) => entry.slug === slug);
+  if (!section) {
+    throw new Error(`Unknown service slug: ${slug}`);
+  }
+  return section;
+}
+
+export function servicePageHref(slug: ServicePageSlug) {
+  return `/services/${slug}`;
 }
 
 export const serviceSections: ServiceSection[] = [
