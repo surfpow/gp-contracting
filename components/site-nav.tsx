@@ -33,32 +33,32 @@ const featuredProjects: { title: string; href: string; description: string }[] =
   [
     {
       title: "Custom Home Build",
-      href: "#",
+      href: "/projects/residential",
       description: "Luxury residential construction in Greater Vancouver.",
     },
     {
       title: "Restaurant Build",
-      href: "#",
+      href: "/projects/tenant-improvements",
       description: "Full commercial build-out for dining and hospitality.",
     },
     {
       title: "Multi-Family Development",
-      href: "#",
+      href: "/projects/residential",
       description: "Multi-unit residential projects from framing to finish.",
     },
     {
       title: "Fitness Facility",
-      href: "#",
+      href: "/projects/tenant-improvements",
       description: "Commercial gym and wellness space construction.",
     },
     {
       title: "Kitchen Remodel",
-      href: "#",
+      href: "/projects/residential",
       description: "High-end kitchen renovations with modern finishes.",
     },
     {
       title: "Commercial Renovation",
-      href: "#",
+      href: "/projects/commercial",
       description: "Office and retail space transformations.",
     },
   ]

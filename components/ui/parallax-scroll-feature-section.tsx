@@ -2,8 +2,15 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
+import { Button } from "@/components/ui/button";
 import {
   serviceSectionAnchor,
   serviceSections,
@@ -12,6 +19,7 @@ import {
 
 function FeatureSectionRow({ section }: { section: ServiceSection }) {
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "center start"],
@@ -25,6 +33,39 @@ function FeatureSectionRow({ section }: { section: ServiceSection }) {
   );
   const translateY = useTransform(scrollYProgress, [0, 1], [-50, 0]);
 
+  const textContent = (
+    <>
+      <h3 className="font-serif text-4xl tracking-tight text-neutral-900 md:text-5xl lg:text-6xl">
+        {section.title}
+      </h3>
+      <p className="mt-6 max-w-lg text-base leading-relaxed text-neutral-600 md:mt-10 md:text-lg">
+        {section.description}
+      </p>
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:gap-4">
+        <Button asChild size="lg">
+          <Link href={section.servicesHref}>{section.primaryCtaLabel}</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href={section.projectsHref}>{section.secondaryCtaLabel}</Link>
+        </Button>
+      </div>
+    </>
+  );
+
+  const imagePanelClassName =
+    "relative aspect-[3/4] w-full min-h-[360px] shrink-0 overflow-hidden md:w-[40%] md:min-h-[520px]";
+
+  const image = (
+    <Image
+      src={section.imageUrl}
+      alt={section.imageAlt}
+      fill
+      sizes="(max-width: 768px) 100vw, 40vw"
+      className="object-cover"
+      priority={section.id === 1}
+    />
+  );
+
   return (
     <div
       ref={ref}
@@ -33,37 +74,30 @@ function FeatureSectionRow({ section }: { section: ServiceSection }) {
         section.reverse ? "md:flex-row-reverse" : ""
       }`}
     >
-      <motion.div
-        style={{ y: translateY }}
-        className="w-full md:w-[55%] md:max-w-xl"
-      >
-        <h3 className="font-serif text-4xl tracking-tight text-neutral-900 md:text-5xl lg:text-6xl">
-          {section.title}
-        </h3>
-        <motion.p
+      {shouldReduceMotion ? (
+        <div className="w-full md:w-[55%] md:max-w-xl">{textContent}</div>
+      ) : (
+        <motion.div
           style={{ y: translateY }}
-          className="mt-6 max-w-lg text-base leading-relaxed text-neutral-600 md:mt-10 md:text-lg"
+          className="w-full md:w-[55%] md:max-w-xl"
         >
-          {section.description}
-        </motion.p>
-      </motion.div>
+          {textContent}
+        </motion.div>
+      )}
 
-      <motion.div
-        style={{
-          opacity,
-          clipPath,
-        }}
-        className="relative aspect-[3/4] w-full min-h-[360px] shrink-0 overflow-hidden md:w-[40%] md:min-h-[520px]"
-      >
-        <Image
-          src={section.imageUrl}
-          alt={section.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 40vw"
-          className="object-cover"
-          priority={section.id === 1}
-        />
-      </motion.div>
+      {shouldReduceMotion ? (
+        <div className={imagePanelClassName}>{image}</div>
+      ) : (
+        <motion.div
+          style={{
+            opacity,
+            clipPath,
+          }}
+          className={imagePanelClassName}
+        >
+          {image}
+        </motion.div>
+      )}
     </div>
   );
 }

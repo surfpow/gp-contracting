@@ -7,9 +7,15 @@ const GP_LOGO_URL =
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Contact", href: "/#contact" },
+]
+
+const projectLinks = [
+  { label: "Residential Projects", href: "/projects/residential" },
+  { label: "Commercial Projects", href: "/projects/commercial" },
+  { label: "Tenant Improvement Projects", href: "/projects/tenant-improvements" },
 ]
 
 export function Footer() {
@@ -40,6 +46,15 @@ export function Footer() {
             </h3>
             <nav className="mt-6 flex flex-col gap-3">
               {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm text-neutral-400 transition-colors hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              {projectLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}

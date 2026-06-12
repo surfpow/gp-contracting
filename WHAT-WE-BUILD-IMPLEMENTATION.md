@@ -11,12 +11,12 @@ Incremental plan for upgrading the **What We Build** section (Residential, Comme
 | Item | Location |
 |------|----------|
 | Section component | `components/ui/parallax-scroll-feature-section.tsx` |
+| Section data | `lib/service-sections.ts` |
 | Section wrapper id | `#services` (homepage anchor) |
-| Card layout | Side-by-side text + small square image (`size-72` / `size-80`) |
-| Hero image reference | `components/ui/hero-parallax.tsx` — `h-96 w-[30rem]` full-bleed cover panels |
+| Card layout | Enlarged split layout — ~40% image panel + ~60% text column |
 | Button primitive | `components/ui/button.tsx` (`default`, `outline`, `secondary`) |
-| Nav / footer pattern | Inline header in `app/page.tsx` + `<SiteNav />` + `<Footer />` |
-| Project routes | **None** — links would 404 today |
+| Nav / footer pattern | `SiteHeader` + `SiteNav` + `Footer` |
+| Project routes | `/projects/residential`, `/projects/commercial`, `/projects/tenant-improvements` |
 
 There is no separate Services page. Service deep-links should use homepage anchors (e.g. `/#services-residential`).
 
@@ -149,12 +149,12 @@ lib/service-sections.ts               (image paths already local; verify dimensi
 
 ### Tasks
 
-- [ ] **4.1** Import `Button` and `Link` into the feature section component.
-- [ ] **4.2** Add CTA row below description in the text column: `flex flex-col sm:flex-row gap-3 md:gap-4 mt-8`.
-- [ ] **4.3** Primary button: `<Button asChild><Link href={section.servicesHref}>…</Link></Button>` — `size="lg"`, default brand navy variant.
-- [ ] **4.4** Secondary button: `<Button variant="outline" asChild>…</Button>` — standard outline styles for light `bg-neutral-50` text column.
-- [ ] **4.5** Confirm primary links work from project pages (absolute path `/#services-*`).
-- [ ] **4.6** Confirm secondary links hit Phase 1 placeholder pages.
+- [x] **4.1** Import `Button` and `Link` into the feature section component.
+- [x] **4.2** Add CTA row below description in the text column: `flex flex-col sm:flex-row gap-3 md:gap-4 mt-8`.
+- [x] **4.3** Primary button: `<Button asChild><Link href={section.servicesHref}>…</Link></Button>` — `size="lg"`, default brand navy variant.
+- [x] **4.4** Secondary button: `<Button variant="outline" asChild>…</Button>` — standard outline styles for light `bg-neutral-50` text column.
+- [x] **4.5** Confirm primary links work from project pages (absolute path `/#services-*`).
+- [x] **4.6** Confirm secondary links hit Phase 1 placeholder pages.
 
 ### Files to touch
 
@@ -176,13 +176,13 @@ components/ui/parallax-scroll-feature-section.tsx
 
 ### Tasks
 
-- [ ] **5.1** Fixed header offset: add `scroll-mt-20 md:scroll-mt-24` on card anchor ids.
-- [ ] **5.2** `alt` text on images — descriptive per category.
-- [ ] **5.3** Reduce motion: respect `prefers-reduced-motion` (disable or simplify framer animations).
-- [ ] **5.4** Lighthouse / visual pass on mobile, tablet, desktop.
-- [ ] **5.5** *(Optional)* Add `metadata` titles on project placeholder pages.
-- [ ] **5.6** *(Optional)* Update footer or nav "Projects" links to category pages.
-- [ ] **5.7** Remove dead code: old small-image sizing classes (`size-72` / `size-80`) once Phase 3 layout ships.
+- [x] **5.1** Fixed header offset: add `scroll-mt-20 md:scroll-mt-24` on card anchor ids.
+- [x] **5.2** `alt` text on images — descriptive per category.
+- [x] **5.3** Reduce motion: respect `prefers-reduced-motion` (disable or simplify framer animations).
+- [x] **5.4** Lighthouse / visual pass on mobile, tablet, desktop.
+- [x] **5.5** *(Optional)* Add `metadata` titles on project placeholder pages.
+- [x] **5.6** *(Optional)* Update footer or nav "Projects" links to category pages.
+- [x] **5.7** Remove dead code: old small-image sizing classes (`size-72` / `size-80`) once Phase 3 layout ships.
 
 ### Acceptance criteria
 
@@ -253,6 +253,8 @@ type FeatureSection = {
 | 2026-06-11 | 1 | SiteHeader, SitePageShell, ProjectComingSoon; three `/projects/*` routes; `npm run build` passes |
 | 2026-06-12 | 2 | `lib/service-sections.ts` with slugs, hrefs, CTA labels; per-card anchors + scroll offset; nav service links updated |
 | 2026-06-12 | 3 | Enlarged split layout (~40/60); clip-path scroll reveal preserved on larger image panels |
+| 2026-06-12 | 4 | Dual CTAs in text column — services anchors + project page links |
+| 2026-06-12 | 5 | Descriptive alt text, reduced motion, page metadata, nav/footer project links |
 
 _Update this table as we complete each phase._
 
