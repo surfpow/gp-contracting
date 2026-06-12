@@ -41,7 +41,12 @@ export const projects = [
     thumbnail: projectImages.tenantDominosGrandOpening,
     objectPosition: "center 55%",
   },
-  { title: "Tenant Improvement", link: "#", thumbnail: projectImages.tenantMarbleSlab },
+  {
+    title: "Tenant Improvement",
+    link: "#",
+    thumbnail: projectImages.tenantMarbleSlab,
+    objectPosition: "center 20%",
+  },
   { title: "Commercial Exterior", link: "#", thumbnail: projectImages.commercialTdBank },
   { title: "Smart Home Integration", link: "#", thumbnail: projectImages.siteDevelopmentCrane },
 ];
