@@ -24,9 +24,10 @@ const navItemClass = cn(
 )
 
 const serviceLinks = [
-  { title: "Custom Homes", href: "/#services-residential" },
-  { title: "Commercial", href: "/#services-commercial" },
-  { title: "Tenant Improvements", href: "/#services-tenant-improvements" },
+  { title: "Residential", href: "/services/residential" },
+  { title: "Commercial", href: "/services/commercial" },
+  { title: "Tenant Improvements", href: "/services/tenant-improvements" },
+  { title: "Specialized", href: "/services/specialized" },
 ]
 
 const featuredProjects: { title: string; href: string; description: string }[] =
@@ -167,14 +168,17 @@ function DesktopNav() {
                     </Link>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/#services-residential" title="Custom Homes">
-                  Residential builds rooted in family values and quality.
+                <ListItem href="/services/residential" title="Residential">
+                  Custom homes, renovations, and multi-family development.
                 </ListItem>
-                <ListItem href="/#services-commercial" title="Commercial">
-                  Offices, retail, and industrial spaces done right.
+                <ListItem href="/services/commercial" title="Commercial">
+                  Offices, retail, restaurants, and fitness facilities.
                 </ListItem>
-                <ListItem href="/#services-tenant-improvements" title="Tenant Improvements">
-                  Restaurant, retail, and commercial build-outs.
+                <ListItem href="/services/tenant-improvements" title="Tenant Improvements">
+                  Office and retail tenant build-outs.
+                </ListItem>
+                <ListItem href="/services/specialized" title="Specialized">
+                  Roofing, steel framing, accessibility, and more.
                 </ListItem>
               </ul>
             </NavigationMenuContent>

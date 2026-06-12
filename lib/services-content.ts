@@ -42,6 +42,7 @@ type ServicePageContentBase = {
   heroImage: ServiceImage;
   overview: string[];
   projectsHref?: string;
+  projectsCtaLabel?: string;
 };
 
 export type SubServicesServicePage = ServicePageContentBase & {
@@ -66,6 +67,7 @@ function sectionHero(slug: ServiceSlug) {
       alt: section.imageAlt,
     },
     projectsHref: section.projectsHref,
+    projectsCtaLabel: section.secondaryCtaLabel,
   };
 }
 

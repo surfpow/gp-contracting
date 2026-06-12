@@ -143,16 +143,16 @@ app/services/specialized/page.tsx                    (touch, consume data)
 
 ### Tasks
 
-- [ ] **3.1** Build hero band section(s) with:
+- [x] **3.1** Build hero band section(s) with:
   - Large `font-serif` heading
   - Supporting subheading
   - Hero image
-- [ ] **3.2** Match visual treatment to existing aesthetic:
+- [x] **3.2** Match visual treatment to existing aesthetic:
   - Navy brand accent usage
   - `bg-neutral-50` / `bg-brand-dark` contrast strategy
   - Generous vertical spacing rhythm
-- [ ] **3.3** Build overview section from data-driven paragraph content.
-- [ ] **3.4** Ensure hero/overview sections are reusable across all four pages through shared components.
+- [x] **3.3** Build overview section from data-driven paragraph content.
+- [x] **3.4** Ensure hero/overview sections are reusable across all four pages through shared components.
 
 ### Files to create / touch
 
@@ -180,30 +180,30 @@ app/services/specialized/page.tsx                    (touch)
 
 ### Tasks
 
-- [ ] **4.1** Build reusable sub-services section (cards/rows) for `contentMode: "subServices"` pages.
-- [ ] **4.2** Build reusable deep-dive section for `contentMode: "deepDive"` pages.
-- [ ] **4.3** Implement detailed sub-services for Residential:
+- [x] **4.1** Build reusable sub-services section (cards/rows) for `contentMode: "subServices"` pages.
+- [x] **4.2** Build reusable deep-dive section for `contentMode: "deepDive"` pages.
+- [x] **4.3** Implement detailed sub-services for Residential:
   - Custom Home Construction (architectural collaboration, premium materials, energy-efficient design, smart home integration)
   - Home Renovations (kitchen remodeling, bathroom upgrades, space optimization, modern fixtures)
   - Multi-Family Development
-- [ ] **4.4** Implement detailed sub-services for Commercial:
+- [x] **4.4** Implement detailed sub-services for Commercial:
   - General Commercial Construction overview
   - Restaurant & Bar Construction (kitchen layouts, ventilation systems, bar design, seating optimization)
   - Fitness Facility Development (equipment layouts, specialized flooring, shower facilities, climate control)
-- [ ] **4.5** Implement deep-dive Tenant Improvements body content:
+- [x] **4.5** Implement deep-dive Tenant Improvements body content:
   - Space planning
   - Modern finishes
   - Lighting design
   - Mechanical optimization
   - Office and retail tenant build-out framing
-- [ ] **4.6** Implement detailed sub-services for Specialized:
+- [x] **4.6** Implement detailed sub-services for Specialized:
   - Roofing (quality materials, weather protection, proper drainage, extended warranties)
   - Steel Framing (custom fabrication, seismic compliance, engineer approved, quality assurance)
   - T-Bar & Acoustic Solutions (sound absorption, lighting integration, access panels, clean installation)
   - Accessibility Renovations (aging-in-place modifications, wheelchair accessibility)
   - EV Charging & Electrical Upgrades
   - Custom Outdoor Features / Sport Courts (backyard basketball courts, custom outdoor recreation spaces)
-- [ ] **4.7** Validate responsive behavior and hierarchy for both section patterns across mobile/tablet/desktop.
+- [x] **4.7** Validate responsive behavior and hierarchy for both section patterns across mobile/tablet/desktop.
 
 ### Files to create / touch
 
@@ -235,21 +235,21 @@ app/services/specialized/page.tsx                    (touch)
 
 ### Tasks
 
-- [ ] **5.1** Add primary project CTA on Residential, Commercial, and Tenant Improvements only:
+- [x] **5.1** Add primary project CTA on Residential, Commercial, and Tenant Improvements only:
   - Residential -> `/projects/residential`
   - Commercial -> `/projects/commercial`
   - Tenant Improvements -> `/projects/tenant-improvements`
-- [ ] **5.2** Add `Get a Quote` CTA on all four service pages:
+- [x] **5.2** Add `Get a Quote` CTA on all four service pages:
   - `Get a Quote` -> `/#contact`
-- [ ] **5.3** Ensure `/services/specialized` renders **only** the `Get a Quote` CTA (no projects button).
-- [ ] **5.4** Use shared `Button` primitive for CTA styling and consistent focus/hover states.
-- [ ] **5.5** Update Services nav dropdown links in `components/site-nav.tsx` to:
+- [x] **5.3** Ensure `/services/specialized` renders **only** the `Get a Quote` CTA (no projects button).
+- [x] **5.4** Use shared `Button` primitive for CTA styling and consistent focus/hover states.
+- [x] **5.5** Update Services nav dropdown links in `components/site-nav.tsx` to:
   - `/services/residential`
   - `/services/commercial`
   - `/services/tenant-improvements`
   - `/services/specialized`
   instead of homepage anchors.
-- [ ] **5.6** Verify cross-link behavior among service pages, project routes, and contact anchor.
+- [x] **5.6** Verify cross-link behavior among service pages, project routes, and contact anchor.
 
 ### Files to create / touch
 
@@ -344,9 +344,9 @@ Notes:
 | 2026-06-12 | Phase 5 Decision | - [x] | Specialized page: `Get a Quote` only — no "View Projects" CTA |
 | 2026-06-12 | 1 | - [x] | `ServicePageLayout` + four `/services/*` routes; `npm run build` passes |
 | 2026-06-12 | 2 | - [x] | `lib/services-content.ts` with subServices + deepDive models; routes consume data |
-| 2026-06-12 | 3 | - [ ] | Not started (hero + overview) |
-| 2026-06-12 | 4 | - [ ] | Not started (sub-services + TI deep-dive body) |
-| 2026-06-12 | 5 | - [ ] | Not started (CTAs/nav; Specialized = Get a Quote only) |
+| 2026-06-12 | 3 | - [x] | `ServiceHero` + `ServiceOverview`; split hero with image, overview on `bg-neutral-50` |
+| 2026-06-12 | 4 | - [x] | `ServiceSubServices` + `ServiceDeepDiveSection`; layout routes by contentMode |
+| 2026-06-12 | 5 | - [x] | `ServicePageCtas` + nav dropdown links to `/services/*`; Specialized quote-only |
 | 2026-06-12 | 6 | - [ ] | Not started (polish + metadata + QA) |
 
 _Update this log as each phase is completed._
