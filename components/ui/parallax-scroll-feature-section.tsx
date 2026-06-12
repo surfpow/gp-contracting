@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import {
   motion,
   useReducedMotion,
@@ -41,12 +42,31 @@ function FeatureSectionRow({ section }: { section: ServiceSection }) {
       <p className="mt-6 max-w-lg text-base leading-relaxed text-neutral-600 md:mt-10 md:text-lg">
         {section.description}
       </p>
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:gap-4">
-        <Button asChild size="lg">
-          <Link href={section.servicesHref}>{section.primaryCtaLabel}</Link>
+      <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center md:mt-12">
+        <Button
+          asChild
+          className="h-12 w-full rounded-sm border border-brand-navy bg-brand-navy px-7 text-sm font-medium tracking-wide text-white shadow-[0_10px_28px_-12px_rgba(45,52,112,0.65)] transition-all duration-300 hover:border-brand-dark hover:bg-brand-dark hover:shadow-[0_14px_32px_-12px_rgba(18,24,38,0.55)] sm:w-auto"
+        >
+          <Link
+            href={section.servicesHref}
+            className="group inline-flex items-center justify-center gap-2.5"
+          >
+            {section.primaryCtaLabel}
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </Link>
         </Button>
-        <Button asChild variant="outline" size="lg">
-          <Link href={section.projectsHref}>{section.secondaryCtaLabel}</Link>
+        <Button
+          asChild
+          variant="outline"
+          className="h-12 w-full rounded-sm border-neutral-300 bg-white/60 px-7 text-sm font-medium tracking-wide text-neutral-700 backdrop-blur-sm transition-all duration-300 hover:border-brand-navy/40 hover:bg-white hover:text-brand-navy sm:w-auto"
+        >
+          <Link
+            href={section.projectsHref}
+            className="group inline-flex items-center justify-center gap-2.5"
+          >
+            {section.secondaryCtaLabel}
+            <ArrowRight className="size-4 text-neutral-400 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-brand-navy" />
+          </Link>
         </Button>
       </div>
     </>
