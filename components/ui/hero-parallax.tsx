@@ -10,19 +10,79 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
+type ParallaxProduct = {
+  title: string;
+  link: string;
+  thumbnail: string;
+  objectPosition?: string;
+};
+
+function swapProductsInRow(
+  row: ParallaxProduct[],
+  titleA: string,
+  titleB: string
+) {
+  const indexA = row.findIndex((product) => product.title === titleA);
+  const indexB = row.findIndex((product) => product.title === titleB);
+
+  if (indexA === -1 || indexB === -1) {
+    return row;
+  }
+
+  const nextRow = [...row];
+  nextRow[indexA] = row[indexB];
+  nextRow[indexB] = row[indexA];
+  return nextRow;
+}
+
+function swapBarConstructionAndRestaurantBuild(
+  secondRow: ParallaxProduct[],
+  thirdRow: ParallaxProduct[]
+) {
+  const barIndex = thirdRow.findIndex(
+    (product) => product.title === "Bar Construction"
+  );
+  const restaurantIndex = secondRow.findIndex(
+    (product) => product.title === "Restaurant Build"
+  );
+
+  if (barIndex === -1 || restaurantIndex === -1) {
+    return { secondRow, thirdRow };
+  }
+
+  const nextSecondRow = [...secondRow];
+  const nextThirdRow = [...thirdRow];
+  nextSecondRow[restaurantIndex] = thirdRow[barIndex];
+  nextThirdRow[barIndex] = secondRow[restaurantIndex];
+
+  return { secondRow: nextSecondRow, thirdRow: nextThirdRow };
+}
+
+function getMobileRows(
+  secondRow: ParallaxProduct[],
+  thirdRow: ParallaxProduct[]
+) {
+  const { secondRow: swappedSecondRow, thirdRow: mobileThirdRow } =
+    swapBarConstructionAndRestaurantBuild(secondRow, thirdRow);
+
+  const mobileSecondRow = swapProductsInRow(
+    swappedSecondRow,
+    "Home Renovation",
+    "Acoustic Ceilings"
+  );
+
+  return { mobileSecondRow, mobileThirdRow };
+}
+
 export const HeroParallax = ({
   products,
 }: {
-  products: {
-    title: string;
-    link: string;
-    thumbnail: string;
-    objectPosition?: string;
-  }[];
+  products: ParallaxProduct[];
 }) => {
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
   const thirdRow = products.slice(10, 15);
+  const { mobileSecondRow, mobileThirdRow } = getMobileRows(secondRow, thirdRow);
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -79,7 +139,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row mb-20 space-x-20">
+        <motion.div className="mb-20 hidden flex-row space-x-20 md:flex">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -88,12 +148,30 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
+        <motion.div className="mb-20 flex flex-row space-x-20 md:hidden">
+          {mobileSecondRow.map((product) => (
+            <ProductCard
+              product={product}
+              translate={translateXReverse}
+              key={`mobile-${product.title}`}
+            />
+          ))}
+        </motion.div>
+        <motion.div className="hidden flex-row-reverse space-x-20 space-x-reverse md:flex">
           {thirdRow.map((product) => (
             <ProductCard
               product={product}
               translate={translateX}
               key={product.title}
+            />
+          ))}
+        </motion.div>
+        <motion.div className="flex flex-row-reverse space-x-20 space-x-reverse md:hidden">
+          {mobileThirdRow.map((product) => (
+            <ProductCard
+              product={product}
+              translate={translateX}
+              key={`mobile-${product.title}`}
             />
           ))}
         </motion.div>
@@ -121,12 +199,7 @@ export const ProductCard = ({
   product,
   translate,
 }: {
-  product: {
-    title: string;
-    link: string;
-    thumbnail: string;
-    objectPosition?: string;
-  };
+  product: ParallaxProduct;
   translate: MotionValue<number>;
 }) => {
   return (
