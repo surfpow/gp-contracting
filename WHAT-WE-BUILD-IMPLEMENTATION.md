@@ -1,6 +1,6 @@
 # What We Build — Implementation Plan
 
-Incremental plan for upgrading the **What We Build** section (Residential, Commercial, Tenant Improvements cards) with large image panels, dual CTAs, and placeholder project routes.
+Incremental plan for upgrading the **What We Build** section (Residential, Commercial, Tenant Improvements cards) with enlarged split-layout image panels, dual CTAs, and placeholder project routes.
 
 **Status key:** `- [ ]` not started · `- [x]` done
 
@@ -34,11 +34,12 @@ There is no separate Services page. Service deep-links should use homepage ancho
 
 ## Design Direction
 
-- **Image-first panels** — full-width (edge-to-edge or near full-bleed within section), tall aspect ratio (~60–80vh per card), `object-cover`, similar visual weight to hero parallax cards.
-- **Text treatment** — title + description overlaid on a dark gradient (`from-black/70` → transparent) or positioned in a bold split layout (text block over bottom-left / side on desktop). Use `font-serif` headings and `text-neutral-50` on dark overlays; body text `text-neutral-200/300`.
-- **CTAs** — primary: `Button` `default` (brand navy); secondary: `outline` with light border on dark overlay (`border-white/30 text-white hover:bg-white/10`).
-- **Motion** — preserve scroll-driven reveal (opacity / clip / translate) where it still fits; simplify if overlay layout conflicts with clip-path animation.
-- **Section rhythm** — alternate light/dark or keep `bg-neutral-50` section with dark image panels for contrast (matches About `bg-brand-dark` + feature `bg-neutral-50` pattern).
+- **Enlarged split layout** — keep the side-by-side text + image row on desktop; image grows from the current small square (`size-72` / `size-80`) to a large panel (~40% row width) with a tall aspect ratio. Text occupies the remaining ~60% beside it — **no overlay**.
+- **Text treatment** — title + description in the text column on `bg-neutral-50`: `font-serif` headings in `text-neutral-900`, body in `text-neutral-600`. No gradient or dark overlay on the image.
+- **CTAs (Phase 4)** — primary: `Button` `default` (brand navy); secondary: `Button` `outline`. Both sit in the **text column** below the description, not over the image.
+- **Motion** — preserve existing scroll-driven reveal (opacity / clip-path / translate) on the image panel; adapt sizing/clip targets to the larger panel.
+- **Alternating layout** — keep `reverse` as-is to flip which side the image appears on (desktop). Mobile: stack **image above text**, image still prominent.
+- **Section rhythm** — retain `bg-neutral-50` section background; light-on-light text column contrasts with bold photo panels (consistent with About `bg-brand-dark` + feature `bg-neutral-50` pattern).
 
 ---
 
@@ -81,19 +82,20 @@ app/page.tsx                              (refactor to use SiteHeader)
 
 ### Tasks
 
-- [ ] **2.1** Extend `FeatureSection` type with:
+- [x] **2.1** Extend `FeatureSection` type with:
   - `slug`: `"residential" | "commercial" | "tenant-improvements"`
   - `servicesHref`: `"/#services-residential"` etc.
   - `projectsHref`: `"/projects/residential"` etc.
   - `primaryCtaLabel` / `secondaryCtaLabel` (or derive from title)
-- [ ] **2.2** Update `sections` array with slug + href fields for all three cards.
-- [ ] **2.3** Add per-card `id` on each row wrapper: `id="services-residential"`, `id="services-commercial"`, `id="services-tenant-improvements"`.
-- [ ] **2.4** Verify anchor scroll: `/#services-residential` lands on the correct card (account for fixed header offset if needed — `scroll-mt-24` on card ids).
-- [ ] **2.5** *(Optional, same phase or later)* Update `components/site-nav.tsx` service dropdown links from `#` to the new anchors.
+- [x] **2.2** Update `sections` array with slug + href fields for all three cards.
+- [x] **2.3** Add per-card `id` on each row wrapper: `id="services-residential"`, `id="services-commercial"`, `id="services-tenant-improvements"`.
+- [x] **2.4** Verify anchor scroll: `/#services-residential` lands on the correct card (account for fixed header offset if needed — `scroll-mt-24` on card ids).
+- [x] **2.5** *(Optional, same phase or later)* Update `components/site-nav.tsx` service dropdown links from `#` to the new anchors.
 
 ### Files to touch
 
 ```
+lib/service-sections.ts                     (new)
 components/ui/parallax-scroll-feature-section.tsx
 components/site-nav.tsx                 (optional)
 ```
@@ -105,34 +107,37 @@ components/site-nav.tsx                 (optional)
 
 ---
 
-## Phase 3 — Full-Width Image Panel Layout
+## Phase 3 — Enlarged Split Layout
 
-**Goal:** Image becomes the dominant visual; text sits on or beside it in a premium layout.
+**Goal:** Keep the side-by-side text + image layout, but significantly enlarge the image so it takes up roughly 40% of the section width, with text occupying the remaining space alongside it.
 
 ### Tasks
 
-- [ ] **3.1** Replace side-by-side flex row with a **single full-width panel** per card (`relative w-full min-h-[60vh] md:min-h-[70vh] overflow-hidden`).
-- [ ] **3.2** Image: `fill` + `object-cover` (or large fixed dimensions), bump Unsplash `w=` param to `1200`–`1600` for sharper panels.
-- [ ] **3.3** Add gradient overlay (`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent` or lateral variant for alternating layouts).
-- [ ] **3.4** Position content block (`absolute` bottom-left or centered) with max-width container (`max-w-2xl` / `max-w-3xl`), generous padding (`p-8 md:p-12 lg:p-16`).
-- [ ] **3.5** Typography on overlay: title `font-serif text-4xl md:text-5xl lg:text-6xl text-white`, description `text-base md:text-lg text-neutral-200 leading-relaxed`.
-- [ ] **3.6** Remove or repurpose `reverse` flag — use for alternating gradient/text position (left vs right) instead of image left/right.
-- [ ] **3.7** Adapt scroll animations: apply motion to the panel or content block (fade/slide up on enter) rather than clip-path on a small thumbnail.
-- [ ] **3.8** Spacing between cards: `space-y-0` or subtle gap; section header ("What We Build") stays above panels.
-- [ ] **3.9** Mobile: ensure text remains readable; increase bottom gradient strength on small screens.
+- [x] **3.1** Retain the two-column flex row per card on desktop (`md:flex-row` / `md:flex-row-reverse` via `reverse`). Do **not** switch to full-width/full-bleed overlay panels.
+- [x] **3.2** Enlarge the image from `size-72` / `size-80` to a large panel ~**40% row width** with a tall aspect ratio (e.g. `w-full md:w-[40%]` + `aspect-[3/4]` or `min-h-[420px] md:min-h-[520px]`). Use `object-cover` on the image. Ensure source assets render sharply at the larger size (local PNGs in `public/images/projects/`; use adequate `width`/`height` or `fill` + `sizes` for Next.js `Image`).
+- [x] **3.3** Text column occupies the remaining ~**60%** beside the image — title, description, and (in Phase 4) CTAs live here. No text overlaid on the image.
+- [x] **3.4** **No gradient/dark overlay** on the image — text legibility comes from the separate light text column, not from image treatment.
+- [x] **3.5** Keep existing typography on the text side: title `font-serif text-4xl md:text-5xl lg:text-6xl text-neutral-900`, description `text-base md:text-lg text-neutral-600 leading-relaxed`.
+- [x] **3.6** Keep the `reverse` flag as-is to alternate which side the image appears on (left vs right on desktop).
+- [x] **3.7** Preserve scroll-driven motion (opacity, clip-path, translateY) on the image panel — adapt clip/reveal dimensions to the larger panel rather than the small square thumbnail.
+- [x] **3.8** Desktop spacing: generous gap between columns (`md:gap-16` / `md:gap-24`); section header ("What We Build") stays above rows. Each row retains `min-h-screen` or equivalent vertical rhythm.
+- [x] **3.9** Mobile: stack **image above text** (`flex-col`); image remains prominent (full width, tall aspect — do not shrink back to `size-72`). Text block below with comfortable padding.
 
 ### Files to touch
 
 ```
 components/ui/parallax-scroll-feature-section.tsx
-next.config.ts                        (only if new image hosts added)
+lib/service-sections.ts               (image paths already local; verify dimensions)
 ```
 
 ### Acceptance criteria
 
-- At desktop and mobile, the image clearly dominates each card.
-- Text is legible on all three images without hovering.
-- Visual quality feels aligned with hero parallax (large, cinematic panels).
+- On desktop, each card is a clean **two-column split**: ~40% image panel + ~60% text block side by side.
+- Text is never overlaid on the image; no gradient overlays on photos.
+- Image is visibly much larger than the current small square and feels like a premium feature panel.
+- `reverse` correctly alternates image left/right on desktop.
+- On mobile, image stacks above text and stays visually dominant.
+- Scroll reveal animations still run smoothly on the enlarged image panel.
 
 ---
 
@@ -140,12 +145,14 @@ next.config.ts                        (only if new image hosts added)
 
 **Goal:** Each card has primary (services anchor) and secondary (projects page) actions.
 
+> **Layout note:** CTAs render in the **text column** below the description (Phase 3 split layout), not over the image. Use standard light-background button styles — not overlay/white-on-dark variants.
+
 ### Tasks
 
 - [ ] **4.1** Import `Button` and `Link` into the feature section component.
-- [ ] **4.2** Add CTA row below description: `flex flex-col sm:flex-row gap-3 md:gap-4 mt-8`.
-- [ ] **4.3** Primary button: `<Button asChild><Link href={section.servicesHref}>…</Link></Button>` — `size="lg"`, consider `className` overrides for prominence on dark overlay.
-- [ ] **4.4** Secondary button: `<Button variant="outline" asChild>…</Button>` — light border/text styles for dark background.
+- [ ] **4.2** Add CTA row below description in the text column: `flex flex-col sm:flex-row gap-3 md:gap-4 mt-8`.
+- [ ] **4.3** Primary button: `<Button asChild><Link href={section.servicesHref}>…</Link></Button>` — `size="lg"`, default brand navy variant.
+- [ ] **4.4** Secondary button: `<Button variant="outline" asChild>…</Button>` — standard outline styles for light `bg-neutral-50` text column.
 - [ ] **4.5** Confirm primary links work from project pages (absolute path `/#services-*`).
 - [ ] **4.6** Confirm secondary links hit Phase 1 placeholder pages.
 
@@ -175,7 +182,7 @@ components/ui/parallax-scroll-feature-section.tsx
 - [ ] **5.4** Lighthouse / visual pass on mobile, tablet, desktop.
 - [ ] **5.5** *(Optional)* Add `metadata` titles on project placeholder pages.
 - [ ] **5.6** *(Optional)* Update footer or nav "Projects" links to category pages.
-- [ ] **5.7** Remove dead code: old small-image layout, unused `reverse` semantics if replaced.
+- [ ] **5.7** Remove dead code: old small-image sizing classes (`size-72` / `size-80`) once Phase 3 layout ships.
 
 ### Acceptance criteria
 
@@ -212,25 +219,28 @@ type FeatureSection = {
   projectsHref: string;
   primaryCtaLabel: string;
   secondaryCtaLabel: string;
-  reverse: boolean; // repurpose: alternate text alignment
+  reverse: boolean; // alternate image left/right on desktop
 };
 ```
 
-### Panel structure sketch (Phase 3–4)
+### Split layout sketch (Phase 3–4)
 
 ```tsx
-<div id={`services-${section.slug}`} className="relative min-h-[70vh] w-full scroll-mt-24">
-  <Image src={...} alt={...} fill className="object-cover" />
-  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-  <div className="absolute inset-0 flex items-end p-8 md:p-16">
-    <div className="max-w-2xl">
-      <h3>...</h3>
-      <p>...</p>
-      <div className="mt-8 flex flex-wrap gap-4">
-        {/* Primary + Secondary Button */}
-      </div>
-    </div>
-  </div>
+<div
+  id={serviceSectionAnchor(section.slug)}
+  className="scroll-mt-20 md:scroll-mt-24 flex min-h-screen flex-col items-center justify-center gap-12 px-4 md:flex-row md:gap-24 md:px-10"
+>
+  {/* Text column ~60% — CTAs added in Phase 4 */}
+  <motion.div className="w-full md:w-[55%] md:max-w-xl">
+    <h3 className="font-serif text-4xl text-neutral-900 md:text-5xl lg:text-6xl">...</h3>
+    <p className="mt-6 text-neutral-600 md:mt-10">...</p>
+    <div className="mt-8 flex flex-wrap gap-4">{/* Primary + Secondary Button */}</div>
+  </motion.div>
+
+  {/* Image panel ~40% — scroll reveal, no overlay */}
+  <motion.div className="relative w-full md:w-[40%] aspect-[3/4] overflow-hidden">
+    <Image src={...} alt={...} fill className="object-cover" />
+  </motion.div>
 </div>
 ```
 
@@ -241,6 +251,8 @@ type FeatureSection = {
 | Date | Phase | Notes |
 |------|-------|-------|
 | 2026-06-11 | 1 | SiteHeader, SitePageShell, ProjectComingSoon; three `/projects/*` routes; `npm run build` passes |
+| 2026-06-12 | 2 | `lib/service-sections.ts` with slugs, hrefs, CTA labels; per-card anchors + scroll offset; nav service links updated |
+| 2026-06-12 | 3 | Enlarged split layout (~40/60); clip-path scroll reveal preserved on larger image panels |
 
 _Update this table as we complete each phase._
 
@@ -251,4 +263,4 @@ _Update this table as we complete each phase._
 - Full Projects gallery / CMS
 - Dedicated `/services` page
 - Real project filtering logic on category pages
-- New photography assets (continue using Unsplash placeholders until replaced)
+- New photography assets (local project photos in `public/images/projects/` are in use; Unsplash no longer needed for this section)

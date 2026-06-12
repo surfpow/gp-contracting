@@ -24,9 +24,9 @@ const navItemClass = cn(
 )
 
 const serviceLinks = [
-  { title: "Custom Homes", href: "#" },
-  { title: "Commercial", href: "#" },
-  { title: "Renovations", href: "#" },
+  { title: "Custom Homes", href: "/#services-residential" },
+  { title: "Commercial", href: "/#services-commercial" },
+  { title: "Tenant Improvements", href: "/#services-tenant-improvements" },
 ]
 
 const featuredProjects: { title: string; href: string; description: string }[] =
@@ -167,14 +167,14 @@ function DesktopNav() {
                     </Link>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="#" title="Custom Homes">
+                <ListItem href="/#services-residential" title="Custom Homes">
                   Residential builds rooted in family values and quality.
                 </ListItem>
-                <ListItem href="#" title="Commercial">
+                <ListItem href="/#services-commercial" title="Commercial">
                   Offices, retail, and industrial spaces done right.
                 </ListItem>
-                <ListItem href="#" title="Renovations">
-                  Kitchen, bath, and whole-home upgrades.
+                <ListItem href="/#services-tenant-improvements" title="Tenant Improvements">
+                  Restaurant, retail, and commercial build-outs.
                 </ListItem>
               </ul>
             </NavigationMenuContent>

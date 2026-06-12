@@ -4,42 +4,13 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-type FeatureSection = {
-  id: number;
-  title: string;
-  description: string;
-  imageUrl: string;
-  reverse: boolean;
-};
+import {
+  serviceSectionAnchor,
+  serviceSections,
+  type ServiceSection,
+} from "@/lib/service-sections";
 
-const sections: FeatureSection[] = [
-  {
-    id: 1,
-    title: "Residential",
-    description:
-      "From custom home builds to kitchen and bathroom renovations, we bring precision craftsmanship to every residential project. Whether ground-up construction or a thoughtful remodel, we treat your home as if it were our own.",
-    imageUrl: "/images/projects/residential-modern-farmhouse-exterior.png",
-    reverse: false,
-  },
-  {
-    id: 2,
-    title: "Commercial",
-    description:
-      "Office spaces, retail storefronts, and industrial facilities built to code and delivered on schedule. GP Contracting Group brings the same integrity and attention to detail to every commercial project across Greater Vancouver.",
-    imageUrl: "/images/projects/commercial-foundation-concrete-pump-site.png",
-    reverse: true,
-  },
-  {
-    id: 3,
-    title: "Tenant Improvements",
-    description:
-      "Full build-outs and fit-outs for restaurants, fitness facilities, retail spaces, and more. We work closely with landlords and tenants to deliver spaces that are ready for business — on time and on budget.",
-    imageUrl: "/images/projects/tenant-improvement-marble-slab-bay-centre.png",
-    reverse: false,
-  },
-];
-
-function FeatureSectionRow({ section }: { section: FeatureSection }) {
+function FeatureSectionRow({ section }: { section: ServiceSection }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -57,34 +28,40 @@ function FeatureSectionRow({ section }: { section: FeatureSection }) {
   return (
     <div
       ref={ref}
-      className={`flex min-h-screen flex-col items-center justify-center gap-12 px-4 md:flex-row md:gap-40 md:px-10 ${
+      id={serviceSectionAnchor(section.slug)}
+      className={`mx-auto flex min-h-screen w-full max-w-7xl flex-col-reverse items-center justify-center gap-10 px-4 py-12 scroll-mt-20 md:flex-row md:gap-24 md:px-10 md:py-0 md:scroll-mt-24 ${
         section.reverse ? "md:flex-row-reverse" : ""
       }`}
     >
-      <motion.div style={{ y: translateY }}>
-        <h3 className="font-serif text-4xl tracking-tight text-neutral-900 md:max-w-sm md:text-5xl lg:text-6xl">
+      <motion.div
+        style={{ y: translateY }}
+        className="w-full md:w-[55%] md:max-w-xl"
+      >
+        <h3 className="font-serif text-4xl tracking-tight text-neutral-900 md:text-5xl lg:text-6xl">
           {section.title}
         </h3>
         <motion.p
           style={{ y: translateY }}
-          className="mt-6 max-w-sm text-base leading-relaxed text-neutral-600 md:mt-10 md:text-lg"
+          className="mt-6 max-w-lg text-base leading-relaxed text-neutral-600 md:mt-10 md:text-lg"
         >
           {section.description}
         </motion.p>
       </motion.div>
+
       <motion.div
         style={{
           opacity,
           clipPath,
         }}
-        className="relative shrink-0"
+        className="relative aspect-[3/4] w-full min-h-[360px] shrink-0 overflow-hidden md:w-[40%] md:min-h-[520px]"
       >
         <Image
           src={section.imageUrl}
           alt={section.title}
-          width={320}
-          height={320}
-          className="size-72 object-cover md:size-80"
+          fill
+          sizes="(max-width: 768px) 100vw, 40vw"
+          className="object-cover"
+          priority={section.id === 1}
         />
       </motion.div>
     </div>
@@ -103,7 +80,7 @@ export function ParallaxScrollFeatureSection() {
             Craftsmanship You Can Trust
           </h2>
         </div>
-        {sections.map((section) => (
+        {serviceSections.map((section) => (
           <FeatureSectionRow key={section.id} section={section} />
         ))}
       </div>
