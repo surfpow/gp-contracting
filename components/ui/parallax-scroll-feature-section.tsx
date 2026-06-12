@@ -103,7 +103,7 @@ export function ParallaxScrollFeatureSection() {
             What We Build
           </p>
           <h2 className="mt-4 font-serif text-3xl tracking-tight text-neutral-900 md:text-4xl">
-            Services Built on Craft & Integrity
+            Craftsmanship You Can Trust
           </h2>
         </div>
         {sections.map((section) => (

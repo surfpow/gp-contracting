@@ -33,7 +33,7 @@ export function About() {
     <section
       ref={ref}
       id="about"
-      className="relative bg-neutral-950 px-4 py-24 md:px-8 md:py-32 lg:py-40"
+      className="relative bg-brand-dark px-4 py-24 md:px-8 md:py-32 lg:py-40"
     >
       <div className="mx-auto max-w-5xl">
         <motion.h2

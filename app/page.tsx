@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/site-nav";
 import { About } from "@/components/sections/about";
 import { ParallaxScrollFeatureSection } from "@/components/ui/parallax-scroll-feature-section";
 import { Partners } from "@/components/sections/partners";
+import { Footer } from "@/components/sections/footer";
 
 export const projects = [
   { title: "Custom Home Build", link: "#", thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" },
@@ -44,8 +45,9 @@ export default function Home() {
       </header>
       <HeroParallax products={projects} />
       <About />
-      <ParallaxScrollFeatureSection />
       <Partners />
+      <ParallaxScrollFeatureSection />
+      <Footer />
     </>
   );
 }
