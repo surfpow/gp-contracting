@@ -2,6 +2,7 @@ import { SitePageShell } from "@/components/site-page-shell";
 import { ServiceHero } from "@/components/services/service-hero";
 import { ServiceOverview } from "@/components/services/service-overview";
 import { ServiceDeepDiveSection } from "@/components/services/service-deep-dive";
+import { ServiceFaqSection } from "@/components/services/service-faq-section";
 import { ServicePageCtas } from "@/components/services/service-page-ctas";
 import type { DeepDiveServicePage } from "@/lib/services-content";
 
@@ -20,6 +21,7 @@ export function ServicePageLayout({ content }: ServicePageLayoutProps) {
       />
       <ServiceOverview paragraphs={content.overview} />
       <ServiceDeepDiveSection deepDive={content.deepDive} />
+      <ServiceFaqSection faqs={content.faqs} />
       <ServicePageCtas content={content} />
     </SitePageShell>
   );

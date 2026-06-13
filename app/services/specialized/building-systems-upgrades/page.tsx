@@ -1,10 +1,22 @@
+import type { Metadata } from "next";
+
 import { ServiceSubPageLayout } from "@/components/services/service-sub-page-layout";
+import { ServiceJsonLd } from "@/components/services/service-json-ld";
+import { buildServiceMetadata } from "@/lib/service-schema";
 import { getSubServicePageContent } from "@/lib/services-content";
+
+const content = getSubServicePageContent(
+  "specialized",
+  "building-systems-upgrades",
+);
+
+export const metadata: Metadata = buildServiceMetadata(content);
 
 export default function BuildingSystemsUpgradesPage() {
   return (
-    <ServiceSubPageLayout
-      content={getSubServicePageContent("specialized", "building-systems-upgrades")}
-    />
+    <>
+      <ServiceJsonLd content={content} />
+      <ServiceSubPageLayout content={content} />
+    </>
   );
 }

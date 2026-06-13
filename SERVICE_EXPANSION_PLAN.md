@@ -383,32 +383,32 @@ lib/services-content.ts                              (touch, overview content ob
 
 ### Tasks
 
-- [ ] **7.1** Add `export const metadata` (`title` + `description`) to every service route:
+- [x] **7.1** Add `export const metadata` (`title` + `description`) to every service route:
   - `/services`
   - 4 hubs + tenant-improvements
   - 8 sub-pages
 
-- [ ] **7.2** Create JSON-LD helper(s) in `lib/` (e.g. `lib/service-schema.ts`):
+- [x] **7.2** Create JSON-LD helper(s) in `lib/` (e.g. `lib/service-schema.ts`):
   - **Service** schema per sub-page (`serviceType`, `areaServed`, provider, url)
   - **FAQPage** schema per sub-page (and tenant-improvements) from `faqs[]`
   - **LocalBusiness** schema helper (site-wide, rendered once): Richmond, BC; phone `+1 778 891 9076`; `areaServed`: Greater Vancouver, Vancouver Island, Fraser Valley
 
-- [ ] **7.3** Render JSON-LD via Next's recommended `<script type="application/ld+json">`:
+- [x] **7.3** Render JSON-LD via Next's recommended `<script type="application/ld+json">`:
   - **LocalBusiness** — once, site-wide, in `app/layout.tsx` (or a shared root-level component included there); do **not** repeat on individual service pages
   - **Service** + **FAQPage** — per sub-page and tenant-improvements via page components or a shared `ServiceJsonLd` component
 
-- [ ] **7.4** Create `app/sitemap.ts` including all service routes (overview, hubs, sub-pages, tenant-improvements) plus existing project routes.
+- [x] **7.4** Create `app/sitemap.ts` including all service routes (overview, hubs, sub-pages, tenant-improvements) plus existing project routes.
 
-- [ ] **7.5** Wire internal links:
+- [x] **7.5** Wire internal links:
   - hub linking cards → sub-pages
   - sub-page → sibling `relatedSubServices`
   - sub-page → parent hub (breadcrumb or related links)
   - sub-page → `/projects/[category]` via `projectsHref`
   - overview → hubs
 
-- [ ] **7.6** Add tenant-improvements FAQ section + JSON-LD for parity with sub-pages.
+- [x] **7.6** Add tenant-improvements FAQ section + JSON-LD for parity with sub-pages.
 
-- [ ] **7.7** Verify combined-page anchor links are crawlable (real `id` attributes on H2 sections).
+- [x] **7.7** Verify combined-page anchor links are crawlable (real `id` attributes on H2 sections).
 
 ### Files to create / touch
 
@@ -569,7 +569,7 @@ Notes:
 | 2026-06-12 | 4 | - [x] | `ServiceHubLayout` + `ServiceLinkingCards`; hubs wired to `getServiceHubContent()`; legacy adapter + `ServiceSubServices` removed; `npm run build` passes |
 | 2026-06-12 | 5 | - [x] | Sub-service template: optional-image `ServiceHero` (text-only variant), `ServiceFeaturesSection`, `ServiceWhyGpSection`, `ServiceFaqSection` (Radix accordion at `components/ui/accordion.tsx`, `aria-expanded` + keyboard + `motion-safe` animations), `ServiceBundledSections` (anchor ids on H2s with `scroll-mt` clearing fixed header), `ServiceRelatedLinks` (text-only; specialized = quote-only). All 8 routes wired via `getSubServicePageContent()`; Phase 2 sub-page stub deleted. Image budget verified: ≤1 image per sub-page (4 hero-image, 4 text-only). Small supporting touches: `serviceHubLabels` map in `lib/service-sections.ts`, `ServicePageCtas` props widened to structural pick, hero top padding raised to clear the fixed floating logo (also fixes pre-existing hub overlap on mobile). No `lib/services-content.ts` changes needed. `npm run build` passes |
 | 2026-06-13 | 6 | - [x] | `/services` overview live: `ServicesOverviewLayout` (enhanced `ServiceHero` with `hardhat` icon + "ALL SERVICES" eyebrow + angled accent/entrance animation, `ServiceOverview` intro, 4-card grid via `columns={4}`). Extracted shared `serviceIcons` map (`components/services/service-icons.ts`) consumed by hero + cards. `ServiceLinkingCard` gained `icon` (required) + optional `image`; `ServiceLinkingCards` re-polished (rounded-xl, border, hover:border-brand-navy + hover:shadow-lg, icon chip) and applied retroactively to all 3 hubs. `service-route-stub.tsx` deleted. Card icons: residential→home, commercial→building, specialized→wrench, tenant-improvements→storefront. Validated mobile/tablet/desktop; all 4 cards link correctly. `npm run build` passes |
-| 2026-06-12 | 7 | - [ ] | Not started |
+| 2026-06-13 | 7 | - [x] | Technical SEO pass: `export const metadata` on all 13 service routes (sourced from each content object's `title`/`metaDescription`; sub-pages also emit `keywords`). New `lib/service-schema.ts` (Service / FAQPage / LocalBusiness builders + `SITE_URL`, `absoluteUrl`, `collectPageFaqs`, `buildServiceMetadata`, `servicePagePath`). New JSON-LD components: `components/json-ld.tsx` (escaped `<script type="application/ld+json">`), `components/local-business-json-ld.tsx`, `components/services/service-json-ld.tsx`. LocalBusiness rendered once in `app/layout.tsx` (verified present on home/overview/hubs but NOT duplicated on service pages); Service + FAQPage rendered on the 8 sub-pages + tenant-improvements — combined pages merge page-level + bundled-section FAQs into one FAQPage (structural-building-envelope = 12 Q&A). `app/sitemap.ts` lists all 13 service routes via `getAllServiceRoutes()` + home + 3 project routes (17 URLs). Tenant-improvements gained a `ServiceFaqSection` (parity) via `ServicePageLayout`. Combined-page H2 anchor ids (#roofing, #steel-framing, #acoustic-ceilings, #ev-charging-electrical, #accessibility-renovations, #outdoor-features-sport-courts) verified as real DOM `id`s in prerendered HTML. Internal link graph audited in built output (hubs→sub-pages, sub-page→siblings+back-to-hub, overview→4 hubs, projectsHref; specialized stays quote-only). Root layout metadata replaced the `create-next-app` placeholder + `metadataBase`. `npm run build` passes. Also fixed unrelated: confirmed no `Facebook`/`Instagram` lucide imports exist (see notes). |
 | 2026-06-12 | 8 | - [ ] | Not started |
 
 _Update this log as each phase is completed._
