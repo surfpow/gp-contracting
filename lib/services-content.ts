@@ -20,6 +20,11 @@ export type ServiceImage = {
   alt: string;
 };
 
+export type ServiceBeforeAfterImage = {
+  before: ServiceImage;
+  after: ServiceImage;
+};
+
 /**
  * Semantic icon names rendered by `ServiceHero` (mapped to lucide-react
  * components there). Kept as strings so server components can pass them
@@ -152,6 +157,7 @@ export type SubServicePageBase = SeoFields &
     linkingCardImage: ServiceImage;
     overview: string[];
     overviewImage?: ServiceImage;
+    overviewBeforeAfterImage?: ServiceBeforeAfterImage;
     processSteps: ServiceProcessStep[];
     whyGp: ServiceWhyGp;
     faqs: ServiceFaq[];
@@ -308,6 +314,7 @@ type SubServiceSeed = {
   keywordCities?: string[];
   overview?: string[];
   overviewImage?: ServiceImage;
+  overviewBeforeAfterImage?: ServiceBeforeAfterImage;
   whyGp?: ServiceWhyGp;
   faqs?: ServiceFaq[];
 };
@@ -341,6 +348,7 @@ function buildStandardSubServicePage(
     linkingCardImage,
     overview: seed.overview ?? [summary, TODO_COPY],
     overviewImage: seed.overviewImage,
+    overviewBeforeAfterImage: seed.overviewBeforeAfterImage,
     processSteps: bulletsToProcessSteps(bullets),
     whyGp: seed.whyGp ?? defaultWhyGp(),
     faqs: seed.faqs ?? defaultFaqs(serviceName),
@@ -455,6 +463,52 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
     projectsHref: "/projects/residential",
     serviceType: "Home Renovations",
     keywordCities: ["Vancouver", "Burnaby"],
+    overviewBeforeAfterImage: {
+      before: {
+        src: "/images/projects/home-renovations-kitchen-before.jpeg",
+        alt: "Kitchen before renovation with oak cabinets and tile countertops",
+      },
+      after: {
+        src: "/images/projects/home-renovations-kitchen-after.png",
+        alt: "Modern renovated kitchen with white cabinetry, quartz countertops, and hardwood floors",
+      },
+    },
+    overview: [
+      "Great design starts with understanding your space and the way you live in it. At GP Contracting Group, we take the time to learn your needs and goals, then reimagine your home with both function and style in mind. Whether it's a kitchen overhaul, a bathroom upgrade, or a whole-home transformation, we listen carefully to your needs and deliver finishes that work for how you actually live.",
+      "A renovation is only as good as the team behind it. From the first site visit through to your final walkthrough, GP Contracting Group keeps the process clear, calm, and on schedule, handling everything from structural work and permits to finish selections and trade coordination. Whether you're updating a kitchen in Burnaby, transforming a bathroom in North Vancouver, or taking on a full whole-home renovation in Surrey, we make sure the result reflects how you actually want to live.",
+    ],
+    whyGp: {
+      heading: "Why GP Contracting Group",
+      body: "Renovating your home is a significant investment, and the details matter at every stage. GP Contracting Group brings an honest, structured pre-construction process to every renovation, so you know the full scope, timeline, and cost before any work begins. As a family-owned company, we treat your home with the same care and accountability we'd bring to our own, and your dedicated project manager stays with you from first consultation through to the final walkthrough, keeping you informed every step of the way.",
+      pullQuote: "Your space, reimagined with care.",
+    },
+    faqs: [
+      {
+        question: "What kinds of home renovation projects do you take on?",
+        answer:
+          "We handle kitchen renovations, bathroom upgrades, whole-home transformations, and structural work including additions and full interior reimagining. Whether the scope is one room or the entire home, we bring the same disciplined process and quality of finish to every project.",
+      },
+      {
+        question: "Which areas do you serve for home renovations?",
+        answer:
+          "We complete home renovations throughout Vancouver, Burnaby, North Vancouver, Surrey, New Westminster, and the wider Greater Vancouver area, as well as Vancouver Island and the Fraser Valley. Reach out if you'd like to confirm we cover your neighbourhood.",
+      },
+      {
+        question: "How do I get a quote for a home renovation?",
+        answer:
+          "It starts with a consultation where we visit the space, talk through your goals, and get a clear picture of scope and finishes. From there we put together a detailed proposal with honest numbers before you commit to anything, so there are no surprises down the line.",
+      },
+      {
+        question: "How far in advance should I plan my renovation?",
+        answer:
+          "For larger renovations, planning a few months ahead gives you the best result. The pre-construction phase, where we finalize scope, selections, and permits, takes time done properly, and starting that process early means construction can begin on a schedule that works for you.",
+      },
+      {
+        question: "Does GP Contracting Group handle permits for renovations?",
+        answer:
+          "Yes. We manage permitting as part of the process across Greater Vancouver, Vancouver Island, and the Fraser Valley, so you don't have to coordinate with the municipality on your own.",
+      },
+    ],
   },
   {
     parentHub: "residential",

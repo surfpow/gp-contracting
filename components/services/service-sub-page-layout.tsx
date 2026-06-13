@@ -55,6 +55,7 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
       <ServiceOverview
         paragraphs={content.overview}
         image={content.overviewImage}
+        beforeAfterImage={content.overviewBeforeAfterImage}
       />
       <ServiceFeaturesSection steps={content.processSteps} />
       <ServiceWhyGpSection whyGp={content.whyGp} />
