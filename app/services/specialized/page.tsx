@@ -1,6 +1,6 @@
-import { ServicePageLayout } from "@/components/services/service-page-layout";
-import { getServicePageContent } from "@/lib/services-content";
+import { ServiceHubLayout } from "@/components/services/service-hub-layout";
+import { getServiceHubContent } from "@/lib/services-content";
 
 export default function SpecializedServicePage() {
-  return <ServicePageLayout content={getServicePageContent("specialized")} />;
+  return <ServiceHubLayout content={getServiceHubContent("specialized")} />;
 }

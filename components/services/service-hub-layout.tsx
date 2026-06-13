@@ -1,15 +1,15 @@
 import { SitePageShell } from "@/components/site-page-shell";
 import { ServiceHero } from "@/components/services/service-hero";
 import { ServiceOverview } from "@/components/services/service-overview";
-import { ServiceDeepDiveSection } from "@/components/services/service-deep-dive";
+import { ServiceLinkingCards } from "@/components/services/service-linking-cards";
 import { ServicePageCtas } from "@/components/services/service-page-ctas";
-import type { DeepDiveServicePage } from "@/lib/services-content";
+import type { HubServicePage } from "@/lib/services-content";
 
-export type ServicePageLayoutProps = {
-  content: DeepDiveServicePage;
+export type ServiceHubLayoutProps = {
+  content: HubServicePage;
 };
 
-export function ServicePageLayout({ content }: ServicePageLayoutProps) {
+export function ServiceHubLayout({ content }: ServiceHubLayoutProps) {
   return (
     <SitePageShell>
       <ServiceHero
@@ -19,7 +19,7 @@ export function ServicePageLayout({ content }: ServicePageLayoutProps) {
         icon={content.heroIcon}
       />
       <ServiceOverview paragraphs={content.overview} />
-      <ServiceDeepDiveSection deepDive={content.deepDive} />
+      <ServiceLinkingCards cards={content.linkingCards} />
       <ServicePageCtas content={content} />
     </SitePageShell>
   );

@@ -2,6 +2,40 @@ export type ServiceSlug = "residential" | "commercial" | "tenant-improvements";
 
 export type ServicePageSlug = ServiceSlug | "specialized";
 
+export type ServiceHubSlug = "residential" | "commercial" | "specialized";
+
+export type ResidentialSubPageSlug =
+  | "custom-home-construction"
+  | "home-renovations"
+  | "multi-family-development";
+
+export type CommercialSubPageSlug =
+  | "commercial-construction"
+  | "restaurant-bar-construction";
+
+export type SpecializedSubPageSlug =
+  | "structural-building-envelope"
+  | "building-systems-upgrades"
+  | "accessibility-outdoor-living";
+
+export type ServiceSubPageSlugByHub = {
+  residential: ResidentialSubPageSlug;
+  commercial: CommercialSubPageSlug;
+  specialized: SpecializedSubPageSlug;
+};
+
+export type ServiceSubPageSlug =
+  | ResidentialSubPageSlug
+  | CommercialSubPageSlug
+  | SpecializedSubPageSlug;
+
+export type SubServicePath = {
+  [H in ServiceHubSlug]: {
+    parentHub: H;
+    slug: ServiceSubPageSlugByHub[H];
+  };
+}[ServiceHubSlug];
+
 export type ServiceSection = {
   id: number;
   slug: ServiceSlug;
@@ -30,6 +64,58 @@ export function getServiceSection(slug: ServiceSlug) {
 
 export function servicePageHref(slug: ServicePageSlug) {
   return `/services/${slug}`;
+}
+
+export function serviceSubPageHref<H extends ServiceHubSlug>(
+  parentHub: H,
+  slug: ServiceSubPageSlugByHub[H],
+) {
+  return `/services/${parentHub}/${slug}`;
+}
+
+export const serviceSubPages: SubServicePath[] = [
+  { parentHub: "residential", slug: "custom-home-construction" },
+  { parentHub: "residential", slug: "home-renovations" },
+  { parentHub: "residential", slug: "multi-family-development" },
+  { parentHub: "commercial", slug: "commercial-construction" },
+  { parentHub: "commercial", slug: "restaurant-bar-construction" },
+  { parentHub: "specialized", slug: "structural-building-envelope" },
+  { parentHub: "specialized", slug: "building-systems-upgrades" },
+  { parentHub: "specialized", slug: "accessibility-outdoor-living" },
+];
+
+export const serviceHubLabels: Record<ServiceHubSlug, string> = {
+  residential: "Residential",
+  commercial: "Commercial",
+  specialized: "Specialized",
+};
+
+export const serviceSubPageLabels: Record<ServiceSubPageSlug, string> = {
+  "custom-home-construction": "Custom Home Construction",
+  "home-renovations": "Home Renovations",
+  "multi-family-development": "Multi-Family Development",
+  "commercial-construction": "Commercial Construction",
+  "restaurant-bar-construction": "Restaurant & Bar Construction",
+  "structural-building-envelope": "Structural & Building Envelope",
+  "building-systems-upgrades": "Building Systems Upgrades",
+  "accessibility-outdoor-living": "Accessibility & Outdoor Living",
+};
+
+export function getAllServiceRoutePaths(): string[] {
+  const hubPaths: ServicePageSlug[] = [
+    "residential",
+    "commercial",
+    "specialized",
+    "tenant-improvements",
+  ];
+
+  return [
+    "/services",
+    ...hubPaths.map((slug) => servicePageHref(slug)),
+    ...serviceSubPages.map(({ parentHub, slug }) =>
+      serviceSubPageHref(parentHub, slug),
+    ),
+  ];
 }
 
 export const serviceSections: ServiceSection[] = [
