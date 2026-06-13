@@ -128,7 +128,7 @@ export const serviceSections: ServiceSection[] = [
     imageUrl: "/images/projects/residential-modern-farmhouse-exterior.png",
     imageAlt:
       "Modern white farmhouse-style custom home exterior with paver driveway",
-    servicesHref: "/#services-residential",
+    servicesHref: "/services/residential",
     projectsHref: "/projects/residential",
     primaryCtaLabel: "Explore Residential Services",
     secondaryCtaLabel: "View Residential Projects",
@@ -143,7 +143,7 @@ export const serviceSections: ServiceSection[] = [
     imageUrl: "/images/projects/commercial-foundation-concrete-pump-site.png",
     imageAlt:
       "Commercial foundation construction site with concrete pump trucks and forest backdrop",
-    servicesHref: "/#services-commercial",
+    servicesHref: "/services/commercial",
     projectsHref: "/projects/commercial",
     primaryCtaLabel: "Explore Commercial Services",
     secondaryCtaLabel: "View Commercial Projects",
@@ -158,7 +158,7 @@ export const serviceSections: ServiceSection[] = [
     imageUrl: "/images/projects/tenant-improvement-marble-slab-bay-centre.png",
     imageAlt:
       "Marble Slab Creamery tenant improvement storefront at The Bay Centre",
-    servicesHref: "/#services-tenant-improvements",
+    servicesHref: "/services/tenant-improvements",
     projectsHref: "/projects/tenant-improvements",
     primaryCtaLabel: "Explore Tenant Improvement Services",
     secondaryCtaLabel: "View Tenant Improvement Projects",

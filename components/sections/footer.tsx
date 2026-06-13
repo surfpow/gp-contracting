@@ -2,14 +2,23 @@ import Image from "next/image"
 import Link from "next/link"
 import { Mail, MapPin, Phone } from "lucide-react"
 
+import { serviceHubLabels, servicePageHref } from "@/lib/service-sections"
+
 const GP_LOGO_URL =
   "https://vfqcqhylftsunnhxqysq.supabase.co/storage/v1/object/public/puzzle-bucket/GPlogo-removebg.png"
 
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/#about" },
-  { label: "Services", href: "/#services" },
   { label: "Contact", href: "/#contact" },
+]
+
+const serviceLinks = [
+  { label: "All Services", href: "/services" },
+  { label: serviceHubLabels.residential, href: servicePageHref("residential") },
+  { label: serviceHubLabels.commercial, href: servicePageHref("commercial") },
+  { label: serviceHubLabels.specialized, href: servicePageHref("specialized") },
+  { label: "Tenant Improvements", href: servicePageHref("tenant-improvements") },
 ]
 
 const projectLinks = [
@@ -22,7 +31,7 @@ export function Footer() {
   return (
     <footer id="contact" className="border-t border-white/10 bg-brand-dark">
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-20">
-        <div className="grid gap-12 md:grid-cols-[1.2fr_1fr_1fr] md:gap-8 lg:gap-16">
+        <div className="grid gap-12 md:grid-cols-2 md:gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-12">
           <div>
             <Link href="/" className="inline-block">
               <Image
@@ -42,7 +51,24 @@ export function Footer() {
 
           <div>
             <h3 className="font-serif text-sm tracking-wide text-neutral-200 uppercase">
-              Navigation
+              Services
+            </h3>
+            <nav className="mt-6 flex flex-col gap-3">
+              {serviceLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm text-neutral-400 transition-colors hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div>
+            <h3 className="font-serif text-sm tracking-wide text-neutral-200 uppercase">
+              Explore
             </h3>
             <nav className="mt-6 flex flex-col gap-3">
               {navLinks.map((link) => (

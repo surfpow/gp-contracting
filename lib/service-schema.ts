@@ -16,10 +16,33 @@ export const SITE_URL = "https://gpcontracting.ca";
 export const BUSINESS_NAME = "GP Contracting Group";
 export const BUSINESS_PHONE = "+1 778 891 9076";
 
-export const SERVICE_AREAS = [
+/** Broad regions — kept alongside municipalities for schema.org areaServed signals. */
+export const SERVICE_AREA_REGIONS = [
   "Greater Vancouver",
   "Vancouver Island",
   "Fraser Valley",
+] as const;
+
+/** Specific municipalities served (SEO/schema — not surfaced in visible H1s/titles). */
+export const SERVICE_AREA_MUNICIPALITIES = [
+  "Richmond",
+  "Vancouver",
+  "Burnaby",
+  "Surrey",
+  "Coquitlam",
+  "North Vancouver",
+  "Delta",
+  "New Westminster",
+  "Langley",
+  "Abbotsford",
+  "Victoria",
+  "Nanaimo",
+] as const;
+
+/** Full areaServed list for Service + LocalBusiness JSON-LD (regions + municipalities). */
+export const SERVICE_AREAS = [
+  ...SERVICE_AREA_REGIONS,
+  ...SERVICE_AREA_MUNICIPALITIES,
 ] as const;
 
 /** Resolve a site-relative path (e.g. "/services") to an absolute URL. */
@@ -59,7 +82,7 @@ export function buildServiceSchema(input: ServiceSchemaInput) {
     name: input.name ?? input.serviceType,
     serviceType: input.serviceType,
     url,
-    areaServed: input.areaServed,
+    areaServed: [...SERVICE_AREAS],
     provider: providerReference(),
     ...(input.description ? { description: input.description } : {}),
   };

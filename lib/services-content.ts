@@ -222,6 +222,17 @@ function locationKeywords(serviceName: string): string[] {
   return SERVICE_AREA_SERVED.map((area) => `${serviceName} ${area}`);
 }
 
+/** Region-paired keywords plus 1–2 city-specific terms for metadata (not visible H1s). */
+function locationKeywordsWithCities(
+  serviceName: string,
+  cities: string[],
+): string[] {
+  return [
+    ...locationKeywords(serviceName),
+    ...cities.map((city) => `${serviceName} ${city}`),
+  ];
+}
+
 function bulletsToProcessSteps(bullets: string[]): ServiceProcessStep[] {
   return bullets.map((description, index) => ({
     title: String(index + 1).padStart(2, "0"),
@@ -237,6 +248,7 @@ function defaultFaqs(serviceName: string): ServiceFaq[] {
       question: `What types of ${label} projects does GP Contracting Group handle?`,
       answer: TODO_COPY,
     },
+    // Copywriting ref — cities served: Richmond, Vancouver, Burnaby, Surrey, Coquitlam, North Vancouver, Delta, New Westminster, Langley, Abbotsford, Victoria, Nanaimo (+ Greater Vancouver, Vancouver Island, Fraser Valley).
     {
       question: `Which areas do you serve for ${label}?`,
       answer: TODO_COPY,
@@ -291,6 +303,8 @@ type SubServiceSeed = {
   linkingCardImage: ServiceImage;
   projectsHref: string;
   serviceType: string;
+  /** 1–2 cities for metadata keywords; visible headings stay region-level. */
+  keywordCities?: string[];
 };
 
 function buildStandardSubServicePage(
@@ -328,7 +342,9 @@ function buildStandardSubServicePage(
     projectsHref: seed.projectsHref,
     serviceType: seed.serviceType,
     areaServed: [...SERVICE_AREA_SERVED],
-    keywords: locationKeywords(serviceName),
+    keywords: seed.keywordCities
+      ? locationKeywordsWithCities(serviceName, seed.keywordCities)
+      : locationKeywords(serviceName),
   };
 }
 
@@ -362,6 +378,7 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
     },
     projectsHref: "/projects/residential",
     serviceType: "Custom Home Construction",
+    keywordCities: ["Richmond", "Surrey"],
   },
   {
     parentHub: "residential",
@@ -388,6 +405,7 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
     },
     projectsHref: "/projects/residential",
     serviceType: "Home Renovations",
+    keywordCities: ["Vancouver", "Burnaby"],
   },
   {
     parentHub: "residential",
@@ -410,6 +428,7 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
     },
     projectsHref: "/projects/residential",
     serviceType: "Multi-Family Development",
+    keywordCities: ["Surrey", "Coquitlam"],
   },
 ];
 
@@ -439,6 +458,7 @@ const commercialSubServiceSeeds: SubServiceSeed[] = [
     },
     projectsHref: "/projects/commercial",
     serviceType: "Commercial Construction",
+    keywordCities: ["Vancouver", "Burnaby"],
   },
   {
     parentHub: "commercial",
@@ -461,6 +481,7 @@ const commercialSubServiceSeeds: SubServiceSeed[] = [
     },
     projectsHref: "/projects/commercial",
     serviceType: "Restaurant & Bar Construction",
+    keywordCities: ["Vancouver", "Richmond"],
   },
 ];
 
@@ -512,7 +533,10 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
     projectsHref: "/projects/residential",
     serviceType: "Structural & Building Envelope",
     areaServed: [...SERVICE_AREA_SERVED],
-    keywords: locationKeywords("Structural & Building Envelope"),
+    keywords: locationKeywordsWithCities("Structural & Building Envelope", [
+      "North Vancouver",
+      "Surrey",
+    ]),
     bundledSections: [
       {
         anchorId: "roofing",
@@ -577,7 +601,10 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
     projectsHref: "/projects/commercial",
     serviceType: "Building Systems Upgrades",
     areaServed: [...SERVICE_AREA_SERVED],
-    keywords: locationKeywords("Building Systems Upgrades"),
+    keywords: locationKeywordsWithCities("Building Systems Upgrades", [
+      "Vancouver",
+      "Burnaby",
+    ]),
     bundledSections: [
       {
         anchorId: "acoustic-ceilings",
@@ -642,7 +669,10 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
     projectsHref: "/projects/residential",
     serviceType: "Accessibility & Outdoor Living",
     areaServed: [...SERVICE_AREA_SERVED],
-    keywords: locationKeywords("Accessibility & Outdoor Living"),
+    keywords: locationKeywordsWithCities("Accessibility & Outdoor Living", [
+      "North Vancouver",
+      "Langley",
+    ]),
     bundledSections: [
       {
         anchorId: "accessibility-renovations",

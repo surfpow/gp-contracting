@@ -21,7 +21,7 @@ export function ServicePageLayout({ content }: ServicePageLayoutProps) {
       />
       <ServiceOverview paragraphs={content.overview} />
       <ServiceDeepDiveSection deepDive={content.deepDive} />
-      <ServiceFaqSection faqs={content.faqs} />
+      <ServiceFaqSection faqs={content.faqs} background="white" />
       <ServicePageCtas content={content} />
     </SitePageShell>
   );

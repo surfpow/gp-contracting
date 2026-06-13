@@ -447,29 +447,29 @@ lib/services-content.ts                              (touch, metadata field cons
 
 ### Tasks
 
-- [ ] **8.1** Update `components/site-nav.tsx` Services dropdown:
+- [x] **8.1** Update `components/site-nav.tsx` Services dropdown:
   - Top-level link to `/services` overview
   - Hub entries for Residential, Commercial, Tenant Improvements, Specialized
   - Nested sub-service links grouped under Residential, Commercial, and Specialized (desktop mega-menu columns; indented list on mobile)
   - Sub-service labels match data `name` fields
 
-- [ ] **8.2** Update homepage service section links (`lib/service-sections.ts` `servicesHref` values) from `/#services-*` anchors to `/services/[hub]` where appropriate.
+- [x] **8.2** Update homepage service section links (`lib/service-sections.ts` `servicesHref` values) from `/#services-*` anchors to `/services/[hub]` where appropriate.
 
-- [ ] **8.3** Audit and update footer service links (`components/sections/footer.tsx`) — e.g. the main "Services" nav item currently points at `/#services`; align footer service/project links with the new hub and sub-page structure where applicable.
+- [x] **8.3** Audit and update footer service links (`components/sections/footer.tsx`) — e.g. the main "Services" nav item currently points at `/#services`; align footer service/project links with the new hub and sub-page structure where applicable.
 
-- [ ] **8.4** Responsive pass across all 13 service URLs (mobile/tablet/desktop).
+- [x] **8.4** Responsive pass across all 13 service URLs (mobile/tablet/desktop).
 
-- [ ] **8.5** Accessibility pass:
+- [x] **8.5** Accessibility pass:
   - descriptive alt text on all images (hubs, cards, optional sub-page heroes)
   - FAQ accordion keyboard and screen-reader behavior
   - `prefers-reduced-motion` respect on any accordion/transition animations
   - anchor scroll offset under fixed header for combined-page in-page links
 
-- [ ] **8.6** Visual consistency pass against homepage — typography, spacing, button treatment, section rhythm.
+- [x] **8.6** Visual consistency pass against homepage — typography, spacing, button treatment, section rhythm.
 
-- [ ] **8.7** Final QA smoke run: all routes, all internal links, metadata spot-check, sitemap spot-check.
+- [x] **8.7** Final QA smoke run: all routes, all internal links, metadata spot-check, sitemap spot-check.
 
-- [ ] **8.8** Update progress log in this document.
+- [x] **8.8** Update progress log in this document.
 
 ### Files to create / touch
 
@@ -570,6 +570,22 @@ Notes:
 | 2026-06-12 | 5 | - [x] | Sub-service template: optional-image `ServiceHero` (text-only variant), `ServiceFeaturesSection`, `ServiceWhyGpSection`, `ServiceFaqSection` (Radix accordion at `components/ui/accordion.tsx`, `aria-expanded` + keyboard + `motion-safe` animations), `ServiceBundledSections` (anchor ids on H2s with `scroll-mt` clearing fixed header), `ServiceRelatedLinks` (text-only; specialized = quote-only). All 8 routes wired via `getSubServicePageContent()`; Phase 2 sub-page stub deleted. Image budget verified: ≤1 image per sub-page (4 hero-image, 4 text-only). Small supporting touches: `serviceHubLabels` map in `lib/service-sections.ts`, `ServicePageCtas` props widened to structural pick, hero top padding raised to clear the fixed floating logo (also fixes pre-existing hub overlap on mobile). No `lib/services-content.ts` changes needed. `npm run build` passes |
 | 2026-06-13 | 6 | - [x] | `/services` overview live: `ServicesOverviewLayout` (enhanced `ServiceHero` with `hardhat` icon + "ALL SERVICES" eyebrow + angled accent/entrance animation, `ServiceOverview` intro, 4-card grid via `columns={4}`). Extracted shared `serviceIcons` map (`components/services/service-icons.ts`) consumed by hero + cards. `ServiceLinkingCard` gained `icon` (required) + optional `image`; `ServiceLinkingCards` re-polished (rounded-xl, border, hover:border-brand-navy + hover:shadow-lg, icon chip) and applied retroactively to all 3 hubs. `service-route-stub.tsx` deleted. Card icons: residential→home, commercial→building, specialized→wrench, tenant-improvements→storefront. Validated mobile/tablet/desktop; all 4 cards link correctly. `npm run build` passes |
 | 2026-06-13 | 7 | - [x] | Technical SEO pass: `export const metadata` on all 13 service routes (sourced from each content object's `title`/`metaDescription`; sub-pages also emit `keywords`). New `lib/service-schema.ts` (Service / FAQPage / LocalBusiness builders + `SITE_URL`, `absoluteUrl`, `collectPageFaqs`, `buildServiceMetadata`, `servicePagePath`). New JSON-LD components: `components/json-ld.tsx` (escaped `<script type="application/ld+json">`), `components/local-business-json-ld.tsx`, `components/services/service-json-ld.tsx`. LocalBusiness rendered once in `app/layout.tsx` (verified present on home/overview/hubs but NOT duplicated on service pages); Service + FAQPage rendered on the 8 sub-pages + tenant-improvements — combined pages merge page-level + bundled-section FAQs into one FAQPage (structural-building-envelope = 12 Q&A). `app/sitemap.ts` lists all 13 service routes via `getAllServiceRoutes()` + home + 3 project routes (17 URLs). Tenant-improvements gained a `ServiceFaqSection` (parity) via `ServicePageLayout`. Combined-page H2 anchor ids (#roofing, #steel-framing, #acoustic-ceilings, #ev-charging-electrical, #accessibility-renovations, #outdoor-features-sport-courts) verified as real DOM `id`s in prerendered HTML. Internal link graph audited in built output (hubs→sub-pages, sub-page→siblings+back-to-hub, overview→4 hubs, projectsHref; specialized stays quote-only). Root layout metadata replaced the `create-next-app` placeholder + `metadataBase`. `npm run build` passes. Also fixed unrelated: confirmed no `Facebook`/`Instagram` lucide imports exist (see notes). |
-| 2026-06-12 | 8 | - [ ] | Not started |
+| 2026-06-13 | 8 | - [x] | Nav, cross-linking, a11y & final polish. **Nav** (`components/site-nav.tsx`): data-driven Services dropdown from `serviceSubPages`/`serviceSubPageLabels`/`serviceHubLabels`/`serviceSubPageHref()`. Desktop = mega-menu (`w-[820px]`) with an "All Services" header link to `/services` over a 4-column grid: Residential (3), Commercial (2), Specialized (3) — each hub heading links to its hub, with sub-service links beneath — plus a Tenant Improvements column (heading links to hub, blurb, no sub-links). Mobile = "Services" → overview, then collapsible hub rows (`MobileServiceHub`, `aria-expanded` + chevron, sub-links indented) for the 3 hubs + a direct Tenant Improvements link; fixed mobile Contact anchor to `#contact`. **8.2**: `servicesHref` in `lib/service-sections.ts` changed from `/#services-*` to `/services/{residential,commercial,tenant-improvements}` (homepage "What We Build" CTAs now deep-link into hubs; 0 legacy anchors remain). **8.3** footer (`components/sections/footer.tsx`): added a dedicated **Services** column (All Services + 4 hubs via helpers) and renamed the mixed column to **Explore** (Home/About/Contact + project links); removed the old `/#services` link; grid widened to 4 columns on lg. **8.5**: added `motion-reduce:animate-none motion-reduce:transition-none` to `NavigationMenuContent`/`Viewport` and `motion-reduce:transition-none` to the trigger chevron (hero + accordion were already motion-safe); verified descriptive alt text on all hub-card / overview-card / sub-page-hero images; FAQ accordions confirmed keyboard/SR-accessible across all 9 pages by shared-component reuse; combined-page H2 `scroll-mt` clears the fixed header (browser-verified). **8.6**: `ServiceFaqSection` gained a `background` prop (`neutral` default / `white`); tenant-improvements renders it on white so the deep-dive no longer stacks three `bg-neutral-50` sections (outcomes→FAQ→CTAs). All other page types verified for dark/neutral/white alternation. **8.4/8.7**: browser QA at 1440/768/390 — mega-menu structure, sub-page navigation, anchor-scroll offset, 4→2→1 card-grid collapse, and mobile collapsible all pass; `/sitemap.xml` = 17 URLs (13 service + 4); metadata spot-checked on overview/hub/sub-page/deep-dive. `npm run build` passes. |
 
 _Update this log as each phase is completed._
+
+---
+
+## Expansion Complete
+
+All eight phases of the pillar-and-spoke expansion are done. The `/services` section now ships:
+
+- **13 live routes** — overview, 4 hubs, 8 sub-pages (5 standard + 3 combined), tenant-improvements deep-dive — all data-driven from `lib/services-content.ts`.
+- **Technical SEO** — per-route metadata, Service + FAQPage JSON-LD on the 9 sub/deep-dive pages, a single site-wide LocalBusiness node, and a 17-URL `app/sitemap.ts`.
+- **Full internal-link graph + nav** — pillar-and-spoke mega-menu (desktop) / collapsible menu (mobile), hub↔sub-page↔projects cross-links, homepage and footer aligned to the new structure.
+- **A11y & responsive polish** — descriptive alt text, accessible FAQ accordions, `prefers-reduced-motion` respected, fixed-header-safe anchor offsets, and verified mobile/tablet/desktop layouts.
+
+**Remaining before launch (copywriting pass — content, not engineering):**
+
+- Replace all `TODO_COPY` (`/* TODO: copy */`) placeholders: sub-page second overview paragraphs, every `whyGp.body`, and combined bundled-section second paragraphs.
+- Rewrite the generic 4-question FAQ templates (currently seeded by `defaultFaqs()` with `TODO_COPY` answers) into specific, SEO-targeted Q&A across the 8 sub-pages, 6 bundled sections, and tenant-improvements — these now feed live FAQPage schema, so real copy directly improves SEO value.

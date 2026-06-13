@@ -2,9 +2,17 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { ChevronDown, Menu, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import {
+  serviceHubLabels,
+  servicePageHref,
+  serviceSubPageHref,
+  serviceSubPageLabels,
+  serviceSubPages,
+  type ServiceHubSlug,
+} from "@/lib/service-sections"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -23,12 +31,47 @@ const navItemClass = cn(
   "data-[active]:bg-black/5"
 )
 
-const serviceLinks = [
-  { title: "Residential", href: "/services/residential" },
-  { title: "Commercial", href: "/services/commercial" },
-  { title: "Tenant Improvements", href: "/services/tenant-improvements" },
-  { title: "Specialized", href: "/services/specialized" },
+const SERVICES_OVERVIEW_HREF = "/services"
+
+type ServiceMenuColumn = {
+  hub: ServiceHubSlug
+  label: string
+  href: string
+  blurb: string
+  subPages: { label: string; href: string }[]
+}
+
+const hubBlurbs: Record<ServiceHubSlug, string> = {
+  residential: "Custom homes, renovations, and multi-family development.",
+  commercial: "Offices, retail, and restaurant & bar construction.",
+  specialized: "Structural, building systems, accessibility, and outdoor living.",
+}
+
+/** Hubs that own sub-service pages, rendered as mega-menu columns. */
+const hubsWithSubPages: ServiceHubSlug[] = [
+  "residential",
+  "commercial",
+  "specialized",
 ]
+
+const serviceMenuColumns: ServiceMenuColumn[] = hubsWithSubPages.map((hub) => ({
+  hub,
+  label: serviceHubLabels[hub],
+  href: servicePageHref(hub),
+  blurb: hubBlurbs[hub],
+  subPages: serviceSubPages
+    .filter((page) => page.parentHub === hub)
+    .map((page) => ({
+      label: serviceSubPageLabels[page.slug],
+      href: serviceSubPageHref(page.parentHub, page.slug),
+    })),
+}))
+
+const TENANT_IMPROVEMENTS = {
+  label: "Tenant Improvements",
+  href: servicePageHref("tenant-improvements"),
+  blurb: "Office and retail tenant build-outs, ready for business.",
+} as const
 
 const featuredProjects: { title: string; href: string; description: string }[] =
   [
@@ -64,6 +107,64 @@ const featuredProjects: { title: string; href: string; description: string }[] =
     },
   ]
 
+function MobileServiceHub({
+  column,
+  onNavigate,
+}: {
+  column: ServiceMenuColumn
+  onNavigate: () => void
+}) {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <div className="border-b border-border/40 last:border-b-0">
+      <div className="flex items-center">
+        <Link
+          href={column.href}
+          onClick={onNavigate}
+          className="flex-1 px-10 py-3 text-sm font-medium text-neutral-700 hover:bg-muted"
+        >
+          {column.label}
+        </Link>
+        <button
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+          aria-expanded={open}
+          aria-label={
+            open
+              ? `Collapse ${column.label} services`
+              : `Expand ${column.label} services`
+          }
+          className="flex h-10 w-12 items-center justify-center text-neutral-500 hover:text-neutral-900"
+        >
+          <ChevronDown
+            className={cn(
+              "h-4 w-4 motion-safe:transition-transform motion-safe:duration-200",
+              open && "rotate-180"
+            )}
+            aria-hidden="true"
+          />
+        </button>
+      </div>
+      {open && (
+        <ul className="pb-2">
+          {column.subPages.map((subPage) => (
+            <li key={subPage.href}>
+              <Link
+                href={subPage.href}
+                onClick={onNavigate}
+                className="block px-14 py-2.5 text-sm text-neutral-500 hover:bg-muted hover:text-neutral-900"
+              >
+                {subPage.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 function MobileNav() {
   const [open, setOpen] = React.useState(false)
 
@@ -86,22 +187,26 @@ function MobileNav() {
           <nav className="flex flex-col">
             <div className="border-b border-border/60">
               <Link
-                href="#services"
+                href={SERVICES_OVERVIEW_HREF}
                 onClick={close}
-                className="block px-6 py-4 text-base font-semibold text-neutral-900"
+                className="block px-6 py-4 text-base font-semibold text-neutral-900 hover:bg-muted"
               >
                 Services
               </Link>
-              {serviceLinks.map((link) => (
-                <Link
-                  key={link.title}
-                  href={link.href}
-                  onClick={close}
-                  className="block px-10 py-3 text-sm text-neutral-600 hover:bg-muted"
-                >
-                  {link.title}
-                </Link>
+              {serviceMenuColumns.map((column) => (
+                <MobileServiceHub
+                  key={column.hub}
+                  column={column}
+                  onNavigate={close}
+                />
               ))}
+              <Link
+                href={TENANT_IMPROVEMENTS.href}
+                onClick={close}
+                className="block px-10 py-3 text-sm font-medium text-neutral-700 hover:bg-muted"
+              >
+                {TENANT_IMPROVEMENTS.label}
+              </Link>
             </div>
 
             <div className="border-b border-border/60">
@@ -128,7 +233,7 @@ function MobileNav() {
               About
             </Link>
             <Link
-              href="#"
+              href="#contact"
               onClick={close}
               className="px-6 py-4 text-base font-semibold text-neutral-900 hover:bg-muted"
             >
@@ -138,6 +243,35 @@ function MobileNav() {
         </div>
       )}
     </div>
+  )
+}
+
+function ServiceMenuColumnList({ column }: { column: ServiceMenuColumn }) {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <Link
+          href={column.href}
+          className="block rounded-md px-3 py-2 text-sm font-semibold text-neutral-900 no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+        >
+          {column.label}
+        </Link>
+      </NavigationMenuLink>
+      <ul className="mt-1">
+        {column.subPages.map((subPage) => (
+          <li key={subPage.href}>
+            <NavigationMenuLink asChild>
+              <Link
+                href={subPage.href}
+                className="block rounded-md px-3 py-2 text-sm leading-snug text-muted-foreground no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+              >
+                {subPage.label}
+              </Link>
+            </NavigationMenuLink>
+          </li>
+        ))}
+      </ul>
+    </li>
   )
 }
 
@@ -151,36 +285,48 @@ function DesktopNav() {
               Services
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[640px] max-w-[calc(100vw-2rem)] gap-3 p-6 lg:grid-cols-[240px_1fr]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <Link
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                      href="/"
+              <div className="w-[820px] max-w-[calc(100vw-2rem)] p-6">
+                <NavigationMenuLink asChild>
+                  <Link
+                    href={SERVICES_OVERVIEW_HREF}
+                    className="group flex items-center justify-between rounded-md bg-gradient-to-b from-muted/50 to-muted px-4 py-3 no-underline outline-none focus:shadow-md"
+                  >
+                    <span>
+                      <span className="block text-sm font-semibold text-neutral-900">
+                        All Services
+                      </span>
+                      <span className="mt-0.5 block text-sm leading-tight text-muted-foreground">
+                        Explore the full range of GP Contracting Group services.
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="ml-4 text-neutral-400 transition-transform duration-300 group-hover:translate-x-0.5"
                     >
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        GP Contracting Group
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Precision, craftsmanship, and integrity across every
-                        project in Greater Vancouver.
-                      </p>
-                    </Link>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/services/residential" title="Residential">
-                  Custom homes, renovations, and multi-family development.
-                </ListItem>
-                <ListItem href="/services/commercial" title="Commercial">
-                  Offices, retail, restaurants, and fitness facilities.
-                </ListItem>
-                <ListItem href="/services/tenant-improvements" title="Tenant Improvements">
-                  Office and retail tenant build-outs.
-                </ListItem>
-                <ListItem href="/services/specialized" title="Specialized">
-                  Roofing, steel framing, accessibility, and more.
-                </ListItem>
-              </ul>
+                      →
+                    </span>
+                  </Link>
+                </NavigationMenuLink>
+
+                <ul className="mt-4 grid grid-cols-4 gap-x-4 gap-y-1">
+                  {serviceMenuColumns.map((column) => (
+                    <ServiceMenuColumnList key={column.hub} column={column} />
+                  ))}
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href={TENANT_IMPROVEMENTS.href}
+                        className="block rounded-md px-3 py-2 text-sm font-semibold text-neutral-900 no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        {TENANT_IMPROVEMENTS.label}
+                      </Link>
+                    </NavigationMenuLink>
+                    <p className="mt-1 px-3 text-sm leading-snug text-muted-foreground">
+                      {TENANT_IMPROVEMENTS.blurb}
+                    </p>
+                  </li>
+                </ul>
+              </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
@@ -208,7 +354,7 @@ function DesktopNav() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navItemClass}>
-              <Link href="#">Contact</Link>
+              <Link href="#contact">Contact</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>

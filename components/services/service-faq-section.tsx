@@ -45,19 +45,31 @@ export type ServiceFaqSectionProps = {
   faqs: ServiceFaq[];
   eyebrow?: string;
   heading?: string;
+  /**
+   * Section background. Defaults to `neutral-50`; pass `white` where the FAQ
+   * follows another `neutral-50` section (e.g. the tenant-improvements
+   * deep-dive) to preserve the page's background alternation rhythm.
+   */
+  background?: "neutral" | "white";
 };
 
 export function ServiceFaqSection({
   faqs,
   eyebrow = "FAQ",
   heading = "Frequently Asked Questions",
+  background = "neutral",
 }: ServiceFaqSectionProps) {
   if (faqs.length === 0) {
     return null;
   }
 
   return (
-    <section className="bg-neutral-50 px-4 py-16 md:px-8 md:py-24 lg:py-32">
+    <section
+      className={cn(
+        "px-4 py-16 md:px-8 md:py-24 lg:py-32",
+        background === "white" ? "bg-white" : "bg-neutral-50",
+      )}
+    >
       <div className="mx-auto max-w-3xl">
         <p className="text-sm font-medium tracking-widest text-brand-navy uppercase">
           {eyebrow}
