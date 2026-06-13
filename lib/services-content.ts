@@ -151,6 +151,7 @@ export type SubServicePageBase = SeoFields &
     heroIcon: ServiceHeroIconName;
     linkingCardImage: ServiceImage;
     overview: string[];
+    overviewImage?: ServiceImage;
     processSteps: ServiceProcessStep[];
     whyGp: ServiceWhyGp;
     faqs: ServiceFaq[];
@@ -305,6 +306,10 @@ type SubServiceSeed = {
   serviceType: string;
   /** 1–2 cities for metadata keywords; visible headings stay region-level. */
   keywordCities?: string[];
+  overview?: string[];
+  overviewImage?: ServiceImage;
+  whyGp?: ServiceWhyGp;
+  faqs?: ServiceFaq[];
 };
 
 function buildStandardSubServicePage(
@@ -334,10 +339,11 @@ function buildStandardSubServicePage(
     heroImage,
     heroIcon,
     linkingCardImage,
-    overview: [summary, TODO_COPY],
+    overview: seed.overview ?? [summary, TODO_COPY],
+    overviewImage: seed.overviewImage,
     processSteps: bulletsToProcessSteps(bullets),
-    whyGp: defaultWhyGp(),
-    faqs: defaultFaqs(serviceName),
+    whyGp: seed.whyGp ?? defaultWhyGp(),
+    faqs: seed.faqs ?? defaultFaqs(serviceName),
     relatedSubServices: [],
     projectsHref: seed.projectsHref,
     serviceType: seed.serviceType,
@@ -379,6 +385,49 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
     projectsHref: "/projects/residential",
     serviceType: "Custom Home Construction",
     keywordCities: ["Richmond", "Surrey"],
+    overviewImage: {
+      src: "/images/projects/sunnyday-customhomebuild.png",
+      alt: "Custom home framing under construction on a hillside lot with forest and coastal views on a sunny day",
+    },
+    overview: [
+      "Build your dream home with GP Contracting Group, where tailored design meets exceptional craftsmanship. Our skilled team works alongside you at every stage, shaping a home that reflects your personal style and answers your specific needs, all while holding to budget and schedule. From first concept to final walkthrough, we deliver a seamless process, and not just a house, but a space you'll be proud to call home.",
+      "Every custom build begins with a real conversation about how you live and what you need from your home, followed by a thorough pre-construction phase where scope, materials, and budget are mapped out before any work begins, so there are no surprises once construction starts. You'll work with one dedicated project manager from groundbreaking through your final walkthrough, with regular updates so you're never left wondering where things stand. Whether it's a custom build on a hillside lot in Coquitlam or a family home in Langley, GP Contracting Group holds every project to the same disciplined process from start to finish.",
+    ],
+    whyGp: {
+      heading: "Why GP Contracting Group",
+      body: "Building a custom home takes more than good design. It takes a contractor who can manage engineering, permitting, trades, and finishing at a high level, all while keeping you informed every step of the way. As a family-owned company, GP Contracting Group brings that structural capability and disciplined pre-construction process to every custom home we build, whether it's a single-family home in Richmond or a larger property on Vancouver Island. We work alongside your architect and designer, or connect you with trusted partners if you don't have one, so your vision is backed by a team that's accountable from the first sketch to the final walkthrough.",
+      pullQuote: "Your home, built like it's our own.",
+    },
+    faqs: [
+      {
+        question:
+          "Do you only build from the ground up, or do you also take on major home rebuilds?",
+        answer:
+          "Both. Most of our custom home work is ground-up new construction, but we also take on major rebuilds where most of the existing structure is removed and replaced, from foundation to roofline. Whatever the starting point, we bring the same engineering, permitting, and trade coordination to the project.",
+      },
+      {
+        question: "Which areas do you build custom homes in?",
+        answer:
+          "We design and build custom homes throughout Richmond, Vancouver, Surrey, Coquitlam, and across Greater Vancouver, Vancouver Island, and the Fraser Valley. If you're unsure whether your property falls within our service area, reach out and we'll let you know.",
+      },
+      {
+        question:
+          "How do I get started on a custom home with GP Contracting Group?",
+        answer:
+          "It starts with a conversation about your vision, budget, and the property itself. From there, we'll walk the site (or review the lot) and give you an honest sense of what's feasible before you commit to full design, so you have a realistic picture of cost and timeline from day one.",
+      },
+      {
+        question:
+          "Do I need to have my own architect or designer before contacting you?",
+        answer:
+          "Not at all. Some clients come to us with a design team already in place, and we build alongside them. If you don't have one, we can connect you with trusted architects and designers and manage the design-build process as one accountable team.",
+      },
+      {
+        question: "Does GP Contracting Group handle permits and approvals?",
+        answer:
+          "Yes. We manage design, permitting, and construction from start to finish, including coordination with municipal building departments across Greater Vancouver, Vancouver Island, and the Fraser Valley, so you don't have to navigate that process on your own.",
+      },
+    ],
   },
   {
     parentHub: "residential",

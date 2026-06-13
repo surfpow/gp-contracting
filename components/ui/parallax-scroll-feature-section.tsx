@@ -1,17 +1,17 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
 
 import { Button } from "@/components/ui/button";
+import {
+  SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME,
+  ScrollRevealContentPanel,
+  ScrollRevealImagePanel,
+  useScrollRevealSplitPanels,
+  useScrollRevealSplitRef,
+} from "@/components/ui/scroll-reveal-split-panels";
 import {
   serviceSectionAnchor,
   serviceSections,
@@ -19,20 +19,9 @@ import {
 } from "@/lib/service-sections";
 
 function FeatureSectionRow({ section }: { section: ServiceSection }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "center start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [0, 1]);
-  const clipPath = useTransform(
-    scrollYProgress,
-    [0, 0.7],
-    ["inset(0 100% 0 0)", "inset(0 0% 0 0)"]
-  );
-  const translateY = useTransform(scrollYProgress, [0, 1], [-50, 0]);
+  const ref = useScrollRevealSplitRef();
+  const { shouldReduceMotion, opacity, clipPath, translateY } =
+    useScrollRevealSplitPanels(ref);
 
   const textContent = (
     <>
@@ -65,15 +54,12 @@ function FeatureSectionRow({ section }: { section: ServiceSection }) {
             className="group inline-flex items-center justify-center gap-2.5"
           >
             {section.secondaryCtaLabel}
-            <ArrowRight className="size-4 text-neutral-400 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-brand-navy" />
+            <ArrowRight className="size-4 text-neutral-400 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-brand-navy" />
           </Link>
         </Button>
       </div>
     </>
   );
-
-  const imagePanelClassName =
-    "relative aspect-[3/4] w-full min-h-[360px] shrink-0 overflow-hidden md:w-[40%] md:min-h-[520px]";
 
   const image = (
     <Image
@@ -94,30 +80,22 @@ function FeatureSectionRow({ section }: { section: ServiceSection }) {
         section.reverse ? "md:flex-row-reverse" : ""
       }`}
     >
-      {shouldReduceMotion ? (
-        <div className="w-full md:w-[55%] md:max-w-xl">{textContent}</div>
-      ) : (
-        <motion.div
-          style={{ y: translateY }}
-          className="w-full md:w-[55%] md:max-w-xl"
-        >
-          {textContent}
-        </motion.div>
-      )}
+      <ScrollRevealContentPanel
+        shouldReduceMotion={shouldReduceMotion}
+        translateY={translateY}
+        className="w-full md:w-[55%] md:max-w-xl"
+      >
+        {textContent}
+      </ScrollRevealContentPanel>
 
-      {shouldReduceMotion ? (
-        <div className={imagePanelClassName}>{image}</div>
-      ) : (
-        <motion.div
-          style={{
-            opacity,
-            clipPath,
-          }}
-          className={imagePanelClassName}
-        >
-          {image}
-        </motion.div>
-      )}
+      <ScrollRevealImagePanel
+        shouldReduceMotion={shouldReduceMotion}
+        opacity={opacity}
+        clipPath={clipPath}
+        className={SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME}
+      >
+        {image}
+      </ScrollRevealImagePanel>
     </div>
   );
 }

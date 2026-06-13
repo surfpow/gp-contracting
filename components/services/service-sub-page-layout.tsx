@@ -52,7 +52,10 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
         icon={content.heroIcon}
         scopeBadges={scopeBadges}
       />
-      <ServiceOverview paragraphs={content.overview} />
+      <ServiceOverview
+        paragraphs={content.overview}
+        image={content.overviewImage}
+      />
       <ServiceFeaturesSection steps={content.processSteps} />
       <ServiceWhyGpSection whyGp={content.whyGp} />
       {isCombined && (
