@@ -6,6 +6,7 @@ import {
   servicePageHref,
   type ServiceHubSlug,
 } from "@/lib/service-sections";
+import { SEE_RECENT_PROJECTS } from "@/lib/projects";
 import type { ServiceLinkingCard } from "@/lib/services-content";
 
 export type ServiceRelatedLinksProps = {
@@ -80,7 +81,7 @@ export function ServiceRelatedLinks({
               href={projectsHref}
               className="group inline-flex items-center gap-2 text-sm font-medium tracking-wide text-brand-navy transition-colors hover:text-brand-dark"
             >
-              View {hubLabel} Projects
+              {SEE_RECENT_PROJECTS.label}
               <ArrowRight
                 className="size-4 transition-transform duration-300 group-hover:translate-x-0.5"
                 aria-hidden="true"

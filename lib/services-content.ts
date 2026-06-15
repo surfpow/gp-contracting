@@ -14,6 +14,7 @@ import {
   type SpecializedSubPageSlug,
   type SubServicePath,
 } from "@/lib/service-sections";
+import { PROJECTS_HREF, SEE_RECENT_PROJECTS } from "@/lib/projects";
 
 export type ServiceImage = {
   src: string;
@@ -406,7 +407,7 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
       src: "/images/projects/residential-modern-farmhouse-exterior.png",
       alt: "Modern white farmhouse-style custom home exterior with paver driveway",
     },
-    projectsHref: "/projects/residential",
+    projectsHref: PROJECTS_HREF,
     serviceType: "Custom Home Construction",
     keywordCities: ["Richmond", "Surrey"],
     overviewImage: {
@@ -476,7 +477,7 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
       src: "/images/projects/residential-modern-kitchen-island.png",
       alt: "Modern residential kitchen with large island and pendant lighting",
     },
-    projectsHref: "/projects/residential",
+    projectsHref: PROJECTS_HREF,
     serviceType: "Home Renovations",
     keywordCities: ["Vancouver", "Burnaby"],
     overviewBeforeAfterImage: {
@@ -547,7 +548,7 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
       src: "/images/projects/residential-framing-hilltop-view.png",
       alt: "Residential framing on a hilltop lot with forest and water views",
     },
-    projectsHref: "/projects/residential",
+    projectsHref: PROJECTS_HREF,
     serviceType: "Multi-Family Development",
     keywordCities: ["Surrey", "Coquitlam"],
     overviewImage: {
@@ -619,7 +620,7 @@ const commercialSubServiceSeeds: SubServiceSeed[] = [
       src: "/images/projects/commercial-foundation-concrete-pump-site.png",
       alt: "Commercial foundation construction site with concrete pump trucks and forest backdrop",
     },
-    projectsHref: "/projects/commercial",
+    projectsHref: PROJECTS_HREF,
     serviceType: "Commercial Construction",
     keywordCities: ["Vancouver", "Burnaby"],
     overviewImage: {
@@ -683,7 +684,7 @@ const commercialSubServiceSeeds: SubServiceSeed[] = [
       src: "/images/projects/tenant-improvement-dominos-grand-opening-exterior.png",
       alt: "Restaurant storefront exterior at grand opening with branded signage",
     },
-    projectsHref: "/projects/commercial",
+    projectsHref: PROJECTS_HREF,
     serviceType: "Restaurant & Bar Construction",
     keywordCities: ["Vancouver", "Richmond"],
     overviewImage: {
@@ -803,7 +804,7 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
       },
     ],
     relatedSubServices: [],
-    projectsHref: "/projects/residential",
+    projectsHref: PROJECTS_HREF,
     serviceType: "Structural & Building Envelope",
     areaServed: [...SERVICE_AREA_SERVED],
     keywords: locationKeywordsWithCities("Structural & Building Envelope", [
@@ -963,7 +964,7 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
       },
     ],
     relatedSubServices: [],
-    projectsHref: "/projects/commercial",
+    projectsHref: PROJECTS_HREF,
     serviceType: "Building Systems Upgrades",
     areaServed: [...SERVICE_AREA_SERVED],
     keywords: locationKeywordsWithCities("Building Systems Upgrades", [
@@ -1115,7 +1116,7 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
       },
     ],
     relatedSubServices: [],
-    projectsHref: "/projects/residential",
+    projectsHref: PROJECTS_HREF,
     serviceType: "Accessibility & Outdoor Living",
     areaServed: [...SERVICE_AREA_SERVED],
     keywords: locationKeywordsWithCities("Accessibility & Outdoor Living", [
@@ -1303,8 +1304,8 @@ export const serviceHubPages: HubServicePage[] = [
     title: "Residential Construction Services | GP Contracting Group",
     metaDescription:
       "Custom home construction, renovations, and multi-family development in Greater Vancouver, Vancouver Island, and the Fraser Valley.",
-    projectsHref: "/projects/residential",
-    projectsCtaLabel: "View Residential Projects",
+    projectsHref: PROJECTS_HREF,
+    projectsCtaLabel: SEE_RECENT_PROJECTS.label,
   }),
   buildHubPage("commercial", {
     heroIcon: "building",
@@ -1316,8 +1317,8 @@ export const serviceHubPages: HubServicePage[] = [
     title: "Commercial Construction Services | GP Contracting Group",
     metaDescription:
       "Commercial construction and restaurant & bar construction across Greater Vancouver, Vancouver Island, and the Fraser Valley.",
-    projectsHref: "/projects/commercial",
-    projectsCtaLabel: "View Commercial Projects",
+    projectsHref: PROJECTS_HREF,
+    projectsCtaLabel: SEE_RECENT_PROJECTS.label,
   }),
   buildHubPage("specialized", {
     heroIcon: "wrench",

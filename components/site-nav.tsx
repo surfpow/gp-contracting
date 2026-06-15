@@ -6,6 +6,11 @@ import { ChevronDown, Menu, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import {
+  OUR_WORK_NAV_LABEL,
+  PROJECTS_HREF,
+  SEE_RECENT_PROJECTS,
+} from "@/lib/projects"
+import {
   serviceHubLabels,
   servicePageHref,
   serviceSubPageHref,
@@ -73,39 +78,7 @@ const TENANT_IMPROVEMENTS = {
   blurb: "Office and retail tenant build-outs, ready for business.",
 } as const
 
-const featuredProjects: { title: string; href: string; description: string }[] =
-  [
-    {
-      title: "Custom Home Build",
-      href: "/projects/residential",
-      description: "Luxury residential construction in Greater Vancouver.",
-    },
-    {
-      title: "Restaurant Build",
-      href: "/projects/tenant-improvements",
-      description: "Full commercial build-out for dining and hospitality.",
-    },
-    {
-      title: "Multi-Family Development",
-      href: "/projects/residential",
-      description: "Multi-unit residential projects from framing to finish.",
-    },
-    {
-      title: "Fitness Facility",
-      href: "/projects/tenant-improvements",
-      description: "Commercial gym and wellness space construction.",
-    },
-    {
-      title: "Kitchen Remodel",
-      href: "/projects/residential",
-      description: "High-end kitchen renovations with modern finishes.",
-    },
-    {
-      title: "Commercial Renovation",
-      href: "/projects/commercial",
-      description: "Office and retail space transformations.",
-    },
-  ]
+const featuredProjects = [SEE_RECENT_PROJECTS] as const
 
 function MobileServiceHub({
   column,
@@ -210,19 +183,25 @@ function MobileNav() {
             </div>
 
             <div className="border-b border-border/60">
-              <span className="block px-6 py-4 text-base font-semibold text-neutral-900">
-                Projects
-              </span>
-              {featuredProjects.map((project) => (
-                <Link
-                  key={project.title}
-                  href={project.href}
-                  onClick={close}
-                  className="block px-10 py-3 text-sm text-neutral-600 hover:bg-muted"
-                >
-                  {project.title}
-                </Link>
-              ))}
+              <Link
+                href={PROJECTS_HREF}
+                onClick={close}
+                className="block px-6 py-4 text-base font-semibold text-neutral-900 hover:bg-muted"
+              >
+                {OUR_WORK_NAV_LABEL}
+              </Link>
+              <Link
+                href={SEE_RECENT_PROJECTS.href}
+                onClick={close}
+                className="block px-10 py-3 text-sm text-neutral-600 hover:bg-muted"
+              >
+                <span className="block font-medium text-neutral-800">
+                  {SEE_RECENT_PROJECTS.label}
+                </span>
+                <span className="mt-1 block text-neutral-500">
+                  {SEE_RECENT_PROJECTS.description}
+                </span>
+              </Link>
             </div>
 
             <Link
@@ -326,14 +305,14 @@ function DesktopNav() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger className={navItemClass}>
-              Projects
+              {OUR_WORK_NAV_LABEL}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[680px] max-w-[calc(100vw-2rem)] gap-3 p-6 md:grid-cols-2">
+              <ul className="grid w-[420px] max-w-[calc(100vw-2rem)] gap-3 p-6">
                 {featuredProjects.map((project) => (
                   <ListItem
-                    key={project.title}
-                    title={project.title}
+                    key={project.label}
+                    title={project.label}
                     href={project.href}
                   >
                     {project.description}

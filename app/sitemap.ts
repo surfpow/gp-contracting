@@ -8,13 +8,7 @@ import { getAllServiceRoutes } from "@/lib/services-content";
  * are sourced from `getAllServiceRoutes()` so the sitemap stays in sync as the
  * pillar-and-spoke structure changes.
  */
-const projectRoutes = [
-  "/",
-  "/about",
-  "/projects/residential",
-  "/projects/commercial",
-  "/projects/tenant-improvements",
-];
+const projectRoutes = ["/", "/about", "/projects"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

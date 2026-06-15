@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Mail, MapPin, Phone } from "lucide-react"
 
 import { serviceHubLabels, servicePageHref } from "@/lib/service-sections"
+import { OUR_WORK_NAV_LABEL, PROJECTS_HREF } from "@/lib/projects"
 
 const GP_LOGO_URL =
   "https://vfqcqhylftsunnhxqysq.supabase.co/storage/v1/object/public/puzzle-bucket/GPlogo-removebg.png"
@@ -21,11 +22,7 @@ const serviceLinks = [
   { label: "Tenant Improvements", href: servicePageHref("tenant-improvements") },
 ]
 
-const projectLinks = [
-  { label: "Residential Projects", href: "/projects/residential" },
-  { label: "Commercial Projects", href: "/projects/commercial" },
-  { label: "Tenant Improvement Projects", href: "/projects/tenant-improvements" },
-]
+const projectLinks = [{ label: OUR_WORK_NAV_LABEL, href: PROJECTS_HREF }]
 
 export function Footer() {
   return (

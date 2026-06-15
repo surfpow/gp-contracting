@@ -8,6 +8,7 @@ import { ServiceFaqSection } from "@/components/services/service-faq-section";
 import { ServiceRelatedLinks } from "@/components/services/service-related-links";
 import { ServicePageCtas } from "@/components/services/service-page-ctas";
 import { serviceHubLabels } from "@/lib/service-sections";
+import { SEE_RECENT_PROJECTS } from "@/lib/projects";
 import {
   isCombinedSubServicePage,
   type SubServicePageContent,
@@ -81,7 +82,7 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
         content={{
           projectsHref,
           projectsCtaLabel: projectsHref
-            ? `View ${hubLabel} Projects`
+            ? SEE_RECENT_PROJECTS.label
             : undefined,
         }}
       />

@@ -1,3 +1,8 @@
+import {
+  PROJECTS_HREF,
+  SEE_RECENT_PROJECTS,
+} from "@/lib/projects";
+
 export type ServiceSlug = "residential" | "commercial" | "tenant-improvements";
 
 export type ServicePageSlug = ServiceSlug | "specialized";
@@ -129,9 +134,9 @@ export const serviceSections: ServiceSection[] = [
     imageAlt:
       "Modern white farmhouse-style custom home exterior with paver driveway",
     servicesHref: "/services/residential",
-    projectsHref: "/projects/residential",
+    projectsHref: PROJECTS_HREF,
     primaryCtaLabel: "Explore Residential Services",
-    secondaryCtaLabel: "View Residential Projects",
+    secondaryCtaLabel: SEE_RECENT_PROJECTS.label,
     reverse: false,
   },
   {
@@ -144,9 +149,9 @@ export const serviceSections: ServiceSection[] = [
     imageAlt:
       "GP Contracting Group worker framing a commercial interior build-out with metal stud walls and exposed ceiling infrastructure",
     servicesHref: "/services/commercial",
-    projectsHref: "/projects/commercial",
+    projectsHref: PROJECTS_HREF,
     primaryCtaLabel: "Explore Commercial Services",
-    secondaryCtaLabel: "View Commercial Projects",
+    secondaryCtaLabel: SEE_RECENT_PROJECTS.label,
     reverse: true,
   },
   {
@@ -159,9 +164,9 @@ export const serviceSections: ServiceSection[] = [
     imageAlt:
       "Marble Slab Creamery tenant improvement storefront at The Bay Centre",
     servicesHref: "/services/tenant-improvements",
-    projectsHref: "/projects/tenant-improvements",
+    projectsHref: PROJECTS_HREF,
     primaryCtaLabel: "Explore Tenant Improvement Services",
-    secondaryCtaLabel: "View Tenant Improvement Projects",
+    secondaryCtaLabel: SEE_RECENT_PROJECTS.label,
     reverse: false,
   },
 ];
