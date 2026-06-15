@@ -2,8 +2,15 @@
 
 import { TimelineContent } from "@/components/ui/timeline-animation";
 import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
+import { Button } from "@/components/ui/button";
+import { servicePrimaryButtonClass } from "@/components/services/service-page-ctas";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
+
+const GP_LOGO_URL =
+  "https://vfqcqhylftsunnhxqysq.supabase.co/storage/v1/object/public/puzzle-bucket/GPlogo-removebg.png";
 
 export default function AboutSection3() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -43,7 +50,13 @@ export default function AboutSection3() {
         <div className="relative">
           <div className="absolute top-0 z-10 mb-8 flex w-[85%] items-center justify-between lg:top-4">
             <div className="flex items-center gap-2 text-xl">
-              <span className="animate-spin text-red-500">✱</span>
+              <Image
+                src={GP_LOGO_URL}
+                alt=""
+                width={24}
+                height={24}
+                className="h-6 w-auto shrink-0"
+              />
               <TimelineContent
                 as="span"
                 animationNum={0}
@@ -51,7 +64,7 @@ export default function AboutSection3() {
                 customVariants={revealVariants}
                 className="text-sm font-medium text-gray-600"
               >
-                WHO I AM
+                WHO WE ARE
               </TimelineContent>
             </div>
             <div className="flex gap-4">
@@ -158,17 +171,10 @@ export default function AboutSection3() {
               animationNum={5}
               timelineRef={heroRef}
               customVariants={revealVariants}
-              className="flex gap-4"
+              className="mb-2 text-xs text-gray-600 sm:text-base"
             >
-              <div className="mb-2 flex items-center gap-2 text-xs sm:text-base">
-                <span className="font-bold text-red-500">10+</span>
-                <span className="text-gray-600">years of experience</span>
-                <span className="text-gray-300">|</span>
-              </div>
-              <div className="mb-2 flex items-center gap-2 text-xs sm:text-base">
-                <span className="font-bold text-red-500">3 million</span>
-                <span className="text-gray-600">words</span>
-              </div>
+              Custom Homes · Renovations · Commercial · Tenant Improvements ·
+              Specialized Trades
             </TimelineContent>
             <div className="bottom-16 right-0 flex flex-row-reverse gap-4 lg:absolute lg:flex-col lg:gap-0">
               <TimelineContent
@@ -176,21 +182,18 @@ export default function AboutSection3() {
                 animationNum={6}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="mb-2 flex items-center gap-2 text-2xl sm:text-3xl lg:text-4xl"
+                className="mb-2 text-2xl font-semibold text-brand-navy sm:text-3xl lg:text-4xl"
               >
-                <span className="font-semibold text-red-500">100+</span>
-                <span className="uppercase text-gray-600">brands</span>
+                One Standard
               </TimelineContent>
               <TimelineContent
                 as="div"
                 animationNum={7}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="mb-2 flex items-center gap-2 text-xs sm:text-base"
+                className="mb-2 text-xs text-gray-600 sm:text-base"
               >
-                <span className="font-bold text-red-500">30%</span>
-                <span className="text-gray-600">higher engagement</span>
-                <span className="block text-gray-300 lg:hidden">|</span>
+                Every Project
               </TimelineContent>
             </div>
           </div>
@@ -198,7 +201,7 @@ export default function AboutSection3() {
 
         <div className="grid gap-8 md:grid-cols-3">
           <div className="md:col-span-2">
-            <h1 className="mb-8 text-2xl font-semibold !leading-[110%] text-gray-900 sm:text-4xl md:text-5xl">
+            <h1 className="mb-8 text-2xl font-semibold !leading-[1.2] text-gray-900 sm:text-4xl md:text-5xl">
               <VerticalCutReveal
                 splitBy="words"
                 staggerDuration={0.1}
@@ -211,7 +214,7 @@ export default function AboutSection3() {
                   delay: 3,
                 }}
               >
-                Crafting Words That Make a Difference.
+                Building Excellence, Rooted in Family Values.
               </VerticalCutReveal>
             </h1>
 
@@ -227,12 +230,22 @@ export default function AboutSection3() {
                 animationNum={10}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="text-xs sm:text-base"
+                className="space-y-4 text-xs sm:text-base"
               >
                 <p className="text-justify leading-relaxed">
-                  My journey began as a passionate writer and evolved into a
-                  strategic copywriting career. I specialize in transforming
-                  ideas into compelling content that helps brands grow.
+                  GP Contracting Group LTD stands at the forefront of
+                  construction excellence in the Greater Vancouver area, built on
+                  the foundation of family values and a legacy of integrity and
+                  honesty passed down from our grandparents. Their unwavering
+                  commitment to doing what is right continues to inspire
+                  everything we do.
+                </p>
+                <p className="text-justify leading-relaxed">
+                  What sets us apart is not just our forward-thinking approach
+                  to construction, but the deep sense of trust and transparency
+                  we foster in every project. We believe in open communication,
+                  honesty, and delivering results that exceed expectations while
+                  staying true to our values.
                 </p>
               </TimelineContent>
               <TimelineContent
@@ -240,12 +253,21 @@ export default function AboutSection3() {
                 animationNum={11}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="text-xs sm:text-base"
+                className="space-y-4 text-xs sm:text-base"
               >
                 <p className="text-justify leading-relaxed">
-                  Every brand has a story, and I specialize in telling yours
-                  with clarity and impact. By blending creativity with strategy,
-                  I write content that resonates with audiences.
+                  Our team of skilled professionals approaches each project as
+                  if it were for our own family, with meticulous attention to
+                  detail and a commitment to excellence. By combining expertise,
+                  innovation, and a dedication to craftsmanship, we create spaces
+                  that reflect the dreams and aspirations of our clients while
+                  upholding the highest standards of quality.
+                </p>
+                <p className="text-justify leading-relaxed">
+                  At GP Contracting, we honor our family&apos;s legacy by
+                  treating every client like part of our extended family—building
+                  trust, transforming spaces, and creating lasting relationships
+                  along the way.
                 </p>
               </TimelineContent>
             </TimelineContent>
@@ -258,9 +280,9 @@ export default function AboutSection3() {
                 animationNum={12}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="mb-2 text-2xl font-bold text-red-500"
+                className="mb-2 text-2xl font-bold text-brand-navy"
               >
-                SANGVI
+                PJ Saini
               </TimelineContent>
               <TimelineContent
                 as="div"
@@ -269,7 +291,7 @@ export default function AboutSection3() {
                 customVariants={revealVariants}
                 className="mb-8 text-sm text-gray-600"
               >
-                Copywriter | Content Strategist
+                Owner & Principal
               </TimelineContent>
 
               <TimelineContent
@@ -279,19 +301,27 @@ export default function AboutSection3() {
                 customVariants={revealVariants}
                 className="mb-6"
               >
-                <p className="mb-4 font-medium text-gray-900">
-                  Ready to transform your brand&apos;s message into results?
+                <p className="mb-4 text-sm leading-relaxed text-neutral-600 md:text-base">
+                  Ready to discuss your next project?
                 </p>
               </TimelineContent>
 
               <TimelineContent
-                as="button"
+                as="div"
                 animationNum={15}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="ml-auto flex w-fit cursor-pointer items-center gap-2 rounded-lg border border-neutral-700 bg-neutral-900 px-5 py-3 font-semibold text-white shadow-lg shadow-neutral-900 transition-all duration-300 ease-in-out hover:gap-4 hover:bg-neutral-950"
+                className="ml-auto w-fit"
               >
-                LET&apos;S COLLABORATE <ArrowRight className="" />
+                <Button asChild className={servicePrimaryButtonClass}>
+                  <Link
+                    href="/#contact"
+                    className="group inline-flex items-center justify-center gap-2.5"
+                  >
+                    Get A Free Consultation
+                    <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Link>
+                </Button>
               </TimelineContent>
             </div>
           </div>
