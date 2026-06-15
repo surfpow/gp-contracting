@@ -1,6 +1,5 @@
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { SiteHeader } from "@/components/site-header";
-import { About } from "@/components/sections/about";
 import { ParallaxScrollFeatureSection } from "@/components/ui/parallax-scroll-feature-section";
 import { Partners } from "@/components/sections/partners";
 import { Footer } from "@/components/sections/footer";
@@ -56,7 +55,6 @@ export default function Home() {
     <>
       <SiteHeader />
       <HeroParallax products={projects} />
-      <About />
       <Partners />
       <ParallaxScrollFeatureSection />
       <Footer />

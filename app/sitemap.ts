@@ -10,6 +10,7 @@ import { getAllServiceRoutes } from "@/lib/services-content";
  */
 const projectRoutes = [
   "/",
+  "/about",
   "/projects/residential",
   "/projects/commercial",
   "/projects/tenant-improvements",

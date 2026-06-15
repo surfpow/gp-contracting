@@ -226,7 +226,7 @@ function MobileNav() {
             </div>
 
             <Link
-              href="#about"
+              href="/about"
               onClick={close}
               className="border-b border-border/60 px-6 py-4 text-base font-semibold text-neutral-900 hover:bg-muted"
             >
@@ -344,7 +344,7 @@ function DesktopNav() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navItemClass}>
-              <Link href="#about">About</Link>
+              <Link href="/about">About</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
