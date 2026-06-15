@@ -140,9 +140,9 @@ export const serviceSections: ServiceSection[] = [
     title: "Commercial",
     description:
       "Office spaces, retail storefronts, and industrial facilities built to code and delivered on schedule. GP Contracting Group brings the same integrity and attention to detail to every commercial project across Greater Vancouver.",
-    imageUrl: "/images/projects/commercial-foundation-concrete-pump-site.png",
+    imageUrl: "/images/projects/commercial-interior-build-out.jpeg",
     imageAlt:
-      "Commercial foundation construction site with concrete pump trucks and forest backdrop",
+      "GP Contracting Group worker framing a commercial interior build-out with metal stud walls and exposed ceiling infrastructure",
     servicesHref: "/services/commercial",
     projectsHref: "/projects/commercial",
     primaryCtaLabel: "Explore Commercial Services",

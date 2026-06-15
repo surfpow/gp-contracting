@@ -1,3 +1,4 @@
+import { BundledSectionOverview } from "@/components/services/service-bundled-section-overview";
 import { ServiceFaqList } from "@/components/services/service-faq-section";
 import { ServiceFeatureSteps } from "@/components/services/service-features-section";
 import type { ServiceBundledSection } from "@/lib/services-content";
@@ -46,20 +47,11 @@ export function ServiceBundledSections({ sections }: ServiceBundledSectionsProps
               {section.heading}
             </h2>
 
-            <div className="mt-6 max-w-3xl space-y-5">
-              {section.overview.map((paragraph, paragraphIndex) => (
-                <p
-                  key={paragraph}
-                  className={
-                    paragraphIndex === 0
-                      ? "text-lg leading-relaxed text-neutral-700 md:text-xl md:leading-8"
-                      : "text-base leading-relaxed text-neutral-600 md:text-lg md:leading-8"
-                  }
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            <BundledSectionOverview
+              overview={section.overview}
+              overviewImage={section.overviewImage}
+              overviewCta={section.overviewCta}
+            />
 
             <ServiceFeatureSteps
               steps={section.processSteps}

@@ -54,10 +54,16 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
       />
       <ServiceOverview
         paragraphs={content.overview}
-        image={content.overviewImage}
+        images={
+          content.overviewImages ??
+          (content.overviewImage ? [content.overviewImage] : undefined)
+        }
         beforeAfterImage={content.overviewBeforeAfterImage}
       />
-      <ServiceFeaturesSection steps={content.processSteps} />
+      <ServiceFeaturesSection
+        steps={content.processSteps}
+        image={content.featuresSectionImage}
+      />
       <ServiceWhyGpSection whyGp={content.whyGp} />
       {isCombined && (
         <ServiceBundledSections sections={content.bundledSections} />

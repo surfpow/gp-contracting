@@ -121,6 +121,7 @@ type ServicePageContentBase = {
   heroSubheading: string;
   heroImage: ServiceImage;
   overview: string[];
+  overviewImage?: ServiceImage;
   projectsHref?: string;
   projectsCtaLabel?: string;
 };
@@ -157,7 +158,9 @@ export type SubServicePageBase = SeoFields &
     linkingCardImage: ServiceImage;
     overview: string[];
     overviewImage?: ServiceImage;
+    overviewImages?: ServiceImage[];
     overviewBeforeAfterImage?: ServiceBeforeAfterImage;
+    featuresSectionImage?: ServiceImage;
     processSteps: ServiceProcessStep[];
     whyGp: ServiceWhyGp;
     faqs: ServiceFaq[];
@@ -167,12 +170,21 @@ export type SubServicePageBase = SeoFields &
     h1: string;
   };
 
+export type ServiceBundledOverviewCta = {
+  label: string;
+  href?: string;
+  placement?: "image" | "text";
+  variant?: "primary" | "outline";
+};
+
 export type ServiceBundledSection = {
   anchorId: string;
   heading: string;
   icon: ServiceHeroIconName;
   keywords: string[];
   overview: string[];
+  overviewImage?: ServiceImage;
+  overviewCta?: ServiceBundledOverviewCta;
   processSteps: ServiceProcessStep[];
   faqs: ServiceFaq[];
 };
@@ -314,7 +326,9 @@ type SubServiceSeed = {
   keywordCities?: string[];
   overview?: string[];
   overviewImage?: ServiceImage;
+  overviewImages?: ServiceImage[];
   overviewBeforeAfterImage?: ServiceBeforeAfterImage;
+  featuresSectionImage?: ServiceImage;
   whyGp?: ServiceWhyGp;
   faqs?: ServiceFaq[];
 };
@@ -348,7 +362,9 @@ function buildStandardSubServicePage(
     linkingCardImage,
     overview: seed.overview ?? [summary, TODO_COPY],
     overviewImage: seed.overviewImage,
+    overviewImages: seed.overviewImages,
     overviewBeforeAfterImage: seed.overviewBeforeAfterImage,
+    featuresSectionImage: seed.featuresSectionImage,
     processSteps: bulletsToProcessSteps(bullets),
     whyGp: seed.whyGp ?? defaultWhyGp(),
     faqs: seed.faqs ?? defaultFaqs(serviceName),
@@ -452,8 +468,8 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
       "Contemporary fixtures, finishes, and lighting throughout",
     ],
     heroImage: {
-      src: "/images/projects/residential-modern-kitchen-island.png",
-      alt: "Modern residential kitchen with large island and pendant lighting",
+      src: "/images/projects/home-renovations-hero.jpeg",
+      alt: "Open-concept renovated home with modern living room, dining area, and kitchen",
     },
     heroIcon: "hammer",
     linkingCardImage: {
@@ -484,29 +500,31 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
     },
     faqs: [
       {
-        question: "What kinds of home renovation projects do you take on?",
+        question: "Do I need to move out during a renovation?",
         answer:
-          "We handle kitchen renovations, bathroom upgrades, whole-home transformations, and structural work including additions and full interior reimagining. Whether the scope is one room or the entire home, we bring the same disciplined process and quality of finish to every project.",
+          "Depends on the scope. For a single room like a kitchen or bathroom, most clients stay in the home. For whole-home renovations or anything involving major structural work, we'll be upfront about what's realistic and help you plan around it.",
       },
       {
-        question: "Which areas do you serve for home renovations?",
+        question:
+          "How do you handle surprises inside the walls, like old wiring or water damage?",
         answer:
-          "We complete home renovations throughout Vancouver, Burnaby, North Vancouver, Surrey, New Westminster, and the wider Greater Vancouver area, as well as Vancouver Island and the Fraser Valley. Reach out if you'd like to confirm we cover your neighbourhood.",
+          "It happens on older homes, and we plan for it. During pre-construction we identify as many risks as possible upfront, and when something unexpected comes up during the build, we document it, walk you through the options, and agree on a path forward before proceeding.",
       },
       {
-        question: "How do I get a quote for a home renovation?",
+        question:
+          "Can you work with my existing layout or do I need a full redesign?",
         answer:
-          "It starts with a consultation where we visit the space, talk through your goals, and get a clear picture of scope and finishes. From there we put together a detailed proposal with honest numbers before you commit to anything, so there are no surprises down the line.",
+          "Both. Some clients want to keep the footprint and just modernize the finishes and fixtures. Others want walls moved, layouts rethought, or an addition added. We'll work with whatever direction makes the most sense for your home and budget.",
+      },
+      {
+        question: "How do I know the quote I'm getting is accurate?",
+        answer:
+          "We don't give ballpark numbers to win the job. Our pre-construction process produces a detailed proposal with clear allowances tied to your actual scope, so what you approve is what you pay, and any changes go through a formal process so nothing catches you off guard.",
       },
       {
         question: "How far in advance should I plan my renovation?",
         answer:
-          "For larger renovations, planning a few months ahead gives you the best result. The pre-construction phase, where we finalize scope, selections, and permits, takes time done properly, and starting that process early means construction can begin on a schedule that works for you.",
-      },
-      {
-        question: "Does GP Contracting Group handle permits for renovations?",
-        answer:
-          "Yes. We manage permitting as part of the process across Greater Vancouver, Vancouver Island, and the Fraser Valley, so you don't have to coordinate with the municipality on your own.",
+          "For larger renovations, planning a few months ahead gives you the best result. The pre-construction phase, where we finalize scope, selections, and permits, takes time done properly, and starting early means construction can begin on a schedule that actually works for you.",
       },
     ],
   },
@@ -532,6 +550,48 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
     projectsHref: "/projects/residential",
     serviceType: "Multi-Family Development",
     keywordCities: ["Surrey", "Coquitlam"],
+    overviewImage: {
+      src: "/images/projects/multi-family-development-overview.jpeg",
+      alt: "Multi-family development site with concrete pump truck and foundation formwork against a forested hillside",
+    },
+    overview: [
+      "Grow your investment with multi-family construction built to the same standard as our custom home work. Whether it's a duplex, a townhouse complex, or a low-rise development, we deliver multi-unit projects designed for rental income, long-term durability, and lasting property value.",
+      "From design and permits through to final construction, GP Contracting Group handles every detail, coordinating trades, schedules, and code compliance across each unit so the process stays on track from start to finish. Multi-family development moves at a different pace and scale than single-family work, and we bring the project management discipline to match, whether you're building a duplex in Richmond or a townhouse complex in Langley.",
+    ],
+    whyGp: {
+      heading: "Why GP Contracting Group",
+      body: "Multi-family development requires a contractor who understands both the construction side and the investment side. At GP Contracting Group, we approach every multi-unit project with an eye on durability, code compliance, and the kind of finish quality that holds up for tenants and appeals to future buyers. As a family-owned company with experience across residential and commercial construction, we bring the structural capability and trade coordination that multi-family work demands, and we keep you informed at every stage so your project stays on budget and on schedule.",
+      pullQuote: "Built for tenants. Built to last.",
+    },
+    faqs: [
+      {
+        question: "What size of multi-family project do you take on?",
+        answer:
+          "We work across a range of scales, from duplexes and triplexes to townhouse complexes and small low-rise developments. If you're unsure whether your project fits, reach out and we'll give you a straightforward answer after reviewing the scope.",
+      },
+      {
+        question: "How do you manage trade coordination across multiple units?",
+        answer:
+          "We run a single coordinated schedule across all units, with one project manager accountable for the full build. Trades are sequenced to avoid bottlenecks between units, and you get regular progress updates so you always know where the project stands.",
+      },
+      {
+        question:
+          "Do you handle rezoning and development permits for multi-family projects?",
+        answer:
+          "We manage building permits and coordinate with municipal requirements throughout Greater Vancouver, Vancouver Island, and the Fraser Valley. For rezoning or development permit applications, we can advise on the process and work alongside your development consultant or planner if one is involved.",
+      },
+      {
+        question:
+          "How do you spec a multi-family build differently from a custom home?",
+        answer:
+          "Multi-family construction prioritizes durability, acoustic performance between units, and finishes that hold up over time for tenants. We select materials and building systems with that in mind, balancing long-term performance with your budget and rental market expectations.",
+      },
+      {
+        question: "What affects the timeline for a multi-family development?",
+        answer:
+          "Lot size, number of units, permitting complexity, and site conditions all play a role. We map out a realistic timeline during pre-construction so you have an honest picture before any work begins, and we build in proper sequencing so trades aren't waiting on each other mid-project.",
+      },
+    ],
   },
 ];
 
@@ -551,8 +611,8 @@ const commercialSubServiceSeeds: SubServiceSeed[] = [
       "Clear scheduling and communication from mobilization to handover",
     ],
     heroImage: {
-      src: "/images/projects/commercial-foundation-concrete-pump-site.png",
-      alt: "Commercial foundation construction site with concrete pump trucks and forest backdrop",
+      src: "/images/projects/commercial-construction-hero.jpeg",
+      alt: "Domino's Pizza commercial storefront exterior at dusk with illuminated signage",
     },
     heroIcon: "warehouse",
     linkingCardImage: {
@@ -562,6 +622,47 @@ const commercialSubServiceSeeds: SubServiceSeed[] = [
     projectsHref: "/projects/commercial",
     serviceType: "Commercial Construction",
     keywordCities: ["Vancouver", "Burnaby"],
+    overviewImage: {
+      src: "/images/projects/commercial-construction-overview.jpeg",
+      alt: "Commercial interior under construction with exposed ceiling structure and concrete floors",
+    },
+    overview: [
+      "Commercial construction demands a contractor who can deliver on schedule, meet code, and build spaces that hold up under daily operational use. At GP Contracting Group, we bring the same disciplined pre-construction process and trade coordination to commercial projects that we bring to our residential work, whether it's a ground-up office build, a retail fit-out, or an industrial facility.",
+      "We have delivered fast-tracked commercial builds for some of the most recognized franchise brands operating in British Columbia, including projects completed in under 60 days from start to open doors. That kind of timeline takes precise trade coordination, airtight scheduling, and a team that knows how to move without cutting corners. From first permit to final inspection, GP Contracting Group brings that same urgency and accountability to every commercial project we take on.",
+    ],
+    whyGp: {
+      heading: "Why GP Contracting Group",
+      body: "Commercial clients need a contractor they can count on to stay on schedule and communicate clearly, because delays cost money. GP Contracting Group has earned repeat business from major franchise operators and commercial clients across Greater Vancouver by doing exactly that, delivering on time, on budget, and to a standard that passes inspection the first time. As a family-owned company, we operate with one accountable point of contact from pre-construction through to handover, so you always know where your project stands.",
+      pullQuote: "Built for business. Delivered on time.",
+    },
+    faqs: [
+      {
+        question: "What types of commercial construction projects do you take on?",
+        answer:
+          "We work across offices, retail spaces, mixed-use buildings, and industrial facilities. Whether it's ground-up construction or a significant interior build-out, we bring the same structured process and trade coordination to every project.",
+      },
+      {
+        question: "How do you keep a commercial project on schedule?",
+        answer:
+          "It starts with honest pre-construction planning, where we map out the full scope, trade sequencing, and key milestones before work begins. During the build, one project manager is accountable for the schedule end to end, and you receive regular updates so nothing catches you off guard.",
+      },
+      {
+        question:
+          "Can you work around an occupied building or active business operations?",
+        answer:
+          "Yes. We plan phasing and working hours around your operational needs where possible, and we'll be upfront during pre-construction about what's realistic so you can plan accordingly.",
+      },
+      {
+        question: "Do you handle commercial building permits and inspections?",
+        answer:
+          "Yes. We manage the full permitting process and coordinate inspections with the relevant municipal authorities across Greater Vancouver, Vancouver Island, and the Fraser Valley.",
+      },
+      {
+        question: "How is commercial construction priced?",
+        answer:
+          "Commercial projects are scoped and priced based on building type, size, finishes, and site conditions. We produce a detailed proposal during pre-construction so you have a clear, itemized picture of costs before committing, with no vague estimates or surprises mid-build.",
+      },
+    ],
   },
   {
     parentHub: "commercial",
@@ -585,6 +686,49 @@ const commercialSubServiceSeeds: SubServiceSeed[] = [
     projectsHref: "/projects/commercial",
     serviceType: "Restaurant & Bar Construction",
     keywordCities: ["Vancouver", "Richmond"],
+    overviewImage: {
+      src: "/images/projects/restaurant-bar-renovation-interior.jpeg",
+      alt: "Commercial restaurant interior under construction with drywall, scaffolding, and workers finishing walls",
+    },
+    overview: [
+      "Building a restaurant or bar is unlike any other commercial project. The kitchen has to move efficiently under pressure, the ventilation has to meet health code, the bar has to flow for staff and guests at the same time, and the whole space has to be ready to open on a date that doesn't move. GP Contracting Group has built purpose-built hospitality environments for some of BC's most active franchise operators, and we understand what it takes to deliver these projects on time and to spec.",
+      "We have completed restaurant builds in under 60 days from permit to open doors, with repeat clients who come back to us for every new location. That track record comes from tight trade sequencing, deep familiarity with commercial kitchen and health authority requirements, and a project management approach that treats your opening date as a hard deadline, not a target. Whether you're building your first location in Vancouver or expanding across the Lower Mainland, we bring the experience to get it done right.",
+    ],
+    whyGp: {
+      heading: "Why GP Contracting Group",
+      body: "Restaurant and bar construction has no room for vague timelines or last-minute surprises. Health authority inspections, equipment installation windows, and opening day commitments all depend on a build that moves on schedule. GP Contracting Group has earned repeat business from franchise operators across British Columbia by delivering exactly that, on time, code-compliant, and built for the demands of daily food service. As a family-owned company, we treat every location like it matters, because to our clients, it does.",
+      pullQuote: "Your opening date is our deadline.",
+    },
+    faqs: [
+      {
+        question:
+          "What makes restaurant construction different from other commercial builds?",
+        answer:
+          "Restaurants involve a level of technical coordination that most commercial builds don't, including commercial kitchen layouts, Type 1 and Type 2 hood systems, grease interceptors, health authority compliance, and equipment rough-ins that have to be sequenced correctly the first time. We know how these systems work together and how to get them inspected and approved without holding up your timeline.",
+      },
+      {
+        question: "How quickly can you turn around a restaurant build?",
+        answer:
+          "We have delivered full restaurant builds in under 60 days from permit to open. Timeline depends on scope, permitting, and how early we get involved in pre-construction, but we're experienced at building to tight hospitality deadlines and we'll give you an honest picture of what's achievable from the start.",
+      },
+      {
+        question: "Do you work with franchise operators on multiple locations?",
+        answer:
+          "Yes, and it's an area where we have a strong track record. Repeat clients come back to us for new locations because we understand their brand standards, their fit-out requirements, and how to replicate a build efficiently across sites.",
+      },
+      {
+        question:
+          "How do you coordinate health authority and building permit requirements?",
+        answer:
+          "We manage both streams simultaneously during pre-construction, so health authority requirements are built into the design and construction scope from the start rather than addressed as an afterthought. This keeps inspections on track and avoids costly revisions late in the build.",
+      },
+      {
+        question:
+          "Can you help with the layout and design of the kitchen and bar, or do we need to bring our own designer?",
+        answer:
+          "We can work either way. If you have a designer or franchise fit-out package, we build to that spec. If you need input on layout, flow, and equipment placement to get the most out of your space, we can contribute to that conversation during pre-construction.",
+      },
+    ],
   },
 ];
 
@@ -618,7 +762,7 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
       "Roofing systems and custom steel framing — engineered, installed, and managed with technical precision.",
     heroImage: {
       src: "/images/projects/structural-building-envelope-hero.jpeg",
-      alt: "Roof trusses and structural framing under construction with suburban neighborhood in background",
+      alt: "Structural wood framing and roof trusses inside a residential build under a clear blue sky",
     },
     heroIcon: "layers",
     linkingCardImage: {
@@ -672,6 +816,10 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
         heading: "Roofing",
         icon: "home",
         keywords: locationKeywords("Roofing"),
+        overviewImage: {
+          src: "/images/projects/structural-building-envelope-roofing-overview.jpeg",
+          alt: "Roof trusses and OSB sheathing on a residential home under construction against a clear blue sky",
+        },
         overview: [
           "Roofing systems installed for long-term weather protection, proper drainage, and peace of mind.",
           "Whether it's a low-slope membrane system on a commercial building or a pitched roof on a custom home, we select materials suited to the specific site conditions, climate exposure, and performance requirements of each project. Every installation includes proper flashing, drainage planning, and transition details, because that's where roofs fail when the work isn't done right. We work across both residential and commercial roofing in Richmond, Burnaby, Coquitlam, and throughout the Lower Mainland and Fraser Valley.",
@@ -777,13 +925,43 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
       src: "/images/projects/residential-modern-living-room-fireplace.png",
       alt: "Modern interior living space with refined ceiling and lighting details",
     },
+    overviewImage: {
+      src: "/images/projects/building-systems-upgrades-overview.jpeg",
+      alt: "GP Contracting Group crew installing acoustic ceiling tiles in a commercial office space under renovation",
+    },
     overview: [
-      "From suspended acoustic ceilings to EV charging and electrical panel upgrades, GP Contracting Group delivers building systems work that integrates cleanly with your space.",
-      TODO_COPY,
+      "Modern buildings demand more from their systems than they did a decade ago. GP Contracting Group delivers acoustic ceiling installations and electrical infrastructure upgrades that integrate cleanly into both new builds and existing spaces, whether it's a suspended T-bar ceiling for a commercial office in Richmond or EV charging infrastructure for a residential property or commercial space across Greater Vancouver.",
+      "These are finishing and systems-level services that have to be planned carefully and installed precisely. Done right, they're invisible in the best way, the ceiling looks clean, the lighting integrates seamlessly, and the electrical infrastructure handles modern demand without issue. GP Contracting Group brings the same disciplined pre-construction process and trade coordination to building systems work that we bring to every other service we offer.",
     ],
     processSteps: [],
-    whyGp: defaultWhyGp(),
-    faqs: defaultFaqs("building systems upgrades"),
+    whyGp: {
+      heading: "Why GP Contracting Group",
+      body: "Building systems upgrades are often the last thing clients think about and the first thing they notice when the work isn't done well. GP Contracting Group coordinates acoustic ceiling and electrical upgrade work as part of a properly sequenced build, so these systems integrate with the rest of the space rather than being added as an afterthought. As a family-owned company with experience across residential, commercial, and tenant improvement projects, we hold the same standard on systems work as we do on structural work, because the details at every stage are what make a finished space feel right.",
+    },
+    faqs: [
+      {
+        question:
+          "Do you handle both residential and commercial building systems work?",
+        answer:
+          "Yes. We install acoustic ceiling systems and EV charging and electrical upgrades across residential, commercial, and multi-unit properties throughout Greater Vancouver, Vancouver Island, and the Fraser Valley.",
+      },
+      {
+        question:
+          "Can building systems upgrades be incorporated into a larger renovation or build?",
+        answer:
+          "Absolutely, and that's often the most efficient way to do it. Coordinating acoustic ceiling and electrical work as part of a broader renovation or fit-out means the sequencing is right and the systems integrate cleanly with the rest of the project rather than being added separately later.",
+      },
+      {
+        question: "How do I get a quote for building systems work?",
+        answer:
+          "Contact us to start with a consultation. We'll assess the space, review any existing drawings or electrical documentation, and put together a detailed proposal before any work begins.",
+      },
+      {
+        question: "Do you manage permits and inspections for this work?",
+        answer:
+          "Yes. Electrical work requires permits and inspections, and we manage that process across Greater Vancouver, Vancouver Island, and the Fraser Valley. Acoustic ceiling installations in commercial spaces may also require coordination with building management, which we handle as part of the project.",
+      },
+    ],
     relatedSubServices: [],
     projectsHref: "/projects/commercial",
     serviceType: "Building Systems Upgrades",
@@ -800,7 +978,7 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
         keywords: locationKeywords("Acoustic Ceilings"),
         overview: [
           "Suspended ceiling and acoustic systems that improve sound performance while integrating lighting and access.",
-          TODO_COPY,
+          "A well-installed acoustic ceiling does more than control sound. It defines the visual character of a space, integrates lighting and access panels cleanly, and sets the tone for the entire interior. We work across commercial offices, retail spaces, and residential applications in Vancouver, North Vancouver, Coquitlam, and throughout the Lower Mainland, installing suspended ceiling systems that are level, aligned, and finished to a standard that holds up under daily use.",
         ],
         processSteps: bulletsToProcessSteps([
           "Sound absorption solutions for offices and commercial spaces",
@@ -808,7 +986,36 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
           "Access panels positioned for maintenance and inspections",
           "Clean installation with aligned grids and finished details",
         ]),
-        faqs: defaultFaqs("acoustic ceilings"),
+        faqs: [
+          {
+            question:
+              "What spaces are T-bar and acoustic ceiling systems suited for?",
+            answer:
+              "They work well across a wide range of spaces, from commercial offices and retail environments where sound control and lighting integration matter, to residential spaces where a clean, finished ceiling is the goal. If you're not sure whether a suspended system is the right fit for your space, we can walk you through the options during a consultation.",
+          },
+          {
+            question: "How do you integrate lighting into a suspended ceiling grid?",
+            answer:
+              "Lighting placement is planned during the layout phase before any grid work begins. We coordinate the grid layout with the lighting plan so fixtures land on module, access panels are positioned where they're actually needed, and the finished ceiling looks intentional rather than improvised.",
+          },
+          {
+            question: "How long does a T-bar ceiling installation take?",
+            answer:
+              "It depends on the size and complexity of the space. A straightforward commercial office can typically be completed in a few days. Larger or more complex installations with custom grid layouts, bulkheads, or integrated systems take longer. We give you a realistic timeline during pre-construction so you can plan around it.",
+          },
+          {
+            question:
+              "Can you work in an occupied space or does the area need to be cleared?",
+            answer:
+              "We can phase the work to minimize disruption where possible. For commercial spaces that need to stay operational, we'll discuss scheduling and sequencing during pre-construction so the installation fits around your operations.",
+          },
+          {
+            question:
+              "Do acoustic ceiling systems actually make a meaningful difference to sound in a space?",
+            answer:
+              "Yes, when specified and installed correctly. The difference between a bare concrete ceiling and a properly installed acoustic tile system is significant in terms of echo, speech intelligibility, and ambient noise levels. We can advise on tile specifications based on the performance requirements of your space.",
+          },
+        ],
       },
       {
         anchorId: "ev-charging-electrical",
@@ -817,7 +1024,7 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
         keywords: locationKeywords("EV Charging & Electrical"),
         overview: [
           "Electrical infrastructure upgrades to support EV charging, panel capacity, and modern power demands.",
-          TODO_COPY,
+          "EV charging infrastructure is increasingly expected in both residential and commercial properties, and retrofitting a building that wasn't designed for it requires careful load assessment, panel evaluation, and conduit planning. GP Contracting Group manages the full scope from load assessment and panel upgrades through to charger installation and utility coordination, across homes in Surrey and Langley as well as commercial properties throughout Greater Vancouver and Vancouver Island.",
         ],
         processSteps: bulletsToProcessSteps([
           "EV charger installation for residential and commercial properties",
@@ -825,7 +1032,36 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
           "Conduit and routing planned for future expansion",
           "Coordination with utility requirements and inspections",
         ]),
-        faqs: defaultFaqs("EV charging and electrical upgrades"),
+        faqs: [
+          {
+            question: "Do I need a panel upgrade before installing EV chargers?",
+            answer:
+              "It depends on your current panel capacity and how many chargers you're adding. We carry out a load assessment as part of the pre-installation process to determine whether your existing panel can support the new demand or whether an upgrade is needed before installation begins. We won't quote the charger work without understanding the full electrical picture first.",
+          },
+          {
+            question:
+              "Can you install EV charging for a multi-unit residential building or commercial parking lot?",
+            answer:
+              "Yes. Multi-unit and commercial EV charging installations involve a different scope than a single residential charger, including load management systems, conduit routing across multiple stalls, and utility coordination. We have the capability to plan and manage that full scope so the infrastructure handles current demand and can be expanded as needed.",
+          },
+          {
+            question: "What level of EV charger do you install?",
+            answer:
+              "We install Level 2 chargers for both residential and commercial applications, which is the standard for overnight residential charging and workplace or commercial use. For specific charger brands or smart charging systems, we can work with your preferred equipment or advise on what fits your situation.",
+          },
+          {
+            question:
+              "How do you handle utility coordination and permits for electrical upgrades?",
+            answer:
+              "We manage the permitting process and coordinate with BC Hydro and the relevant municipal authorities across Greater Vancouver, Vancouver Island, and the Fraser Valley. Electrical work of this scope requires permits and inspections, and we handle that process as part of the installation.",
+          },
+          {
+            question:
+              "Can you plan the conduit and wiring now to make future expansion easier?",
+            answer:
+              "Yes, and we recommend it. Running conduit for additional circuits during the initial installation costs very little compared to retrofitting later. We build expansion capacity into the design from the start so adding chargers down the line is straightforward.",
+          },
+        ],
       },
     ],
   },
@@ -846,12 +1082,38 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
       alt: "Residential floating staircase with glass railing and open layout",
     },
     overview: [
-      "GP Contracting Group improves how people live in and use their spaces — from aging-in-place accessibility upgrades to custom outdoor sport and recreation environments.",
-      TODO_COPY,
+      "Some of the most meaningful construction work is the kind that changes how someone moves through their space every day. GP Contracting Group delivers accessibility renovations and custom outdoor recreation environments built to a standard that holds up, whether it's a code-compliant accessibility upgrade for a commercial franchise in Vancouver or a custom sport court for a family in Langley.",
+      "These are projects where the details matter as much as the construction itself. An accessibility renovation has to meet code, function reliably, and feel considered rather than clinical. An outdoor sport court has to be built on properly graded ground, with the right surfacing and drainage, to perform well for years. GP Contracting Group brings the same disciplined pre-construction process and trade coordination to these projects that we bring to every build we take on.",
     ],
     processSteps: [],
-    whyGp: defaultWhyGp(),
-    faqs: defaultFaqs("accessibility and outdoor living"),
+    whyGp: {
+      heading: "Why GP Contracting Group",
+      body: "GP Contracting Group has delivered accessibility upgrades for commercial franchise operators who require code-compliant, high-quality installations across multiple locations, and custom outdoor recreation spaces for residential clients throughout Greater Vancouver. As a family-owned company, we approach both types of work with care and attention to the people who will actually use the space every day. Whether the project is a single accessibility modification or a full outdoor recreation build, we hold the same standard from start to finish.",
+    },
+    faqs: [
+      {
+        question:
+          "Do you handle both residential and commercial work under accessibility and outdoor living?",
+        answer:
+          "Yes. Our accessibility renovation work spans both residential aging-in-place modifications and commercial accessibility upgrades for franchise operators and commercial buildings. Our outdoor recreation work is primarily residential. Both are delivered to the same standard of quality and care.",
+      },
+      {
+        question:
+          "Can accessibility and outdoor living work be combined with a larger renovation project?",
+        answer:
+          "Yes, and coordinating it as part of a broader renovation is often more efficient. We can scope accessibility modifications or outdoor builds alongside other renovation work so the sequencing is right and trades aren't duplicating mobilization costs.",
+      },
+      {
+        question: "How do I get a quote for accessibility or outdoor living work?",
+        answer:
+          "Contact us to start with a consultation. We'll visit the site, assess what's involved, and put together a detailed proposal with clear numbers before any work begins.",
+      },
+      {
+        question: "Do you manage permits for accessibility renovations?",
+        answer:
+          "Yes. Accessibility renovations that affect building structure or require code compliance need permits, and we manage that process across Greater Vancouver, Vancouver Island, and the Fraser Valley.",
+      },
+    ],
     relatedSubServices: [],
     projectsHref: "/projects/residential",
     serviceType: "Accessibility & Outdoor Living",
@@ -866,9 +1128,13 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
         heading: "Accessibility Renovations",
         icon: "accessibility",
         keywords: locationKeywords("Accessibility Renovations"),
+        overviewImage: {
+          src: "/images/projects/accessibility-renovations-overview.jpeg",
+          alt: "Commercial entrance with automatic accessibility door and wheelchair-activated push buttons",
+        },
         overview: [
           "Renovations that improve mobility, safety, and independence for aging-in-place and accessibility needs.",
-          TODO_COPY,
+          "We have completed accessibility upgrades for commercial franchise locations including accessible washrooms, automatic door systems, and barrier-free layouts built to BC building code requirements. For residential clients, we bring the same precision to aging-in-place modifications, ramp installations, and bathroom conversions, treating every project as one that genuinely matters to the person it's built for. We work across North Vancouver, Surrey, Abbotsford, and throughout the Lower Mainland and Fraser Valley.",
         ],
         processSteps: bulletsToProcessSteps([
           "Aging-in-place modifications for comfort and safety",
@@ -876,16 +1142,54 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
           "Bathroom grab bars, curbless showers, and fixture adjustments",
           "Code-aware upgrades aligned with occupant requirements",
         ]),
-        faqs: defaultFaqs("accessibility renovations"),
+        faqs: [
+          {
+            question: "What kinds of accessibility renovations do you take on?",
+            answer:
+              "We handle a wide range of accessibility work including wheelchair ramps, barrier-free bathroom conversions, grab bar installation, automatic door systems, widened doorways, and aging-in-place modifications for both residential and commercial properties. If you have a specific requirement in mind, reach out and we'll let you know what's involved.",
+          },
+          {
+            question:
+              "Do your accessibility renovations meet BC building code requirements?",
+            answer:
+              "Yes. All accessibility work we carry out is designed and installed to meet the relevant BC building code requirements and, where applicable, the accessibility standards required by commercial building operators and franchise networks. We manage the permitting and inspection process as part of the project.",
+          },
+          {
+            question: "Can you match the existing finishes and materials in the space?",
+            answer:
+              "We do our best to match existing finishes so the accessibility upgrades integrate with the rest of the space rather than looking like an addition. For commercial clients with specific brand standards, we work to those specifications.",
+          },
+          {
+            question:
+              "How disruptive is an accessibility renovation to an occupied home or business?",
+            answer:
+              "It depends on the scope. Smaller modifications like grab bars and fixture adjustments can often be completed in a day or two with minimal disruption. Larger work like barrier-free bathroom conversions or ramp installations requires more time, and we'll plan the sequencing around your situation during pre-construction.",
+          },
+          {
+            question:
+              "Can you handle accessibility upgrades across multiple commercial locations?",
+            answer:
+              "Yes. We have experience delivering accessibility upgrades for commercial franchise operators across multiple sites, coordinating to consistent standards and timelines across locations.",
+          },
+        ],
       },
       {
         anchorId: "outdoor-features-sport-courts",
         heading: "Custom Outdoor Features / Sport Courts",
         icon: "sun",
         keywords: locationKeywords("Outdoor Features & Sport Courts"),
+        overviewImage: {
+          src: "/images/projects/sport-court-outdoor-living.jpeg",
+          alt: "Custom backyard basketball half-court with modular surfacing and patio pavers at sunset",
+        },
+        overviewCta: {
+          label: "Start your consultation",
+          placement: "text",
+          variant: "outline",
+        },
         overview: [
           "Custom outdoor recreation spaces — from backyard basketball courts to tailored leisure and sport environments.",
-          TODO_COPY,
+          "A sport court or custom outdoor recreation space is only as good as the groundwork underneath it. We handle site grading, drainage, surfacing, fencing, and lighting as a coordinated scope rather than separate trades working in sequence, so the finished court performs the way it should from day one and holds up through BC's wet seasons. We have built sport courts for residential clients across Greater Vancouver and Vancouver Island, and we bring the same level of care to every outdoor build regardless of size.",
         ],
         processSteps: bulletsToProcessSteps([
           "Backyard basketball courts with proper surfacing and drainage",
@@ -893,7 +1197,34 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
           "Site grading, fencing, and lighting coordination",
           "Durable materials selected for weather and heavy use",
         ]),
-        faqs: defaultFaqs("outdoor features and sport courts"),
+        faqs: [
+          {
+            question:
+              "What types of sport courts and outdoor recreation spaces do you build?",
+            answer:
+              "We build backyard basketball courts, multi-sport surfaces, and custom outdoor recreation spaces tailored to the site and the client's needs. Each project starts with a site assessment to understand grading, drainage, and space constraints before we scope the build.",
+          },
+          {
+            question: "What surfacing options are available for sport courts?",
+            answer:
+              "Surfacing depends on the intended use, budget, and site conditions. We'll walk you through the options that suit your specific court type and climate exposure during pre-construction, and recommend materials selected for durability and performance in BC's weather.",
+          },
+          {
+            question: "How important is site grading and drainage for a sport court?",
+            answer:
+              "It's the foundation the entire court depends on. Poor grading leads to standing water, surface deterioration, and uneven play. We handle grading and drainage as part of the court build, not as an afterthought, so the surface performs correctly and lasts.",
+          },
+          {
+            question: "Can you add lighting and fencing to a sport court?",
+            answer:
+              "Yes. Lighting and fencing are part of the scope we coordinate as part of the full outdoor build. We plan placement and specification during pre-construction so everything integrates cleanly with the court layout and the property.",
+          },
+          {
+            question: "How long does it take to build a backyard sport court?",
+            answer:
+              "Timeline depends on site preparation requirements, surfacing type, and any additional features like lighting or fencing. Most residential sport court builds can be completed within a few weeks once site prep is done. We give you a realistic schedule during pre-construction so you know what to expect.",
+          },
+        ],
       },
     ],
   },
@@ -1041,8 +1372,8 @@ export const servicesOverviewContent: ServicesOverviewContent = {
       href: servicePageHref("commercial"),
       icon: "building",
       image: {
-        src: "/images/projects/commercial-foundation-concrete-pump-site.png",
-        alt: "Commercial foundation construction site with concrete pump trucks and forest backdrop",
+        src: "/images/projects/commercial-interior-build-out.jpeg",
+        alt: "GP Contracting Group worker framing a commercial interior build-out with metal stud walls and exposed ceiling infrastructure",
       },
     },
     {
@@ -1052,8 +1383,8 @@ export const servicesOverviewContent: ServicesOverviewContent = {
       href: servicePageHref("specialized"),
       icon: "wrench",
       image: {
-        src: "/images/projects/site-development-crane-excavator-forest.png",
-        alt: "Construction site with crane and excavator against a forest backdrop",
+        src: "/images/projects/structural-building-envelope-hero.jpeg",
+        alt: "Structural wood framing and roof trusses inside a residential build under a clear blue sky",
       },
     },
     {
@@ -1075,6 +1406,10 @@ const tenantImprovementsPage: DeepDiveServicePage = {
   contentMode: "deepDive",
   heroIcon: "storefront",
   ...sectionHero("tenant-improvements"),
+  overviewImage: {
+    src: "/images/projects/tenant-improvements-overview.jpeg",
+    alt: "Marble Slab Creamery restaurant interior with service counter, digital menu boards, and branded finishes",
+  },
   overview: [
     "Tenant improvements transform raw or outdated commercial space into environments ready for business — on time, on budget, and aligned with landlord requirements.",
     "GP Contracting Group partners with tenants and property owners to deliver office and retail build-outs with thoughtful planning, modern finishes, and mechanical systems that support how the space will actually be used.",
@@ -1084,7 +1419,37 @@ const tenantImprovementsPage: DeepDiveServicePage = {
     "Office and retail tenant build-outs across Greater Vancouver, Vancouver Island, and the Fraser Valley.",
   serviceType: "Tenant Improvements",
   areaServed: [...SERVICE_AREA_SERVED],
-  faqs: defaultFaqs("tenant improvements"),
+  faqs: [
+    {
+      question:
+        "What's the difference between a tenant improvement and a general renovation?",
+      answer:
+        "A tenant improvement is specifically a build-out or fit-out of a leased commercial space, typically carried out within the constraints of a base building and a landlord agreement. It involves coordinating with property management, working within existing mechanical and structural systems, and meeting lease timelines that often can't move. We manage all of that as part of the process.",
+    },
+    {
+      question: "Do you work directly with landlords as well as tenants?",
+      answer:
+        "Yes. Many of our tenant improvement projects involve three-way coordination between the tenant, the property owner, and us as the contractor. We're comfortable managing that communication on both sides and making sure the work meets landlord requirements alongside the tenant's brand and operational needs.",
+    },
+    {
+      question:
+        "How do you keep a tenant improvement on schedule when the lease start date is fixed?",
+      answer:
+        "It starts with proper pre-construction planning, where we review the lease drawings, identify base building constraints early, and build a realistic schedule before any work begins. From there, one project manager is accountable for keeping trades on sequence and flagging anything that could affect the timeline before it becomes a problem.",
+    },
+    {
+      question:
+        "Can you handle the permits and landlord approvals required for a tenant improvement?",
+      answer:
+        "Yes. We manage the permitting process and coordinate with landlord representatives and municipal authorities across Greater Vancouver, Vancouver Island, and the Fraser Valley. Getting these approvals moving early is part of how we protect the construction schedule.",
+    },
+    {
+      question:
+        "How far in advance should I engage a contractor for a tenant improvement?",
+      answer:
+        "As early as possible, ideally before you finalize your lease. Getting us involved during the design and lease negotiation phase means we can flag construction constraints, give you realistic cost and timeline estimates, and make sure your lease terms reflect what the build actually requires. Starting late is the most common reason tenant improvements run over schedule.",
+    },
+  ],
   deepDive: {
     serviceName: "Tenant Improvements",
     intro:

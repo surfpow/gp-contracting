@@ -313,17 +313,12 @@ function DesktopNav() {
                     <ServiceMenuColumnList key={column.hub} column={column} />
                   ))}
                   <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href={TENANT_IMPROVEMENTS.href}
-                        className="block rounded-md px-3 py-2 text-sm font-semibold text-neutral-900 no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                      >
-                        {TENANT_IMPROVEMENTS.label}
-                      </Link>
-                    </NavigationMenuLink>
-                    <p className="mt-1 px-3 text-sm leading-snug text-muted-foreground">
+                    <ListItem
+                      title={TENANT_IMPROVEMENTS.label}
+                      href={TENANT_IMPROVEMENTS.href}
+                    >
                       {TENANT_IMPROVEMENTS.blurb}
-                    </p>
+                    </ListItem>
                   </li>
                 </ul>
               </div>

@@ -19,7 +19,12 @@ export function ServicePageLayout({ content }: ServicePageLayoutProps) {
         image={content.heroImage}
         icon={content.heroIcon}
       />
-      <ServiceOverview paragraphs={content.overview} />
+      <ServiceOverview
+        paragraphs={content.overview}
+        images={
+          content.overviewImage ? [content.overviewImage] : undefined
+        }
+      />
       <ServiceDeepDiveSection deepDive={content.deepDive} />
       <ServiceFaqSection faqs={content.faqs} background="white" />
       <ServicePageCtas content={content} />

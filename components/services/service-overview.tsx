@@ -1,10 +1,14 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import { BeforeAfterSlider } from "@/components/ui/before-after-slider";
+import { Button } from "@/components/ui/button";
+import { serviceOutlineButtonClass } from "@/components/services/service-page-ctas";
 import {
-  SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME,
   ScrollRevealContentPanel,
   ScrollRevealImagePanel,
   useScrollRevealSplitPanels,
@@ -17,9 +21,20 @@ import type {
 
 export type ServiceOverviewProps = {
   paragraphs: string[];
-  image?: ServiceImage;
+  images?: ServiceImage[];
   beforeAfterImage?: ServiceBeforeAfterImage;
+  showConsultationCta?: boolean;
 };
+
+const OVERVIEW_IMAGE_FRAME_CLASSNAME =
+  "relative aspect-[3/4] w-full min-h-[360px] shrink-0 overflow-hidden md:min-h-[520px]";
+
+const OVERVIEW_STACKED_IMAGE_FRAME_CLASSNAME =
+  "relative aspect-[3/4] w-full min-h-[240px] shrink-0 overflow-hidden md:min-h-[320px]";
+
+const OVERVIEW_IMAGE_COLUMN_CLASSNAME = "w-full shrink-0 md:w-[40%]";
+
+const OVERVIEW_TEXT_COLUMN_CLASSNAME = "w-full md:w-[55%] md:max-w-xl";
 
 function OverviewCopy({ paragraphs }: { paragraphs: string[] }) {
   return (
@@ -45,19 +60,38 @@ function OverviewCopy({ paragraphs }: { paragraphs: string[] }) {
   );
 }
 
-function OverviewImagePanel({
-  image,
-  beforeAfterImage,
+function OverviewConsultationCta() {
+  return (
+    <div className="mt-8">
+      <Button asChild variant="outline" className={serviceOutlineButtonClass}>
+        <Link
+          href="/#contact"
+          className="group inline-flex items-center justify-center gap-2.5"
+        >
+          Schedule a consultation
+          <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
+function OverviewTextColumn({
+  paragraphs,
+  showConsultationCta = true,
 }: {
-  image?: ServiceImage;
-  beforeAfterImage?: ServiceBeforeAfterImage;
+  paragraphs: string[];
+  showConsultationCta?: boolean;
 }) {
-  if (beforeAfterImage) {
-    return <BeforeAfterSlider images={beforeAfterImage} />;
-  }
+  return (
+    <div className={OVERVIEW_TEXT_COLUMN_CLASSNAME}>
+      <OverviewCopy paragraphs={paragraphs} />
+      {showConsultationCta && <OverviewConsultationCta />}
+    </div>
+  );
+}
 
-  if (!image) return null;
-
+function OverviewSingleImage({ image }: { image: ServiceImage }) {
   return (
     <Image
       src={image.src}
@@ -69,12 +103,55 @@ function OverviewImagePanel({
   );
 }
 
+function OverviewStackedImages({ images }: { images: ServiceImage[] }) {
+  return (
+    <div className="flex flex-col gap-6">
+      {images.map((image) => (
+        <div key={image.src} className={OVERVIEW_STACKED_IMAGE_FRAME_CLASSNAME}>
+          <OverviewSingleImage image={image} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function OverviewImagePanel({
+  images,
+  beforeAfterImage,
+}: {
+  images?: ServiceImage[];
+  beforeAfterImage?: ServiceBeforeAfterImage;
+}) {
+  if (beforeAfterImage) {
+    return <BeforeAfterSlider images={beforeAfterImage} />;
+  }
+
+  if (!images?.length) return null;
+
+  if (images.length === 1) {
+    return <OverviewSingleImage image={images[0]} />;
+  }
+
+  return <OverviewStackedImages images={images} />;
+}
+
+function OverviewImageColumn({ children }: { children: ReactNode }) {
+  return (
+    <div className={OVERVIEW_IMAGE_COLUMN_CLASSNAME}>
+      <div className={OVERVIEW_IMAGE_FRAME_CLASSNAME}>{children}</div>
+    </div>
+  );
+}
+
 export function ServiceOverview({
   paragraphs,
-  image,
+  images,
   beforeAfterImage,
+  showConsultationCta = true,
 }: ServiceOverviewProps) {
-  const hasVisual = Boolean(image || beforeAfterImage);
+  const hasVisual = Boolean(
+    beforeAfterImage || (images && images.length > 0),
+  );
 
   if (!hasVisual) {
     return (
@@ -90,33 +167,43 @@ export function ServiceOverview({
     return (
       <section className="bg-neutral-50 px-4 py-20 md:px-8 md:py-28 lg:py-32">
         <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center gap-10 md:flex-row-reverse md:items-start md:gap-24">
-          <div className="w-full md:w-[55%] md:max-w-xl">
-            <OverviewCopy paragraphs={paragraphs} />
-          </div>
-
-          <div className={SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME}>
-            <OverviewImagePanel beforeAfterImage={beforeAfterImage} />
-          </div>
+          <OverviewTextColumn
+            paragraphs={paragraphs}
+            showConsultationCta={showConsultationCta}
+          />
+          <OverviewImageColumn>
+            <OverviewImagePanel
+              beforeAfterImage={beforeAfterImage}
+              images={images}
+            />
+          </OverviewImageColumn>
         </div>
       </section>
     );
   }
 
   return (
-    <OverviewWithScrollReveal paragraphs={paragraphs} image={image} />
+    <OverviewWithScrollReveal
+      paragraphs={paragraphs}
+      images={images}
+      showConsultationCta={showConsultationCta}
+    />
   );
 }
 
 function OverviewWithScrollReveal({
   paragraphs,
-  image,
+  images,
+  showConsultationCta = true,
 }: {
   paragraphs: string[];
-  image?: ServiceImage;
+  images?: ServiceImage[];
+  showConsultationCta?: boolean;
 }) {
   const ref = useScrollRevealSplitRef();
   const { shouldReduceMotion, opacity, clipPath, translateY } =
     useScrollRevealSplitPanels(ref);
+  const isStacked = (images?.length ?? 0) > 1;
 
   return (
     <section className="bg-neutral-50 px-4 py-20 md:px-8 md:py-28 lg:py-32">
@@ -127,19 +214,22 @@ function OverviewWithScrollReveal({
         <ScrollRevealContentPanel
           shouldReduceMotion={shouldReduceMotion}
           translateY={translateY}
-          className="w-full md:w-[55%] md:max-w-xl"
+          className={OVERVIEW_TEXT_COLUMN_CLASSNAME}
         >
           <OverviewCopy paragraphs={paragraphs} />
+          {showConsultationCta && <OverviewConsultationCta />}
         </ScrollRevealContentPanel>
 
-        <ScrollRevealImagePanel
-          shouldReduceMotion={shouldReduceMotion}
-          opacity={opacity}
-          clipPath={clipPath}
-          className={SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME}
-        >
-          <OverviewImagePanel image={image} />
-        </ScrollRevealImagePanel>
+        <div className={OVERVIEW_IMAGE_COLUMN_CLASSNAME}>
+          <ScrollRevealImagePanel
+            shouldReduceMotion={shouldReduceMotion}
+            opacity={opacity}
+            clipPath={clipPath}
+            className={isStacked ? "w-full" : OVERVIEW_IMAGE_FRAME_CLASSNAME}
+          >
+            <OverviewImagePanel images={images} />
+          </ScrollRevealImagePanel>
+        </div>
       </div>
     </section>
   );

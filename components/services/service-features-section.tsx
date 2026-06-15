@@ -1,5 +1,7 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
-import type { ServiceProcessStep } from "@/lib/services-content";
+import type { ServiceImage, ServiceProcessStep } from "@/lib/services-content";
 
 function autoNumber(index: number) {
   return String(index + 1).padStart(2, "0");
@@ -64,12 +66,14 @@ export type ServiceFeaturesSectionProps = {
   steps: ServiceProcessStep[];
   eyebrow?: string;
   heading?: string;
+  image?: ServiceImage;
 };
 
 export function ServiceFeaturesSection({
   steps,
   eyebrow = "Scope of Work",
   heading = "What's Included",
+  image,
 }: ServiceFeaturesSectionProps) {
   if (steps.length === 0) {
     return null;
@@ -88,6 +92,18 @@ export function ServiceFeaturesSection({
         </div>
 
         <ServiceFeatureSteps steps={steps} className="mt-14 md:mt-16" />
+
+        {image && (
+          <div className="relative mt-14 aspect-[3/4] w-full overflow-hidden md:mt-16 md:aspect-[16/10]">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 1152px"
+              className="object-cover"
+            />
+          </div>
+        )}
       </div>
     </section>
   );
