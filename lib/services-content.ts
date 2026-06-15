@@ -617,8 +617,8 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
     heroSubheading:
       "Roofing systems and custom steel framing — engineered, installed, and managed with technical precision.",
     heroImage: {
-      src: "/images/projects/residential-luxury-hillside-construction.png",
-      alt: "Luxury hillside home under construction with roof structure in progress",
+      src: "/images/projects/structural-building-envelope-hero.jpeg",
+      alt: "Roof trusses and structural framing under construction with suburban neighborhood in background",
     },
     heroIcon: "layers",
     linkingCardImage: {
@@ -626,12 +626,38 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
       alt: "Luxury hillside home under construction with roof structure in progress",
     },
     overview: [
-      "GP Contracting Group delivers structural and building envelope work — from roofing systems to custom steel framing — with engineered approvals and disciplined installation.",
-      TODO_COPY,
+      "The building envelope is what stands between your structure and the elements. GP Contracting Group delivers roofing systems and structural steel framing with engineered approvals, disciplined installation, and a standard of workmanship that holds up over time, whether we're protecting a residential roof in North Vancouver or erecting a structural steel frame for a commercial build in Surrey.",
+      "These are technically demanding services that require proper sequencing, the right materials for site conditions, and installation that meets or exceeds BC building code. We manage the full scope from pre-construction planning through to inspections and sign-off, with one accountable project manager coordinating every stage. When the work is structural or envelope-grade, there is no room for shortcuts, and we don't take any.",
     ],
     processSteps: [],
-    whyGp: defaultWhyGp(),
-    faqs: defaultFaqs("structural and building envelope services"),
+    whyGp: {
+      heading: "Why GP Contracting Group",
+      body: "Structural and building envelope work requires a contractor who understands the engineering side as much as the installation side. GP Contracting Group brings both. Our roofing and structural steel framing work is carried out to engineered specifications, with proper approvals in place before installation begins and quality assurance checks throughout. As a family-owned company that has delivered this work across residential and commercial projects throughout Greater Vancouver, Vancouver Island, and the Fraser Valley, we hold ourselves to a standard that protects your structure for the long term.",
+    },
+    faqs: [
+      {
+        question:
+          "Do you take on both residential and commercial work under structural and building envelope services?",
+        answer:
+          "Yes. Our roofing work spans both residential and commercial buildings. Our structural steel framing work is primarily commercial and mixed-use. Both services are delivered to the same engineered, code-compliant standard regardless of project type.",
+      },
+      {
+        question:
+          "How do roofing and structural steel framing fit together as a combined service?",
+        answer:
+          "Both are envelope and structure-grade services that require engineered specifications, proper approvals, and disciplined installation, which is why they sit together. Whether we're protecting a building from the outside in with a roofing system or building the structural frame from the ground up, the underlying standard is the same.",
+      },
+      {
+        question: "How do I get a quote for structural or building envelope work?",
+        answer:
+          "Contact us to start with a consultation. We'll review the scope, the site, and any existing drawings or engineering, then put together a detailed proposal with honest numbers before any work begins.",
+      },
+      {
+        question: "Do you manage permits and inspections for these services?",
+        answer:
+          "Yes. We manage the permitting process and coordinate inspections with the relevant authorities across Greater Vancouver, Vancouver Island, and the Fraser Valley.",
+      },
+    ],
     relatedSubServices: [],
     projectsHref: "/projects/residential",
     serviceType: "Structural & Building Envelope",
@@ -648,7 +674,7 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
         keywords: locationKeywords("Roofing"),
         overview: [
           "Roofing systems installed for long-term weather protection, proper drainage, and peace of mind.",
-          TODO_COPY,
+          "Whether it's a low-slope membrane system on a commercial building or a pitched roof on a custom home, we select materials suited to the specific site conditions, climate exposure, and performance requirements of each project. Every installation includes proper flashing, drainage planning, and transition details, because that's where roofs fail when the work isn't done right. We work across both residential and commercial roofing in Richmond, Burnaby, Coquitlam, and throughout the Lower Mainland and Fraser Valley.",
         ],
         processSteps: bulletsToProcessSteps([
           "Quality materials selected for site conditions and lifespan",
@@ -656,7 +682,34 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
           "Proper drainage, flashing, and detail work at transitions",
           "Extended warranty options on qualifying installations",
         ]),
-        faqs: defaultFaqs("roofing"),
+        faqs: [
+          {
+            question: "Do you handle both residential and commercial roofing?",
+            answer:
+              "Yes. We work across both, from pitched residential roofs to low-slope commercial membrane systems. The materials and installation methods differ, but the standard we hold ourselves to doesn't.",
+          },
+          {
+            question: "What roofing systems do you install?",
+            answer:
+              "We work with a range of systems selected based on the building type, slope, climate exposure, and budget. For residential projects this typically includes asphalt shingle, metal, and torch-on systems. For commercial, flat and low-slope membrane systems including TPO and modified bitumen. We'll recommend what's right for your specific situation during pre-construction.",
+          },
+          {
+            question: "How do you handle flashing and waterproofing details?",
+            answer:
+              "Carefully. The majority of roofing failures trace back to poor flashing and transition details, not the membrane itself. We treat every penetration, edge, and transition as a critical point in the installation and don't cut corners on waterproofing practices.",
+          },
+          {
+            question: "Do you offer warranties on your roofing work?",
+            answer:
+              "Yes. Extended warranty options are available on qualifying installations depending on the system and manufacturer. We'll walk you through what's available and what it covers during the pre-construction phase.",
+          },
+          {
+            question:
+              "How do I know when my roof needs replacing versus repairing?",
+            answer:
+              "We can assess that during an initial consultation. In some cases a targeted repair extends the roof's lifespan significantly. In others, the underlying condition of the substrate or membrane means a full replacement is the more cost-effective long-term solution. We give you an honest picture either way.",
+          },
+        ],
       },
       {
         anchorId: "steel-framing",
@@ -665,7 +718,7 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
         keywords: locationKeywords("Steel Framing"),
         overview: [
           "Custom steel framing fabricated and installed to engineered specifications with seismic compliance in mind.",
-          TODO_COPY,
+          "Structural steel framing requires precision at every connection point. We work from engineer-approved drawings, coordinate seismic compliance requirements with the structural engineering team, and carry out quality assurance inspections throughout the erection process. This isn't finish work, it's the skeleton the rest of the building depends on, and we approach it accordingly.",
         ],
         processSteps: bulletsToProcessSteps([
           "Custom fabrication for structural and architectural steel",
@@ -673,7 +726,38 @@ const specializedCombinedPages: CombinedSubServicePage[] = [
           "Engineer-approved connections and installation methods",
           "Quality assurance inspections throughout erection",
         ]),
-        faqs: defaultFaqs("steel framing"),
+        faqs: [
+          {
+            question:
+              "What kinds of structural steel framing projects do you take on?",
+            answer:
+              "We handle structural steel framing for commercial buildings, mixed-use developments, and larger residential projects where steel is specified as the primary structural system. If your project has engineer-stamped drawings calling for structural steel, we can work from that documentation and manage the installation through to inspection sign-off.",
+          },
+          {
+            question:
+              "How do you ensure seismic compliance on structural steel projects?",
+            answer:
+              "Seismic compliance is built into our process from the start. We work from engineer-approved connection details, coordinate with the structural engineer of record throughout installation, and carry out inspections at key milestones to confirm the work meets the approved drawings before proceeding to the next stage.",
+          },
+          {
+            question:
+              "Do you work with the structural engineer directly or do we need to coordinate that ourselves?",
+            answer:
+              "We work directly with the structural engineer of record throughout the project. You don't need to manage that coordination yourself. If you don't yet have an engineer retained, we can advise on that during pre-construction.",
+          },
+          {
+            question:
+              "What does the quality assurance process look like on a steel framing project?",
+            answer:
+              "We carry out inspections at defined stages throughout the erection process, not just at the end. Connection details, anchor bolts, and critical structural elements are verified against the engineer-approved drawings as the work progresses, so issues are caught and resolved before they become expensive problems.",
+          },
+          {
+            question:
+              "How early should I bring GP Contracting Group into a structural steel project?",
+            answer:
+              "As early as possible. Getting us involved during pre-construction means we can review the drawings, flag any constructability concerns, confirm material lead times, and build a realistic schedule before work begins. Structural steel projects that run into problems mid-erection are almost always the result of insufficient pre-construction planning.",
+          },
+        ],
       },
     ],
   },
