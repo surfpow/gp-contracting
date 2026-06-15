@@ -10,6 +10,7 @@ import {
   PROJECTS_HREF,
   SEE_RECENT_PROJECTS,
 } from "@/lib/projects"
+import { CONTACT_HREF } from "@/lib/contact"
 import {
   serviceHubLabels,
   servicePageHref,
@@ -80,6 +81,15 @@ const TENANT_IMPROVEMENTS = {
 
 const featuredProjects = [SEE_RECENT_PROJECTS] as const
 
+const mobileNavLinkClass =
+  "flex min-h-11 w-full items-center px-5 py-3 text-[15px] font-medium text-neutral-900 transition-colors hover:bg-neutral-50 active:bg-neutral-100"
+
+const mobileSubLinkClass =
+  "flex min-h-10 w-full items-center border-l-2 border-transparent py-2 pl-8 pr-5 text-sm text-neutral-600 transition-colors hover:border-brand-navy/25 hover:bg-neutral-50 hover:text-neutral-900"
+
+const mobileSectionLabelClass =
+  "px-5 pt-5 pb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400 first:pt-4"
+
 function MobileServiceHub({
   column,
   onNavigate,
@@ -88,51 +98,47 @@ function MobileServiceHub({
   onNavigate: () => void
 }) {
   const [open, setOpen] = React.useState(false)
+  const panelId = `mobile-service-${column.hub}`
 
   return (
-    <div className="border-b border-border/40 last:border-b-0">
-      <div className="flex items-center">
-        <Link
-          href={column.href}
-          onClick={onNavigate}
-          className="flex-1 px-10 py-3 text-sm font-medium text-neutral-700 hover:bg-muted"
-        >
-          {column.label}
-        </Link>
-        <button
-          type="button"
-          onClick={() => setOpen((prev) => !prev)}
-          aria-expanded={open}
-          aria-label={
-            open
-              ? `Collapse ${column.label} services`
-              : `Expand ${column.label} services`
-          }
-          className="flex h-10 w-12 items-center justify-center text-neutral-500 hover:text-neutral-900"
-        >
-          <ChevronDown
-            className={cn(
-              "h-4 w-4 motion-safe:transition-transform motion-safe:duration-200",
-              open && "rotate-180"
-            )}
-            aria-hidden="true"
-          />
-        </button>
-      </div>
+    <div className="border-t border-neutral-100">
+      <button
+        type="button"
+        id={`${panelId}-trigger`}
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex min-h-11 w-full items-center justify-between px-5 py-3 text-left text-[15px] font-medium text-neutral-900 transition-colors hover:bg-neutral-50 active:bg-neutral-100"
+      >
+        <span>{column.label}</span>
+        <ChevronDown
+          className={cn(
+            "h-4 w-4 shrink-0 text-neutral-400 motion-safe:transition-transform motion-safe:duration-200",
+            open && "rotate-180"
+          )}
+          aria-hidden="true"
+        />
+      </button>
       {open && (
-        <ul className="pb-2">
+        <div id={panelId} role="region" aria-labelledby={`${panelId}-trigger`}>
+          <Link
+            href={column.href}
+            onClick={onNavigate}
+            className={mobileSubLinkClass}
+          >
+            Overview
+          </Link>
           {column.subPages.map((subPage) => (
-            <li key={subPage.href}>
-              <Link
-                href={subPage.href}
-                onClick={onNavigate}
-                className="block px-14 py-2.5 text-sm text-neutral-500 hover:bg-muted hover:text-neutral-900"
-              >
-                {subPage.label}
-              </Link>
-            </li>
+            <Link
+              key={subPage.href}
+              href={subPage.href}
+              onClick={onNavigate}
+              className={mobileSubLinkClass}
+            >
+              {subPage.label}
+            </Link>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   )
@@ -142,6 +148,13 @@ function MobileNav() {
   const [open, setOpen] = React.useState(false)
 
   const close = () => setOpen(false)
+
+  React.useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [open])
 
   return (
     <div className="md:hidden">
@@ -156,15 +169,22 @@ function MobileNav() {
       </button>
 
       {open && (
-        <div className="fixed inset-x-0 top-[4.75rem] z-40 max-h-[calc(100vh-4.75rem)] overflow-y-auto border-t border-border bg-white/95 backdrop-blur-lg shadow-lg">
-          <nav className="flex flex-col">
-            <div className="border-b border-border/60">
+        <>
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={close}
+            className="fixed inset-0 top-[4.75rem] z-30 bg-neutral-900/20 backdrop-blur-[1px]"
+          />
+          <div className="fixed inset-x-0 top-[4.75rem] z-40 max-h-[calc(100dvh-4.75rem)] overflow-y-auto border-t border-neutral-200 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.12)]">
+            <nav className="pb-6">
+              <p className={mobileSectionLabelClass}>Services</p>
               <Link
                 href={SERVICES_OVERVIEW_HREF}
                 onClick={close}
-                className="block px-6 py-4 text-base font-semibold text-neutral-900 hover:bg-muted"
+                className={mobileNavLinkClass}
               >
-                Services
+                All Services
               </Link>
               {serviceMenuColumns.map((column) => (
                 <MobileServiceHub
@@ -176,50 +196,24 @@ function MobileNav() {
               <Link
                 href={TENANT_IMPROVEMENTS.href}
                 onClick={close}
-                className="block px-10 py-3 text-sm font-medium text-neutral-700 hover:bg-muted"
+                className={cn(mobileNavLinkClass, "border-t border-neutral-100")}
               >
                 {TENANT_IMPROVEMENTS.label}
               </Link>
-            </div>
 
-            <div className="border-b border-border/60">
-              <Link
-                href={PROJECTS_HREF}
-                onClick={close}
-                className="block px-6 py-4 text-base font-semibold text-neutral-900 hover:bg-muted"
-              >
+              <p className={mobileSectionLabelClass}>Company</p>
+              <Link href={PROJECTS_HREF} onClick={close} className={mobileNavLinkClass}>
                 {OUR_WORK_NAV_LABEL}
               </Link>
-              <Link
-                href={SEE_RECENT_PROJECTS.href}
-                onClick={close}
-                className="block px-10 py-3 text-sm text-neutral-600 hover:bg-muted"
-              >
-                <span className="block font-medium text-neutral-800">
-                  {SEE_RECENT_PROJECTS.label}
-                </span>
-                <span className="mt-1 block text-neutral-500">
-                  {SEE_RECENT_PROJECTS.description}
-                </span>
+              <Link href="/about" onClick={close} className={mobileNavLinkClass}>
+                About
               </Link>
-            </div>
-
-            <Link
-              href="/about"
-              onClick={close}
-              className="border-b border-border/60 px-6 py-4 text-base font-semibold text-neutral-900 hover:bg-muted"
-            >
-              About
-            </Link>
-            <Link
-              href="#contact"
-              onClick={close}
-              className="px-6 py-4 text-base font-semibold text-neutral-900 hover:bg-muted"
-            >
-              Contact
-            </Link>
-          </nav>
-        </div>
+              <Link href={CONTACT_HREF} onClick={close} className={mobileNavLinkClass}>
+                Contact
+              </Link>
+            </nav>
+          </div>
+        </>
       )}
     </div>
   )

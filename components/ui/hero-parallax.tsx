@@ -118,7 +118,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="h-[350vh] py-40 overflow-x-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="relative flex flex-col self-auto overflow-x-hidden pt-28 pb-4 antialiased [perspective:1000px] [transform-style:preserve-3d] md:h-[350vh] md:py-40"
     >
       <Header />
       <motion.div
@@ -128,9 +128,9 @@ export const HeroParallax = ({
           translateY,
           opacity,
         }}
-        className=""
+        className="hidden md:block"
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+        <motion.div className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -139,7 +139,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="mb-20 hidden flex-row space-x-20 md:flex">
+        <motion.div className="mb-20 flex flex-row space-x-20">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -148,16 +148,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="mb-20 flex flex-row space-x-20 md:hidden">
-          {mobileSecondRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateXReverse}
-              key={`mobile-${product.title}`}
-            />
-          ))}
-        </motion.div>
-        <motion.div className="hidden flex-row-reverse space-x-20 space-x-reverse md:flex">
+        <motion.div className="flex flex-row-reverse space-x-20 space-x-reverse">
           {thirdRow.map((product) => (
             <ProductCard
               product={product}
@@ -166,12 +157,35 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row-reverse space-x-20 space-x-reverse md:hidden">
+      </motion.div>
+      <motion.div className="md:hidden">
+        <motion.div className="mb-8 flex flex-row-reverse space-x-12 space-x-reverse">
+          {firstRow.map((product) => (
+            <ProductCard
+              product={product}
+              translate={translateX}
+              key={`mobile-first-${product.title}`}
+              compact
+            />
+          ))}
+        </motion.div>
+        <motion.div className="mb-8 flex flex-row space-x-12 md:hidden">
+          {mobileSecondRow.map((product) => (
+            <ProductCard
+              product={product}
+              translate={translateXReverse}
+              key={`mobile-second-${product.title}`}
+              compact
+            />
+          ))}
+        </motion.div>
+        <motion.div className="flex flex-row-reverse space-x-12 space-x-reverse md:hidden">
           {mobileThirdRow.map((product) => (
             <ProductCard
               product={product}
               translate={translateX}
-              key={`mobile-${product.title}`}
+              key={`mobile-third-${product.title}`}
+              compact
             />
           ))}
         </motion.div>
@@ -182,11 +196,11 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="relative top-0 left-0 mx-auto w-full max-w-7xl px-4 py-20 text-center md:py-40 md:text-left">
+    <div className="relative top-0 left-0 mx-auto w-full max-w-7xl px-4 py-8 text-center md:py-40 md:text-left">
       <h1 className="text-2xl font-bold md:text-7xl dark:text-white">
         Building Excellence, <br /> Rooted in Family Values.
       </h1>
-      <p className="mx-auto mt-8 max-w-2xl text-base md:mx-0 md:text-xl dark:text-neutral-200">
+      <p className="mx-auto mt-4 max-w-2xl text-base md:mx-0 md:mt-8 md:text-xl dark:text-neutral-200">
         From custom homes to commercial spaces, GP Contracting Group delivers
         precision, craftsmanship, and integrity across every project in
         Greater Vancouver. Built on a family legacy of doing what is right.
@@ -198,9 +212,11 @@ export const Header = () => {
 export const ProductCard = ({
   product,
   translate,
+  compact = false,
 }: {
   product: ParallaxProduct;
   translate: MotionValue<number>;
+  compact?: boolean;
 }) => {
   return (
     <motion.div
@@ -211,7 +227,9 @@ export const ProductCard = ({
         y: -20,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0"
+      className={`group/product relative flex-shrink-0 ${
+        compact ? "h-56 w-[16rem]" : "h-96 w-[30rem]"
+      }`}
     >
       <Link
         href={product.link}
