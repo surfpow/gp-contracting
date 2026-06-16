@@ -15,7 +15,7 @@ export function SiteHeader() {
           alt="GP Contracting Group"
           width={140}
           height={36}
-          className="h-auto w-[180px] md:w-[140px]"
+          className="h-11 w-auto md:h-auto md:w-[140px]"
           priority
         />
       </Link>
