@@ -145,7 +145,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="relative flex flex-col self-auto overflow-x-hidden pt-24 antialiased [perspective:1000px] [transform-style:preserve-3d] max-md:h-[260vh] max-md:pb-12 md:h-[350vh] md:py-40"
+      className="relative flex flex-col self-auto overflow-x-hidden antialiased [perspective:1000px] [transform-style:preserve-3d] max-md:pt-60 max-md:pb-12 md:h-[350vh] md:py-40"
     >
       <Header />
       <motion.div
@@ -208,7 +208,7 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="relative top-0 left-0 mx-auto w-full max-w-7xl px-4 pb-4 pt-8 text-center md:py-40 md:pb-0 md:text-left">
+    <div className="relative top-0 left-0 mx-auto w-full max-w-7xl px-4 pb-4 text-center max-md:pt-10 md:py-40 md:pb-0 md:text-left">
       <h1 className="text-2xl font-bold md:text-7xl dark:text-white">
         Building Excellence, <br /> Rooted in Family Values.
       </h1>
