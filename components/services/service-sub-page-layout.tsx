@@ -21,6 +21,7 @@ export type ServiceSubPageLayoutProps = {
 export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
   const isCombined = isCombinedSubServicePage(content);
   const hubLabel = serviceHubLabels[content.parentHub];
+  const presentation = content.presentation;
 
   // Specialized sub-pages are quote-only (no projects CTA), per hub policy.
   const projectsHref =
@@ -64,19 +65,25 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
       <ServiceFeaturesSection
         steps={content.processSteps}
         image={content.featuresSectionImage}
+        variant={presentation?.featuresVariant}
       />
-      <ServiceWhyGpSection whyGp={content.whyGp} />
+      <ServiceWhyGpSection
+        whyGp={content.whyGp}
+        backgroundImage={presentation?.whyGpBackgroundImage}
+      />
       {isCombined && (
         <ServiceBundledSections sections={content.bundledSections} />
       )}
       <ServiceFaqSection
         faqs={content.faqs}
         heading={isCombined ? "General Questions" : "Frequently Asked Questions"}
+        variant={presentation?.faqVariant}
       />
       <ServiceRelatedLinks
         parentHub={content.parentHub}
         related={content.relatedSubServices}
         projectsHref={projectsHref}
+        variant={presentation?.relatedVariant}
       />
       <ServicePageCtas
         content={{
