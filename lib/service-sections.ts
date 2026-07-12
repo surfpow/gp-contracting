@@ -5,34 +5,46 @@ import {
 
 export type ServiceSlug = "residential" | "commercial" | "tenant-improvements";
 
-export type ServicePageSlug = ServiceSlug | "specialized";
+export type ServicePageSlug = ServiceSlug | ServiceHubSlug;
 
-export type ServiceHubSlug = "residential" | "commercial" | "specialized";
+export type ServiceHubSlug =
+  | "residential"
+  | "commercial"
+  | "specialized"
+  | "insurance-restoration";
 
 export type ResidentialSubPageSlug =
   | "custom-home-construction"
   | "home-renovations"
   | "multi-family-development";
 
-export type CommercialSubPageSlug =
-  | "commercial-construction"
-  | "restaurant-bar-construction";
+export type CommercialSubPageSlug = "restaurant-bar-construction";
 
 export type SpecializedSubPageSlug =
   | "structural-building-envelope"
   | "building-systems-upgrades"
   | "accessibility-outdoor-living";
 
+/** Spoke pages under /services/insurance-restoration/{slug} — add entries as built. */
+export type InsuranceRestorationSubPageSlug =
+  | "fire-damage-rebuilds"
+  | "water-flood-damage"
+  | "cash-settlement-vs-restoration"
+  | "upgrades-during-insurance-claim"
+  | "strategic-upgrades";
+
 export type ServiceSubPageSlugByHub = {
   residential: ResidentialSubPageSlug;
   commercial: CommercialSubPageSlug;
   specialized: SpecializedSubPageSlug;
+  "insurance-restoration": InsuranceRestorationSubPageSlug;
 };
 
 export type ServiceSubPageSlug =
   | ResidentialSubPageSlug
   | CommercialSubPageSlug
-  | SpecializedSubPageSlug;
+  | SpecializedSubPageSlug
+  | InsuranceRestorationSubPageSlug;
 
 export type SubServicePath = {
   [H in ServiceHubSlug]: {
@@ -60,7 +72,7 @@ export function serviceSectionAnchor(slug: ServiceSlug) {
 }
 
 export function getServiceSection(slug: ServiceSlug) {
-  const section = serviceSections.find((entry) => entry.slug === slug);
+  const section = serviceSectionCatalog[slug];
   if (!section) {
     throw new Error(`Unknown service slug: ${slug}`);
   }
@@ -82,49 +94,80 @@ export const serviceSubPages: SubServicePath[] = [
   { parentHub: "residential", slug: "custom-home-construction" },
   { parentHub: "residential", slug: "home-renovations" },
   { parentHub: "residential", slug: "multi-family-development" },
-  { parentHub: "commercial", slug: "commercial-construction" },
   { parentHub: "commercial", slug: "restaurant-bar-construction" },
   { parentHub: "specialized", slug: "structural-building-envelope" },
   { parentHub: "specialized", slug: "building-systems-upgrades" },
   { parentHub: "specialized", slug: "accessibility-outdoor-living" },
+  { parentHub: "insurance-restoration", slug: "fire-damage-rebuilds" },
+  { parentHub: "insurance-restoration", slug: "water-flood-damage" },
+  {
+    parentHub: "insurance-restoration",
+    slug: "cash-settlement-vs-restoration",
+  },
+  {
+    parentHub: "insurance-restoration",
+    slug: "upgrades-during-insurance-claim",
+  },
+  {
+    parentHub: "insurance-restoration",
+    slug: "strategic-upgrades",
+  },
 ];
+
+/**
+ * @deprecated Prefer `serviceSubPages`. Kept as an alias for insurance spokes
+ * that were registered before they appeared in the main sub-page catalog.
+ */
+export const insuranceRestorationSubPages: {
+  parentHub: "insurance-restoration";
+  slug: InsuranceRestorationSubPageSlug;
+}[] = serviceSubPages.filter(
+  (page): page is {
+    parentHub: "insurance-restoration";
+    slug: InsuranceRestorationSubPageSlug;
+  } => page.parentHub === "insurance-restoration",
+);
 
 export const serviceHubLabels: Record<ServiceHubSlug, string> = {
   residential: "Residential",
   commercial: "Commercial",
   specialized: "Specialized",
+  "insurance-restoration": "Insurance Restoration",
 };
 
 export const serviceSubPageLabels: Record<ServiceSubPageSlug, string> = {
   "custom-home-construction": "Custom Home Construction",
   "home-renovations": "Home Renovations",
   "multi-family-development": "Multi-Family Development",
-  "commercial-construction": "Commercial Construction",
   "restaurant-bar-construction": "Restaurant & Bar Construction",
   "structural-building-envelope": "Structural & Building Envelope",
   "building-systems-upgrades": "Building Systems Upgrades",
   "accessibility-outdoor-living": "Accessibility & Outdoor Living",
+  "fire-damage-rebuilds": "Fire Damage Rebuilds",
+  "water-flood-damage": "Water & Flood Damage",
+  "cash-settlement-vs-restoration": "Cash Settlement vs. Restoration",
+  "upgrades-during-insurance-claim": "Upgrades During an Insurance Claim",
+  "strategic-upgrades": "Strategic Upgrades During Restoration",
 };
 
 export function getAllServiceRoutePaths(): string[] {
-  const hubPaths: ServicePageSlug[] = [
-    "residential",
-    "commercial",
-    "specialized",
+  const topLevelServicePaths: ServicePageSlug[] = [
+    ...(["residential", "commercial", "specialized", "insurance-restoration"] as const),
     "tenant-improvements",
   ];
 
   return [
     "/services",
-    ...hubPaths.map((slug) => servicePageHref(slug)),
+    ...topLevelServicePaths.map((slug) => servicePageHref(slug)),
     ...serviceSubPages.map(({ parentHub, slug }) =>
       serviceSubPageHref(parentHub, slug),
     ),
   ];
 }
 
-export const serviceSections: ServiceSection[] = [
-  {
+/** Full catalog used by service page heroes via `getServiceSection`. */
+const serviceSectionCatalog: Record<ServiceSlug, ServiceSection> = {
+  residential: {
     id: 1,
     slug: "residential",
     title: "Residential",
@@ -139,7 +182,7 @@ export const serviceSections: ServiceSection[] = [
     secondaryCtaLabel: SEE_RECENT_PROJECTS.label,
     reverse: false,
   },
-  {
+  commercial: {
     id: 2,
     slug: "commercial",
     title: "Commercial",
@@ -154,12 +197,12 @@ export const serviceSections: ServiceSection[] = [
     secondaryCtaLabel: SEE_RECENT_PROJECTS.label,
     reverse: true,
   },
-  {
+  "tenant-improvements": {
     id: 3,
     slug: "tenant-improvements",
     title: "Tenant Improvements",
     description:
-      "Full build-outs and fit-outs for restaurants, fitness facilities, retail spaces, and more. We work closely with landlords and tenants to deliver spaces that are ready for business — on time and on budget.",
+      "Commercial tenant improvements and interior build-outs for offices, retail, and mixed-use spaces — coordinated with landlords, delivered on schedule, and built for daily operations.",
     imageUrl: "/images/projects/tenant-improvement-marble-slab-bay-centre.png",
     imageAlt:
       "Marble Slab Creamery tenant improvement storefront at The Bay Centre",
@@ -168,5 +211,24 @@ export const serviceSections: ServiceSection[] = [
     primaryCtaLabel: "Explore Tenant Improvement Services",
     secondaryCtaLabel: SEE_RECENT_PROJECTS.label,
     reverse: false,
+  },
+};
+
+/** Homepage "What We Build" rows — commercial and TI are shown as one. */
+export const serviceSections: ServiceSection[] = [
+  serviceSectionCatalog.residential,
+  {
+    id: 2,
+    slug: "tenant-improvements",
+    title: "Commercial & Tenant Improvements",
+    description:
+      "Commercial tenant improvements and interior build-outs for offices, retail, and mixed-use spaces — coordinated with landlords, delivered on schedule, and built for daily operations.",
+    imageUrl: serviceSectionCatalog["tenant-improvements"].imageUrl,
+    imageAlt: serviceSectionCatalog["tenant-improvements"].imageAlt,
+    servicesHref: "/services/tenant-improvements",
+    projectsHref: PROJECTS_HREF,
+    primaryCtaLabel: "Explore Commercial Services",
+    secondaryCtaLabel: SEE_RECENT_PROJECTS.label,
+    reverse: true,
   },
 ];

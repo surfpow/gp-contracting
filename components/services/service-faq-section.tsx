@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   Accordion,
   AccordionContent,
@@ -31,9 +33,21 @@ export function ServiceFaqList({ faqs, className }: ServiceFaqListProps) {
         <AccordionItem key={faq.question} value={faq.question}>
           <AccordionTrigger>{faq.question}</AccordionTrigger>
           <AccordionContent>
-            <p className="max-w-2xl text-base leading-relaxed text-neutral-600 md:leading-7">
-              {faq.answer}
-            </p>
+            <div className="max-w-2xl space-y-3">
+              <p className="text-base leading-relaxed text-neutral-600 md:leading-7">
+                {faq.answer}
+              </p>
+              {faq.relatedLink ? (
+                <p>
+                  <Link
+                    href={faq.relatedLink.href}
+                    className="font-medium text-brand-navy underline underline-offset-4 decoration-brand-navy/30 transition-colors duration-150 [transition-timing-function:var(--ease-out)] hover:decoration-brand-navy"
+                  >
+                    {faq.relatedLink.label}
+                  </Link>
+                </p>
+              ) : null}
+            </div>
           </AccordionContent>
         </AccordionItem>
       ))}

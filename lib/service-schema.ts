@@ -2,10 +2,17 @@ import type { Metadata } from "next";
 
 import {
   isCombinedSubServicePage,
+  type CashSettlementGuidePage,
   type DeepDiveServicePage,
+  type FireDamageRebuildsServicePage,
+  type InsuranceRestorationServicePage,
   type ServiceFaq,
+  type StrategicUpgradesGuidePage,
   type SubServicePageContent,
+  type UpgradesDuringClaimGuidePage,
+  type WaterFloodDamageServicePage,
 } from "@/lib/services-content";
+import { GP_OFFICE_ADDRESS } from "@/lib/business-location";
 
 /**
  * Canonical production origin. JSON-LD `url`/`@id` values and the sitemap both
@@ -93,14 +100,83 @@ export function buildFaqPageSchema(faqs: ServiceFaq[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
+    mainEntity: faqs.map((faq) => {
+      const related = faq.relatedLink
+        ? ` ${faq.relatedLink.label}: ${absoluteUrl(faq.relatedLink.href)}`
+        : "";
+      return {
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `${faq.answer}${related}`,
+        },
+      };
+    }),
+  };
+}
+
+/**
+ * Organization / publisher block shared by Article schema, matching the
+ * site-wide LocalBusiness address (Unit 138 - 11782 River Rd, Richmond, BC).
+ */
+function organizationPublisher() {
+  return {
+    "@type": "Organization",
+    name: BUSINESS_NAME,
+    url: SITE_URL,
+    telephone: BUSINESS_PHONE,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: GP_OFFICE_ADDRESS.line1,
+      addressLocality: "Richmond",
+      addressRegion: "BC",
+      addressCountry: "CA",
+    },
+  };
+}
+
+export type ArticleSchemaInput = {
+  headline: string;
+  description: string;
+  path: string;
+  datePublished?: string;
+  dateModified?: string;
+  image?: string;
+};
+
+/** Build a schema.org `Article` node for editorial guide pages. */
+export function buildArticleSchema(input: ArticleSchemaInput) {
+  const url = absoluteUrl(input.path);
+  const publisher = organizationPublisher();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.headline,
+    description: input.description,
+    url,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+    author: publisher,
+    publisher,
+    ...(input.datePublished ? { datePublished: input.datePublished } : {}),
+    ...(input.dateModified
+      ? { dateModified: input.dateModified }
+      : input.datePublished
+        ? { dateModified: input.datePublished }
+        : {}),
+    ...(input.image
+      ? {
+          image: [
+            input.image.startsWith("http")
+              ? input.image
+              : absoluteUrl(input.image),
+          ],
+        }
+      : {}),
   };
 }
 
@@ -119,6 +195,7 @@ export function buildLocalBusinessSchema() {
     email: "info@gpcontracting.ca",
     address: {
       "@type": "PostalAddress",
+      streetAddress: GP_OFFICE_ADDRESS.line1,
       addressLocality: "Richmond",
       addressRegion: "BC",
       addressCountry: "CA",
@@ -133,7 +210,15 @@ export function buildLocalBusinessSchema() {
  * one consolidated `FAQPage` node per page.
  */
 export function collectPageFaqs(
-  content: SubServicePageContent | DeepDiveServicePage,
+  content:
+    | SubServicePageContent
+    | DeepDiveServicePage
+    | InsuranceRestorationServicePage
+    | FireDamageRebuildsServicePage
+    | WaterFloodDamageServicePage
+    | CashSettlementGuidePage
+    | UpgradesDuringClaimGuidePage
+    | StrategicUpgradesGuidePage,
 ): ServiceFaq[] {
   if (content.contentMode === "combinedSubService") {
     return [
@@ -149,6 +234,7 @@ export function buildServiceMetadata(seo: {
   title: string;
   metaDescription: string;
   keywords?: string[];
+  ogImage?: string;
 }): Metadata {
   return {
     title: seo.title,
@@ -156,18 +242,53 @@ export function buildServiceMetadata(seo: {
     ...(seo.keywords && seo.keywords.length > 0
       ? { keywords: seo.keywords }
       : {}),
+    ...(seo.ogImage
+      ? {
+          openGraph: {
+            title: seo.title,
+            description: seo.metaDescription,
+            images: [{ url: seo.ogImage }],
+          },
+          twitter: {
+            card: "summary_large_image",
+            title: seo.title,
+            description: seo.metaDescription,
+            images: [seo.ogImage],
+          },
+        }
+      : {}),
   };
 }
 
 /**
- * Resolve the canonical site path for a sub-service / deep-dive page so its
- * Service + FAQPage JSON-LD can carry an absolute `url`.
+ * Resolve the canonical site path for a sub-service / deep-dive / insurance
+ * overview / spoke page so its Service + FAQPage JSON-LD can carry an absolute `url`.
  */
 export function servicePagePath(
-  content: SubServicePageContent | DeepDiveServicePage,
+  content:
+    | SubServicePageContent
+    | DeepDiveServicePage
+    | InsuranceRestorationServicePage
+    | FireDamageRebuildsServicePage
+    | WaterFloodDamageServicePage
+    | CashSettlementGuidePage
+    | UpgradesDuringClaimGuidePage
+    | StrategicUpgradesGuidePage,
 ): string {
-  if (content.contentMode === "deepDive") {
-    return "/services/tenant-improvements";
+  if (
+    content.contentMode === "deepDive" ||
+    content.contentMode === "insuranceOverview"
+  ) {
+    return `/services/${content.slug}`;
+  }
+  if (
+    content.contentMode === "fireDamageRebuilds" ||
+    content.contentMode === "waterFloodDamage" ||
+    content.contentMode === "cashSettlementGuide" ||
+    content.contentMode === "upgradesDuringClaimGuide" ||
+    content.contentMode === "strategicUpgradesGuide"
+  ) {
+    return `/services/${content.parentHub}/${content.slug}`;
   }
   return `/services/${content.parentHub}/${content.slug}`;
 }
