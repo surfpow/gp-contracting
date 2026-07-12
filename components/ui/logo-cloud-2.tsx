@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import { PlusIcon } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 export type Logo = {
@@ -9,14 +13,74 @@ export type Logo = {
   imgClassName?: string;
 };
 
-type LogoCloudProps = React.ComponentProps<"div">;
+type LogoCloudProps = React.ComponentProps<"div"> & {
+  /** When provided, renders these logos instead of the default partner grid. */
+  logos?: Logo[];
+};
 
-export function LogoCloud({ className, ...props }: LogoCloudProps) {
+export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
+  if (logos && logos.length > 0) {
+    const count = logos.length;
+    const cols =
+      count === 1
+        ? "grid-cols-1"
+        : count === 2
+          ? "grid-cols-1 sm:grid-cols-2"
+          : count === 3
+            ? "grid-cols-1 sm:grid-cols-3"
+            : count === 5
+              ? "grid-cols-2 sm:grid-cols-3"
+              : "grid-cols-2 md:grid-cols-4";
+
+    return (
+      <div className={cn("relative grid border-x", cols, className)} {...props}>
+        <div className="-translate-x-1/2 -top-px pointer-events-none absolute left-1/2 w-screen border-t" />
+        {logos.map((logo, index) => {
+          const isLast = index === count - 1;
+
+          return (
+            <LogoCard
+              key={logo.src + logo.alt}
+              className={cn(
+                "group",
+                count === 2 &&
+                  !isLast &&
+                  "border-b sm:border-b-0 sm:border-r",
+                count === 3 &&
+                  index < count - 1 &&
+                  "border-b sm:border-b-0 sm:border-r",
+                count === 5 && index % 2 === 0 && "border-r sm:border-r-0",
+                count === 5 && index % 3 !== 2 && "sm:border-r",
+                count === 5 && index < 3 && "border-b sm:border-b",
+                count === 5 && index < 2 && "sm:border-b",
+                count !== 2 &&
+                  count !== 3 &&
+                  count !== 5 &&
+                  index % 2 === 0 &&
+                  "border-r",
+                count !== 2 &&
+                  count !== 3 &&
+                  count !== 5 &&
+                  !isLast &&
+                  "border-b md:border-b-0",
+                count === 4 && index < 2 && "md:border-b",
+                index % 2 === 0 && "bg-secondary/40 dark:bg-secondary/30",
+              )}
+              logo={logo}
+              allowPlaceholder
+            />
+          );
+        })}
+        <div className="-translate-x-1/2 -bottom-px pointer-events-none absolute left-1/2 w-screen border-b" />
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(
         "relative grid grid-cols-2 border-x md:grid-cols-4",
-        className
+        className,
       )}
       {...props}
     >
@@ -27,7 +91,8 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         logo={{
           src: "/logo-marbleslab.png",
           alt: "Marble Slab Creamery Logo",
-          imgClassName: "h-4 w-auto origin-center scale-[1.85] md:h-5 md:scale-[1.85]",
+          imgClassName:
+            "h-4 w-auto origin-center scale-[1.85] md:h-5 md:scale-[1.85]",
         }}
       >
         <PlusIcon
@@ -41,7 +106,8 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         logo={{
           src: "/logo-dominos.png",
           alt: "Domino's Pizza Logo",
-          imgClassName: "h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5]",
+          imgClassName:
+            "h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5]",
         }}
       />
 
@@ -68,7 +134,8 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         logo={{
           src: "/logo-evas.png",
           alt: "Eva's Original Logo",
-          imgClassName: "h-4 w-auto origin-center scale-[3.5] md:h-5 md:scale-[3.5]",
+          imgClassName:
+            "h-4 w-auto origin-center scale-[3.5] md:h-5 md:scale-[3.5]",
         }}
       />
 
@@ -77,7 +144,8 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         logo={{
           src: "/logo-barburrito.png",
           alt: "BarBurrito Logo",
-          imgClassName: "h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5]",
+          imgClassName:
+            "h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5]",
         }}
       >
         <PlusIcon
@@ -91,7 +159,8 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         logo={{
           src: "/logo-crazyzhang.png",
           alt: "Crazy Zhang Fusion Tea & BBQ Logo",
-          imgClassName: "h-4 w-auto origin-center scale-[4.25] md:h-5 md:scale-[4.25]",
+          imgClassName:
+            "h-4 w-auto origin-center scale-[4.25] md:h-5 md:scale-[4.25]",
         }}
       />
 
@@ -100,7 +169,8 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         logo={{
           src: "/logo-uppal.png",
           alt: "Uppal Building Supplies Logo",
-          imgClassName: "h-5 w-auto origin-center scale-[1.35] md:h-6 md:scale-[1.35]",
+          imgClassName:
+            "h-5 w-auto origin-center scale-[1.35] md:h-6 md:scale-[1.35]",
         }}
       />
 
@@ -109,7 +179,8 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         logo={{
           src: "/logo-countrylumber.png",
           alt: "Country Lumber Logo",
-          imgClassName: "h-6 w-auto origin-center scale-[1.65] md:h-7 md:scale-[1.65]",
+          imgClassName:
+            "h-6 w-auto origin-center scale-[1.65] md:h-7 md:scale-[1.65]",
         }}
       />
 
@@ -120,27 +191,48 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
 
 type LogoCardProps = React.ComponentProps<"div"> & {
   logo: Logo;
+  allowPlaceholder?: boolean;
 };
 
-function LogoCard({ logo, className, children, ...props }: LogoCardProps) {
+function LogoCard({
+  logo,
+  className,
+  children,
+  allowPlaceholder = false,
+  ...props
+}: LogoCardProps) {
+  const [failed, setFailed] = useState(false);
+
   return (
     <div
       className={cn(
         "flex items-center justify-center bg-background px-4 py-8 md:p-8",
-        className
+        className,
       )}
       {...props}
     >
-      <img
-        alt={logo.alt}
-        className={cn(
-          "pointer-events-none select-none",
-          logo.imgClassName ?? "h-4 md:h-5 dark:brightness-0 dark:invert"
-        )}
-        height={logo.height || "auto"}
-        src={logo.src}
-        width={logo.width || "auto"}
-      />
+      {allowPlaceholder && failed ? (
+        <div
+          className="flex h-14 w-full max-w-[200px] items-center justify-center rounded-sm border border-dashed border-neutral-300 bg-neutral-100 px-3 text-center text-xs font-medium tracking-wide text-neutral-500 uppercase md:h-16"
+          role="img"
+          aria-label={`${logo.alt} logo pending`}
+        >
+          {logo.alt}
+        </div>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element -- partner marks use fixed heights and grayscale hover; next/image adds little here
+        <img
+          alt={logo.alt}
+          className={cn(
+            "pointer-events-none select-none",
+            logo.imgClassName ?? "h-4 md:h-5 dark:brightness-0 dark:invert",
+          )}
+          height={logo.height || "auto"}
+          src={logo.src}
+          width={logo.width || "auto"}
+          onError={allowPlaceholder ? () => setFailed(true) : undefined}
+        />
+      )}
       {children}
     </div>
   );

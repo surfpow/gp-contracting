@@ -205,6 +205,54 @@ export function buildLocalBusinessSchema() {
 }
 
 /**
+ * About page schema: AboutPage + Organization entity with lifetime workmanship
+ * warranty and the same Richmond address used across service pages.
+ */
+export function buildAboutPageSchema() {
+  const url = absoluteUrl("/about");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": `${url}#aboutpage`,
+    url,
+    name: `About ${BUSINESS_NAME}`,
+    description:
+      "Family-owned construction across Greater Vancouver, Vancouver Island, and the Fraser Valley. Licensed, insured, and backed by a lifetime workmanship warranty.",
+    mainEntity: {
+      "@type": "GeneralContractor",
+      "@id": `${SITE_URL}/#localbusiness`,
+      name: BUSINESS_NAME,
+      url: SITE_URL,
+      telephone: BUSINESS_PHONE,
+      email: "info@gpcontracting.ca",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: GP_OFFICE_ADDRESS.line1,
+        addressLocality: "Richmond",
+        addressRegion: "BC",
+        addressCountry: "CA",
+      },
+      areaServed: [...SERVICE_AREAS],
+      slogan: "Guaranteed for Life, With a Human Attached",
+      knowsAbout: [
+        "Lifetime workmanship warranty",
+        "Insurance restoration",
+        "Claims coordination",
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "warranty",
+        name: "PJ Saini",
+        telephone: BUSINESS_PHONE,
+        email: "info@gpcontracting.ca",
+        availableLanguage: ["English"],
+      },
+    },
+  };
+}
+
+/**
  * Collect every FAQ that belongs on a page into a single list: page-level FAQs
  * plus, for combined sub-pages, the FAQs from each bundled section. This drives
  * one consolidated `FAQPage` node per page.
