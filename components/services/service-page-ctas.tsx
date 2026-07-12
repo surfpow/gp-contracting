@@ -4,15 +4,22 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { HubServicePage } from "@/lib/services-content";
 
+const CTA_EASE = "[transition-timing-function:var(--ease-out)]";
+
 const primaryButtonClass =
-  "h-12 w-full rounded-sm border border-brand-navy bg-brand-navy px-7 text-sm font-medium tracking-wide text-white shadow-[0_10px_28px_-12px_rgba(45,52,112,0.65)] transition-all duration-300 hover:border-brand-dark hover:bg-brand-dark hover:shadow-[0_14px_32px_-12px_rgba(18,24,38,0.55)] sm:w-auto";
+  `h-12 w-full rounded-sm border border-brand-navy bg-brand-navy px-7 text-sm font-medium tracking-wide text-white shadow-[0_10px_28px_-12px_rgba(45,52,112,0.65)] transition-[transform,colors,box-shadow,border-color] duration-150 ${CTA_EASE} hover:border-brand-dark hover:bg-brand-dark hover:shadow-[0_14px_32px_-12px_rgba(18,24,38,0.55)] active:scale-[0.97] sm:w-auto`;
 
 export const servicePrimaryButtonClass = primaryButtonClass;
 
 const outlineButtonClass =
-  "h-12 w-full rounded-sm border-neutral-300 bg-white/60 px-7 text-sm font-medium tracking-wide text-neutral-700 backdrop-blur-sm transition-all duration-300 hover:border-brand-navy/40 hover:bg-white hover:text-brand-navy sm:w-auto";
+  `h-12 w-full rounded-sm border-neutral-300 bg-white/60 px-7 text-sm font-medium tracking-wide text-neutral-700 backdrop-blur-sm transition-[transform,colors,border-color,background-color] duration-150 ${CTA_EASE} hover:border-brand-navy/40 hover:bg-white hover:text-brand-navy active:scale-[0.97] sm:w-auto`;
 
 export const serviceOutlineButtonClass = outlineButtonClass;
+
+const arrowClass =
+  "size-4 transition-transform duration-150 [transition-timing-function:var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:translate-x-0.5";
+
+export const serviceCtaArrowClass = arrowClass;
 
 /** Structural pick so hub, deep-dive, and sub-service layouts can all drive the CTAs. */
 type ServicePageCtasProps = {
@@ -32,7 +39,7 @@ export function ServicePageCtas({ content }: ServicePageCtasProps) {
               className="group inline-flex items-center justify-center gap-2.5"
             >
               {content.projectsCtaLabel}
-              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              <ArrowRight className={arrowClass} />
             </Link>
           </Button>
         )}
@@ -46,7 +53,7 @@ export function ServicePageCtas({ content }: ServicePageCtasProps) {
             className="group inline-flex items-center justify-center gap-2.5"
           >
             Get a Quote
-            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+            <ArrowRight className={arrowClass} />
           </Link>
         </Button>
       </div>

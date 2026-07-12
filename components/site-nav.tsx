@@ -49,14 +49,33 @@ type ServiceMenuColumn = {
 
 const hubBlurbs: Record<ServiceHubSlug, string> = {
   residential: "Custom homes, renovations, and multi-family development.",
-  commercial: "Offices, retail, and restaurant & bar construction.",
-  specialized: "Structural, building systems, accessibility, and outdoor living.",
+  commercial: "Tenant improvements for offices, retail, and commercial spaces.",
+  specialized:
+    "Structural envelope, building systems, accessibility, and outdoor living.",
+  "insurance-restoration":
+    "Claims-funded rebuilds after fire, water, and storm damage.",
+}
+
+/** Sub-pages that should not appear in the header Services mega-menu. */
+const navHiddenSubPageSlugs = new Set(["restaurant-bar-construction"])
+
+/** Extra nav links per hub (not under /services/{hub}/{slug}). */
+const supplementalNavSubPages: Partial<
+  Record<ServiceHubSlug, { label: string; href: string }[]>
+> = {
+  commercial: [
+    {
+      label: "Tenant Improvements",
+      href: servicePageHref("tenant-improvements"),
+    },
+  ],
 }
 
 /** Hubs that own sub-service pages, rendered as mega-menu columns. */
 const hubsWithSubPages: ServiceHubSlug[] = [
   "residential",
   "commercial",
+  "insurance-restoration",
   "specialized",
 ]
 
@@ -65,19 +84,17 @@ const serviceMenuColumns: ServiceMenuColumn[] = hubsWithSubPages.map((hub) => ({
   label: serviceHubLabels[hub],
   href: servicePageHref(hub),
   blurb: hubBlurbs[hub],
-  subPages: serviceSubPages
-    .filter((page) => page.parentHub === hub)
-    .map((page) => ({
-      label: serviceSubPageLabels[page.slug],
-      href: serviceSubPageHref(page.parentHub, page.slug),
-    })),
+  subPages: [
+    ...(supplementalNavSubPages[hub] ?? []),
+    ...serviceSubPages
+      .filter((page) => page.parentHub === hub)
+      .filter((page) => !navHiddenSubPageSlugs.has(page.slug))
+      .map((page) => ({
+        label: serviceSubPageLabels[page.slug],
+        href: serviceSubPageHref(page.parentHub, page.slug),
+      })),
+  ],
 }))
-
-const TENANT_IMPROVEMENTS = {
-  label: "Tenant Improvements",
-  href: servicePageHref("tenant-improvements"),
-  blurb: "Office and retail tenant build-outs, ready for business.",
-} as const
 
 const featuredProjects = [SEE_RECENT_PROJECTS] as const
 
@@ -193,13 +210,6 @@ function MobileNav() {
                   onNavigate={close}
                 />
               ))}
-              <Link
-                href={TENANT_IMPROVEMENTS.href}
-                onClick={close}
-                className={cn(mobileNavLinkClass, "border-t border-neutral-100")}
-              >
-                {TENANT_IMPROVEMENTS.label}
-              </Link>
 
               <p className={mobileSectionLabelClass}>Company</p>
               <Link href={PROJECTS_HREF} onClick={close} className={mobileNavLinkClass}>
@@ -258,7 +268,7 @@ function DesktopNav() {
               Services
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div className="w-[820px] max-w-[calc(100vw-2rem)] p-6">
+              <div className="w-[1080px] max-w-[calc(100vw-2rem)] p-6">
                 <NavigationMenuLink asChild>
                   <Link
                     href={SERVICES_OVERVIEW_HREF}
@@ -281,18 +291,10 @@ function DesktopNav() {
                   </Link>
                 </NavigationMenuLink>
 
-                <ul className="mt-4 grid grid-cols-4 gap-x-4 gap-y-1">
+                <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 lg:grid-cols-4">
                   {serviceMenuColumns.map((column) => (
                     <ServiceMenuColumnList key={column.hub} column={column} />
                   ))}
-                  <li>
-                    <ListItem
-                      title={TENANT_IMPROVEMENTS.label}
-                      href={TENANT_IMPROVEMENTS.href}
-                    >
-                      {TENANT_IMPROVEMENTS.blurb}
-                    </ListItem>
-                  </li>
                 </ul>
               </div>
             </NavigationMenuContent>
