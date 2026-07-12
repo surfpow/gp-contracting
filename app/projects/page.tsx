@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <SitePageShell>
-      <div className="bg-neutral-50 px-4 py-20 md:px-8 md:py-28 lg:py-32">
+      <div className="bg-neutral-50 px-4 pt-52 pb-20 md:px-8 md:py-28 lg:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="font-serif text-4xl tracking-tight text-neutral-900 md:text-5xl">
             Our Work

@@ -46,17 +46,17 @@ export default function AboutSection3() {
     },
   };
   return (
-    <section className="bg-[#f9f9f9] px-4 pt-28 pb-8 md:px-8 md:pt-36 md:pb-12 lg:pt-40" ref={heroRef}>
+    <section className="bg-[#f9f9f9] px-4 pt-52 pb-8 md:px-8 md:pt-36 md:pb-12 lg:pt-40" ref={heroRef}>
       <div className="mx-auto max-w-6xl">
         <div className="relative">
-          <div className="absolute top-0 z-10 mb-8 flex w-[85%] items-center justify-between lg:top-4">
+          <div className="relative z-10 mb-6 flex w-full items-center justify-between md:absolute md:top-0 md:mb-8 md:w-[85%] lg:top-4">
             <div className="flex items-center gap-2 text-xl">
               <Image
                 src={GP_LOGO_URL}
                 alt=""
                 width={24}
                 height={24}
-                className="h-6 w-auto shrink-0"
+                className="hidden h-6 w-auto shrink-0 md:block"
               />
               <TimelineContent
                 as="span"
