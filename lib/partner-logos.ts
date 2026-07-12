@@ -1,6 +1,13 @@
 import type { Logo } from "@/components/ui/logo-cloud-2";
 
 /**
+ * Full color on touch devices (no hover). On fine-pointer hover devices,
+ * start muted/grayscale and restore color on group hover.
+ */
+const SERVICE_LOGO_COLOR =
+  "object-contain opacity-100 grayscale-0 md:opacity-70 md:grayscale md:transition md:duration-300 md:group-hover:opacity-100 md:group-hover:grayscale-0";
+
+/**
  * Shared homepage partner marks, reused on relevant service pages.
  * Homepage `LogoCloud` default grid remains unchanged.
  */
@@ -8,58 +15,54 @@ export const PARTNER_LOGOS = {
   marbleSlab: {
     src: "/logo-marbleslab.png",
     alt: "Marble Slab Creamery",
-    imgClassName:
-      "h-4 w-auto origin-center scale-[1.85] object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-5 md:scale-[1.85]",
+    imgClassName: `h-4 w-auto origin-center scale-[1.85] md:h-5 md:scale-[1.85] ${SERVICE_LOGO_COLOR}`,
   },
   dominos: {
     src: "/logo-dominos.png",
     alt: "Domino's Pizza",
-    imgClassName:
-      "h-4 w-auto origin-center scale-[1.5] object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-5 md:scale-[1.5]",
+    imgClassName: `h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5] ${SERVICE_LOGO_COLOR}`,
   },
   td: {
     src: "/logo-td.png",
     alt: "TD Canada Trust",
-    imgClassName:
-      "h-4 w-auto origin-center scale-[2] object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-5 md:scale-[2]",
+    imgClassName: `h-4 w-auto origin-center scale-[2] md:h-5 md:scale-[2] ${SERVICE_LOGO_COLOR}`,
   },
   evas: {
     src: "/logo-evas.png",
     alt: "Eva's Original",
-    imgClassName:
-      "h-4 w-auto origin-center scale-[3.5] object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-5 md:scale-[3.5]",
+    imgClassName: `h-4 w-auto origin-center scale-[3.5] md:h-5 md:scale-[3.5] ${SERVICE_LOGO_COLOR}`,
   },
   barBurrito: {
     src: "/logo-barburrito.png",
     alt: "BarBurrito",
-    imgClassName:
-      "h-4 w-auto origin-center scale-[1.5] object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-5 md:scale-[1.5]",
+    imgClassName: `h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5] ${SERVICE_LOGO_COLOR}`,
   },
   crazyZhang: {
     src: "/logo-crazyzhang.png",
     alt: "Crazy Zhang Fusion Tea & BBQ",
-    imgClassName:
-      "h-4 w-auto origin-center scale-[4.25] object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-5 md:scale-[4.25]",
+    imgClassName: `h-4 w-auto origin-center scale-[4.25] md:h-5 md:scale-[4.25] ${SERVICE_LOGO_COLOR}`,
   },
   uppal: {
     src: "/logo-uppal.png",
     alt: "Uppal Building Supplies",
-    imgClassName:
-      "h-5 w-auto origin-center scale-[1.35] object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-6 md:scale-[1.35]",
+    imgClassName: `h-5 w-auto origin-center scale-[1.35] md:h-6 md:scale-[1.35] ${SERVICE_LOGO_COLOR}`,
   },
   countryLumber: {
     src: "/logo-countrylumber.png",
     alt: "Country Lumber",
-    imgClassName:
-      "h-6 w-auto origin-center scale-[1.65] object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-7 md:scale-[1.65]",
+    imgClassName: `h-6 w-auto origin-center scale-[1.65] md:h-7 md:scale-[1.65] ${SERVICE_LOGO_COLOR}`,
   },
 } as const satisfies Record<string, Logo>;
+
+export type ServiceClientLogosPlacement = "after-overview" | "before-footer";
 
 export type ServiceClientLogosBand = {
   eyebrow: string;
   heading: string;
   logos: Logo[];
   caption?: string;
+  /** Where the band renders in the service page layout. Defaults to after overview. */
+  placement?: ServiceClientLogosPlacement;
 };
 
 /** Hospitality / franchise food operators. */
@@ -125,6 +128,7 @@ export const SERVICE_CLIENT_LOGOS: Record<string, ServiceClientLogosBand> = {
     logos: RESIDENTIAL_SUPPLY_LOGOS,
     caption:
       "Material partnerships that support custom home builds with reliable supply and local knowledge.",
+    placement: "before-footer",
   },
   residential: {
     eyebrow: "Supply Partners",

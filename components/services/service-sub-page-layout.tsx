@@ -25,6 +25,12 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
   const hubLabel = serviceHubLabels[content.parentHub];
   const presentation = content.presentation;
   const clientLogos = getServiceClientLogos(content.slug);
+  const logosAfterOverview =
+    clientLogos && clientLogos.placement !== "before-footer"
+      ? clientLogos
+      : null;
+  const logosBeforeFooter =
+    clientLogos?.placement === "before-footer" ? clientLogos : null;
 
   // Specialized sub-pages are quote-only (no projects CTA), per hub policy.
   const projectsHref =
@@ -65,7 +71,7 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
         }
         beforeAfterImage={content.overviewBeforeAfterImage}
       />
-      {clientLogos ? <ClientLogosBand {...clientLogos} /> : null}
+      {logosAfterOverview ? <ClientLogosBand {...logosAfterOverview} /> : null}
       <ServiceFeaturesSection
         steps={content.processSteps}
         image={content.featuresSectionImage}
@@ -97,6 +103,7 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
             : undefined,
         }}
       />
+      {logosBeforeFooter ? <ClientLogosBand {...logosBeforeFooter} /> : null}
     </SitePageShell>
   );
 }
