@@ -10,7 +10,7 @@ import {
   PROJECTS_HREF,
   SEE_RECENT_PROJECTS,
 } from "@/lib/projects"
-import { CONTACT_HREF } from "@/lib/contact"
+import { CONTACT_HREF, WARRANTY_HREF } from "@/lib/contact"
 import {
   serviceHubLabels,
   servicePageHref,
@@ -215,6 +215,9 @@ function MobileNav() {
               <Link href={PROJECTS_HREF} onClick={close} className={mobileNavLinkClass}>
                 {OUR_WORK_NAV_LABEL}
               </Link>
+              <Link href={WARRANTY_HREF} onClick={close} className={mobileNavLinkClass}>
+                Warranty
+              </Link>
               <Link href="/about" onClick={close} className={mobileNavLinkClass}>
                 About
               </Link>
@@ -324,7 +327,12 @@ function DesktopNav() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navItemClass}>
-              <Link href="#contact">Contact</Link>
+              <Link href={WARRANTY_HREF}>Warranty</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild className={navItemClass}>
+              <Link href={CONTACT_HREF}>Contact</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>

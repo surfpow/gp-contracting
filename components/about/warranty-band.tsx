@@ -45,7 +45,10 @@ export function WarrantyBand() {
   const variants = makeRevealVariants(reducedMotion);
 
   return (
-    <section className="border-t border-brand-navy-light/40 bg-brand-dark px-4 py-20 md:px-8 md:py-28 lg:py-32">
+    <section
+      id="warranty"
+      className="scroll-mt-28 border-t border-brand-navy-light/40 bg-brand-dark px-4 py-20 md:scroll-mt-32 md:px-8 md:py-28 lg:py-32"
+    >
       <div className="mx-auto max-w-6xl">
         <motion.p
           custom={0}
