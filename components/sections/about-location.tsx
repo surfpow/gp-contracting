@@ -23,7 +23,7 @@ export function AboutLocation() {
   return (
     <section
       id="contact"
-      className="scroll-mt-28 bg-[#f9f9f9] px-4 py-16 md:scroll-mt-32 md:px-8 md:py-20"
+      className="scroll-mt-52 bg-[#f9f9f9] px-4 py-16 md:scroll-mt-36 md:px-8 md:py-20"
     >
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
