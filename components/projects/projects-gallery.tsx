@@ -4,7 +4,6 @@ import Image from "next/image";
 import {
   AnimatePresence,
   motion,
-  useInView,
   useReducedMotion,
   type Variants,
 } from "framer-motion";
@@ -13,8 +12,8 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
+  type CSSProperties,
   type KeyboardEvent,
 } from "react";
 
@@ -33,6 +32,10 @@ const PRIORITY_IMAGE_COUNT = 6;
 function getStaggerDelay(index: number, reduced: boolean) {
   if (reduced) return 0;
   return Math.min(index * STAGGER_STEP_S, MAX_STAGGER_DELAY_S);
+}
+
+function getAspectRatioStyle(width: number, height: number): CSSProperties {
+  return { aspectRatio: `${width} / ${height}` };
 }
 
 function makeRevealVariants(reduced: boolean): Variants {
@@ -182,13 +185,7 @@ function GalleryLightbox({
 }
 
 export function ProjectsGallery({ items }: ProjectsGalleryProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion() ?? false;
-  const isInView = useInView(containerRef, {
-    once: true,
-    amount: 0.08,
-    margin: "0px 0px -80px 0px",
-  });
   const revealVariants = useMemo(
     () => makeRevealVariants(shouldReduceMotion),
     [shouldReduceMotion],
@@ -218,38 +215,45 @@ export function ProjectsGallery({ items }: ProjectsGalleryProps) {
 
   return (
     <>
-      <div
-        ref={containerRef}
-        className="mx-auto max-w-7xl columns-1 gap-1 px-4 sm:columns-2 md:px-8 lg:columns-3 xl:columns-4"
-      >
+      <div className="mx-auto max-w-7xl columns-1 gap-1 px-4 sm:columns-2 md:px-8 lg:columns-3 xl:columns-4">
         {items.map((item, index) => (
           <motion.figure
             key={item.src}
             custom={index}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
             variants={revealVariants}
-            className="mb-1 break-inside-avoid"
+            className="mb-1 inline-block w-full break-inside-avoid [break-inside:avoid] [-webkit-column-break-inside:avoid]"
           >
             <button
               type="button"
               onClick={() => openLightbox(index)}
               onKeyDown={(event) => onGridKeyDown(event, index)}
               className={cn(
-                "group block w-full cursor-pointer overflow-hidden rounded-sm bg-neutral-200 text-left",
+                "group block w-full cursor-pointer overflow-visible rounded-sm bg-neutral-200 text-left",
                 "transition duration-300 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy",
               )}
               aria-label={`View ${item.title}`}
             >
-              <Image
-                src={item.src}
-                alt={item.alt}
-                width={item.width}
-                height={item.height}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                priority={index < PRIORITY_IMAGE_COUNT}
-                className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.02]"
-              />
+              <div
+                className="relative w-full overflow-visible"
+                style={getAspectRatioStyle(item.width, item.height)}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                  priority={index < PRIORITY_IMAGE_COUNT}
+                  className="rounded-sm object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  style={
+                    item.objectPosition
+                      ? { objectPosition: item.objectPosition }
+                      : undefined
+                  }
+                />
+              </div>
             </button>
           </motion.figure>
         ))}
