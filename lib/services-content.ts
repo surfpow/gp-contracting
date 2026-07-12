@@ -79,6 +79,25 @@ export type ServiceWhyGp = {
   pullQuote?: string;
 };
 
+/**
+ * Opt-in presentation for sub-service pages. Defaults preserve the original
+ * template; set fields only on pages that should opt into elevated craft.
+ * Other sub-pages remain visually unchanged until they opt in.
+ */
+export type SubServicePresentation = {
+  /** Editorial numbered scope list for What's Included. Default: standard grid. */
+  featuresVariant?: "standard" | "editorial";
+  /** Elevated FAQ accordion spacing and type. Default: standard. */
+  faqVariant?: "standard" | "editorial";
+  /**
+   * Ambient photographic background for Why Choose Us (decorative, under
+   * SectionPhotoBackdrop scrim). Never use real project gallery photos here.
+   */
+  whyGpBackgroundImage?: ServiceImage;
+  /** Slightly elevated related-links rhythm. Default: standard. */
+  relatedVariant?: "standard" | "editorial";
+};
+
 export type SeoFields = {
   title: string;
   metaDescription: string;
@@ -670,6 +689,8 @@ export type SubServicePageBase = SeoFields &
     projectsHref: string;
     keywords: string[];
     h1: string;
+    /** Opt-in elevated treatments; omit to keep the original template look. */
+    presentation?: SubServicePresentation;
   };
 
 export type ServiceBundledOverviewCta = {
@@ -833,6 +854,7 @@ type SubServiceSeed = {
   featuresSectionImage?: ServiceImage;
   whyGp?: ServiceWhyGp;
   faqs?: ServiceFaq[];
+  presentation?: SubServicePresentation;
 };
 
 function buildStandardSubServicePage(
@@ -877,6 +899,7 @@ function buildStandardSubServicePage(
     keywords: seed.keywordCities
       ? locationKeywordsWithCities(serviceName, seed.keywordCities)
       : locationKeywords(serviceName),
+    presentation: seed.presentation,
   };
 }
 
@@ -923,6 +946,17 @@ const residentialSubServiceSeeds: SubServiceSeed[] = [
       heading: "Why GP Contracting Group",
       body: "Building a custom home takes more than good design. It takes a contractor who can manage engineering, permitting, trades, and finishing at a high level, all while keeping you informed every step of the way. As a family-owned company, GP Contracting Group brings that structural capability and disciplined pre-construction process to every custom home we build, whether it's a single-family home in Richmond or a larger property on Vancouver Island. We work alongside your architect and designer, or connect you with trusted partners if you don't have one, so your vision is backed by a team that's accountable from the first sketch to the final walkthrough.",
       pullQuote: "Your home, built like it's our own.",
+    },
+    // Flagship opt-in: elevated list + FAQ; ambient Why Choose Us backdrop only.
+    presentation: {
+      featuresVariant: "editorial",
+      faqVariant: "editorial",
+      relatedVariant: "editorial",
+      // PLACEHOLDER: swap public/images/residential/placeholder-why-gp-interior.png for approved ambient (not project photography)
+      whyGpBackgroundImage: {
+        src: "/images/residential/placeholder-why-gp-interior.png",
+        alt: "",
+      },
     },
     faqs: [
       {
