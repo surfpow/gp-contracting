@@ -1,4 +1,5 @@
 import { SitePageShell } from "@/components/site-page-shell";
+import { ClientLogosBand } from "@/components/services/client-logos-band";
 import { ServiceHero } from "@/components/services/service-hero";
 import { ServiceOverview } from "@/components/services/service-overview";
 import { ServiceFeaturesSection } from "@/components/services/service-features-section";
@@ -7,6 +8,7 @@ import { ServiceBundledSections } from "@/components/services/service-bundled-se
 import { ServiceFaqSection } from "@/components/services/service-faq-section";
 import { ServiceRelatedLinks } from "@/components/services/service-related-links";
 import { ServicePageCtas } from "@/components/services/service-page-ctas";
+import { getServiceClientLogos } from "@/lib/partner-logos";
 import { serviceHubLabels } from "@/lib/service-sections";
 import { SEE_RECENT_PROJECTS } from "@/lib/projects";
 import {
@@ -22,6 +24,7 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
   const isCombined = isCombinedSubServicePage(content);
   const hubLabel = serviceHubLabels[content.parentHub];
   const presentation = content.presentation;
+  const clientLogos = getServiceClientLogos(content.slug);
 
   // Specialized sub-pages are quote-only (no projects CTA), per hub policy.
   const projectsHref =
@@ -62,6 +65,7 @@ export function ServiceSubPageLayout({ content }: ServiceSubPageLayoutProps) {
         }
         beforeAfterImage={content.overviewBeforeAfterImage}
       />
+      {clientLogos ? <ClientLogosBand {...clientLogos} /> : null}
       <ServiceFeaturesSection
         steps={content.processSteps}
         image={content.featuresSectionImage}

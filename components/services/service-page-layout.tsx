@@ -1,10 +1,12 @@
 import { SitePageShell } from "@/components/site-page-shell";
+import { ClientLogosBand } from "@/components/services/client-logos-band";
 import { ServiceHero } from "@/components/services/service-hero";
 import { ServiceOverview } from "@/components/services/service-overview";
 import { ServiceDeepDiveSection } from "@/components/services/service-deep-dive";
 import { ServiceLinkingCards } from "@/components/services/service-linking-cards";
 import { ServiceFaqSection } from "@/components/services/service-faq-section";
 import { ServicePageCtas } from "@/components/services/service-page-ctas";
+import { getServiceClientLogos } from "@/lib/partner-logos";
 import type { DeepDiveServicePage } from "@/lib/services-content";
 
 export type ServicePageLayoutProps = {
@@ -12,6 +14,8 @@ export type ServicePageLayoutProps = {
 };
 
 export function ServicePageLayout({ content }: ServicePageLayoutProps) {
+  const clientLogos = getServiceClientLogos(content.slug);
+
   return (
     <SitePageShell>
       <ServiceHero
@@ -27,6 +31,7 @@ export function ServicePageLayout({ content }: ServicePageLayoutProps) {
           (content.overviewImage ? [content.overviewImage] : undefined)
         }
       />
+      {clientLogos ? <ClientLogosBand {...clientLogos} /> : null}
       <ServiceDeepDiveSection deepDive={content.deepDive} />
       {content.relatedServiceCards && content.relatedServiceCards.length > 0 && (
         <ServiceLinkingCards

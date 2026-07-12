@@ -20,30 +20,50 @@ type LogoCloudProps = React.ComponentProps<"div"> & {
 
 export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
   if (logos && logos.length > 0) {
+    const count = logos.length;
+    const cols =
+      count === 1
+        ? "grid-cols-1"
+        : count === 2
+          ? "grid-cols-1 sm:grid-cols-2"
+          : count === 3
+            ? "grid-cols-1 sm:grid-cols-3"
+            : count === 5
+              ? "grid-cols-2 sm:grid-cols-3"
+              : "grid-cols-2 md:grid-cols-4";
+
     return (
-      <div
-        className={cn(
-          "relative grid border-x",
-          logos.length === 1
-            ? "grid-cols-1"
-            : logos.length === 2
-              ? "grid-cols-1 sm:grid-cols-2"
-              : "grid-cols-2 md:grid-cols-4",
-          className,
-        )}
-        {...props}
-      >
+      <div className={cn("relative grid border-x", cols, className)} {...props}>
         <div className="-translate-x-1/2 -top-px pointer-events-none absolute left-1/2 w-screen border-t" />
         {logos.map((logo, index) => {
-          const isLast = index === logos.length - 1;
+          const isLast = index === count - 1;
+
           return (
             <LogoCard
               key={logo.src + logo.alt}
               className={cn(
                 "group",
-                !isLast && logos.length === 2 && "border-b sm:border-b-0 sm:border-r",
-                logos.length > 2 && index % 2 === 0 && "border-r",
-                logos.length > 2 && !isLast && "border-b md:border-b-0",
+                count === 2 &&
+                  !isLast &&
+                  "border-b sm:border-b-0 sm:border-r",
+                count === 3 &&
+                  index < count - 1 &&
+                  "border-b sm:border-b-0 sm:border-r",
+                count === 5 && index % 2 === 0 && "border-r sm:border-r-0",
+                count === 5 && index % 3 !== 2 && "sm:border-r",
+                count === 5 && index < 3 && "border-b sm:border-b",
+                count === 5 && index < 2 && "sm:border-b",
+                count !== 2 &&
+                  count !== 3 &&
+                  count !== 5 &&
+                  index % 2 === 0 &&
+                  "border-r",
+                count !== 2 &&
+                  count !== 3 &&
+                  count !== 5 &&
+                  !isLast &&
+                  "border-b md:border-b-0",
+                count === 4 && index < 2 && "md:border-b",
                 index % 2 === 0 && "bg-secondary/40 dark:bg-secondary/30",
               )}
               logo={logo}

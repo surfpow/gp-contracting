@@ -1,8 +1,10 @@
 import { SitePageShell } from "@/components/site-page-shell";
+import { ClientLogosBand } from "@/components/services/client-logos-band";
 import { ServiceHero } from "@/components/services/service-hero";
 import { ServiceOverview } from "@/components/services/service-overview";
 import { ServiceLinkingCards } from "@/components/services/service-linking-cards";
 import { ServicePageCtas } from "@/components/services/service-page-ctas";
+import { getServiceClientLogos } from "@/lib/partner-logos";
 import type { HubServicePage } from "@/lib/services-content";
 
 export type ServiceHubLayoutProps = {
@@ -10,6 +12,8 @@ export type ServiceHubLayoutProps = {
 };
 
 export function ServiceHubLayout({ content }: ServiceHubLayoutProps) {
+  const clientLogos = getServiceClientLogos(content.slug);
+
   return (
     <SitePageShell>
       <ServiceHero
@@ -19,6 +23,7 @@ export function ServiceHubLayout({ content }: ServiceHubLayoutProps) {
         icon={content.heroIcon}
       />
       <ServiceOverview paragraphs={content.overview} />
+      {clientLogos ? <ClientLogosBand {...clientLogos} /> : null}
       <ServiceLinkingCards cards={content.linkingCards} />
       <ServicePageCtas content={content} />
     </SitePageShell>
