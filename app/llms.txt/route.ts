@@ -1,7 +1,7 @@
 export async function GET() {
   const content = `# GP Contracting Group
 
-> Family-owned general contracting company delivering residential, commercial, tenant improvement, and specialized construction across Greater Vancouver, Vancouver Island, and the Fraser Valley. Based in Richmond, BC. Every project held to one standard — from a single room renovation to a ground-up commercial build.
+> Family-owned general contracting company delivering residential, commercial, insurance restoration, tenant improvement, and specialized construction across Greater Vancouver, Vancouver Island, and the Fraser Valley. Based in Richmond, BC. Every project held to one standard — from a single room renovation to a ground-up commercial build.
 
 GP Contracting Group was founded on a family legacy of doing what is right. We bring a disciplined pre-construction process, dedicated project management, and accountable craftsmanship to every project we take on. We serve homeowners, real estate investors, franchise operators, and commercial property owners across British Columbia.
 
@@ -13,18 +13,18 @@ GP Contracting Group was founded on a family legacy of doing what is right. We b
 
 ## Services — Commercial
 
-- [Commercial Construction](https://gp-contracting.vercel.app/services/commercial/commercial-construction): Ground-up commercial construction and interior build-outs for offices, retail spaces, mixed-use buildings, and industrial facilities. Completed fast-tracked commercial builds in under 60 days from permit to open doors for major franchise operators in British Columbia.
+- [Tenant Improvements](https://gp-contracting.vercel.app/services/tenant-improvements): Commercial tenant improvements and interior build-outs for offices, retail spaces, mixed-use buildings, and industrial facilities. Three-way coordination between tenant, landlord, and contractor. Fast-tracked franchise builds, permitting, space planning, finishes, lighting, and mechanical included.
 - [Restaurant and Bar Construction](https://gp-contracting.vercel.app/services/commercial/restaurant-bar-construction): Purpose-built hospitality environments for franchise operators and independent restaurants. Expertise in commercial kitchen layouts, Type 1 and Type 2 hood systems, grease interceptors, and health authority compliance. Repeat clients across British Columbia.
+
+## Services — Insurance Restoration
+
+- [Insurance Restoration](https://gp-contracting.vercel.app/services/insurance-restoration): Claims-funded reconstruction after fire, water, and storm damage for homes and commercial spaces across the Lower Mainland, Fraser Valley, and Vancouver Island. Direct adjuster coordination from first scope to final sign-off, backed by a lifetime workmanship warranty.
 
 ## Services — Specialized
 
 - [Structural and Building Envelope](https://gp-contracting.vercel.app/services/specialized/structural-building-envelope): Roofing systems and structural steel framing with engineered approvals and disciplined installation. Roofing spans residential and commercial including asphalt shingle, metal, torch-on, TPO, and modified bitumen. Structural steel includes seismic compliance and engineer-approved connections.
 - [Building Systems Upgrades](https://gp-contracting.vercel.app/services/specialized/building-systems-upgrades): Suspended acoustic ceiling systems (T-bar) and electrical infrastructure upgrades including EV charger installation, panel upgrades, and load assessments for residential and commercial properties.
 - [Accessibility and Outdoor Living](https://gp-contracting.vercel.app/services/specialized/accessibility-outdoor-living): Accessibility renovations including wheelchair ramps, barrier-free bathroom conversions, grab bars, and automatic door systems. Custom outdoor sport courts and recreation spaces including site grading, drainage, surfacing, fencing, and lighting.
-
-## Services — Tenant Improvements
-
-- [Tenant Improvements](https://gp-contracting.vercel.app/services/tenant-improvements): Full build-outs and fit-outs for restaurants, retail spaces, fitness facilities, and offices. Three-way coordination between tenant, landlord, and contractor. Permitting, space planning, finishes, lighting, and mechanical included.
 
 ## About and Contact
 
@@ -36,7 +36,7 @@ GP Contracting Group was founded on a family legacy of doing what is right. We b
 
 - **Phone:** +1 (778) 891 9076
 - **Email:** info@gpcontracting.ca
-- **Address:** Richmond, BC, Canada
+- **Address:** Unit 138 - 11782 River Rd, Richmond, BC, Canada
 - **Service Area:** Greater Vancouver (Richmond, Vancouver, Burnaby, Surrey, Coquitlam, North Vancouver, Delta, New Westminster, Langley, Abbotsford), Vancouver Island (Victoria, Nanaimo), Fraser Valley
 
 ## Machine-Readable Content

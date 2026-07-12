@@ -1,9 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 import { serviceIcons } from "@/components/services/service-icons";
+import { servicePrimaryButtonClass } from "@/components/services/service-page-ctas";
+import { Button } from "@/components/ui/button";
+import { DURATION_MARKETING_S, EASE_OUT } from "@/lib/motion";
 import type { ServiceHeroIconName, ServiceImage } from "@/lib/services-content";
 
 const heroIcons = serviceIcons;
@@ -14,6 +19,11 @@ export type ServiceHeroScopeBadge = {
   label: string;
   /** In-page anchor (e.g. "#roofing") for the matching bundled section. */
   href?: string;
+};
+
+export type ServiceHeroCta = {
+  label: string;
+  href: string;
 };
 
 export type ServiceHeroProps = {
@@ -30,9 +40,11 @@ export type ServiceHeroProps = {
   icon?: ServiceHeroIconName;
   /** Combined-page badges (one per bundled service), rendered beside the eyebrow. */
   scopeBadges?: ServiceHeroScopeBadge[];
+  /** Optional primary CTA rendered under the subheading. */
+  cta?: ServiceHeroCta;
 };
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = EASE_OUT;
 
 /**
  * Entrance variants for the hero copy. When the user prefers reduced motion
@@ -50,13 +62,17 @@ type HeroVariants = {
 function makeHeroVariants(reduced: boolean): HeroVariants {
   const transition = reduced
     ? { duration: 0 }
-    : { duration: 0.5, ease: EASE };
+    : { duration: DURATION_MARKETING_S + 0.05, ease: EASE };
 
   // The hidden state is intentionally the same for both modes (it only
   // affects pre-hydration markup, where content is invisible either way).
   const fadeUp: Variants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition },
+    hidden: { opacity: 0, transform: "translateY(16px)" },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      transition,
+    },
   };
 
   return {
@@ -67,7 +83,7 @@ function makeHeroVariants(reduced: boolean): HeroVariants {
       hidden: fadeUp.hidden,
       visible: {
         opacity: 1,
-        y: 0,
+        transform: "translateY(0px)",
         transition: { ...transition, delayChildren: reduced ? 0 : 0.12 },
       },
     },
@@ -177,6 +193,28 @@ function HeroHeading({
   );
 }
 
+function HeroCta({
+  cta,
+  variants,
+}: {
+  cta: ServiceHeroCta;
+  variants: Variants;
+}) {
+  return (
+    <motion.div variants={variants} className="mt-8 md:mt-10">
+      <Button asChild className={servicePrimaryButtonClass}>
+        <Link
+          href={cta.href}
+          className="group inline-flex items-center justify-center gap-2.5"
+        >
+          {cta.label}
+          <ArrowRight className="size-4 transition-transform duration-150 [transition-timing-function:var(--ease-out)] group-hover:translate-x-0.5" />
+        </Link>
+      </Button>
+    </motion.div>
+  );
+}
+
 export function ServiceHero({
   heading,
   subheading,
@@ -185,6 +223,7 @@ export function ServiceHero({
   headingSuffix,
   icon,
   scopeBadges,
+  cta,
 }: ServiceHeroProps) {
   const reducedMotion = useReducedMotion();
   const variants = makeHeroVariants(reducedMotion ?? false);
@@ -222,6 +261,7 @@ export function ServiceHero({
           >
             {subheading}
           </motion.p>
+          {cta && <HeroCta cta={cta} variants={variants.fadeUp} />}
           <motion.div
             variants={variants.fadeUp}
             className="mt-14 h-px w-full bg-neutral-700/60 md:mt-20"
@@ -265,6 +305,7 @@ export function ServiceHero({
           >
             {subheading}
           </motion.p>
+          {cta && <HeroCta cta={cta} variants={variants.fadeUp} />}
         </motion.div>
 
         {/* Angled leading edge echoes the diagonal motif of the backdrop bands.

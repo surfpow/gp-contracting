@@ -3,11 +3,11 @@ export async function GET() {
 
 ## Company Overview
 
-GP Contracting Group is a family-owned general contracting company based in Richmond, BC. We deliver residential, commercial, tenant improvement, and specialized construction across Greater Vancouver, Vancouver Island, and the Fraser Valley. Built on a family legacy of doing what is right, we hold every project to one standard regardless of size or scope.
+GP Contracting Group is a family-owned general contracting company based in Richmond, BC. We deliver residential, commercial, insurance restoration, tenant improvement, and specialized construction across Greater Vancouver, Vancouver Island, and the Fraser Valley. Built on a family legacy of doing what is right, we hold every project to one standard regardless of size or scope.
 
 **Phone:** +1 (778) 891 9076
 **Email:** info@gpcontracting.ca
-**Location:** Richmond, BC
+**Location:** Unit 138 - 11782 River Rd, Richmond, BC
 **Website:** https://gp-contracting.vercel.app
 
 ---
@@ -31,8 +31,11 @@ Kitchen renovations, bathroom upgrades, whole-home transformations, and structur
 ### Multi-Family Development
 Duplexes, townhouse complexes, and low-rise developments built for rental income, long-term durability, and lasting property value. GP Contracting Group coordinates trades, schedules, and code compliance across all units with a single accountable project manager. Serving Richmond, Langley, and throughout Greater Vancouver and the Fraser Valley.
 
-### Commercial Construction
-Ground-up commercial construction and interior build-outs for offices, retail spaces, mixed-use buildings, and industrial facilities. GP Contracting Group has delivered fast-tracked commercial builds for some of the most recognized franchise brands in British Columbia, including projects completed in under 60 days from permit to open doors. Serving Vancouver, Surrey, Abbotsford, and across Greater Vancouver.
+### Tenant Improvements
+Commercial tenant improvements and interior build-outs for offices, retail spaces, mixed-use buildings, and industrial facilities. GP Contracting Group works directly with tenants, property owners, and landlords to deliver spaces ready for business on time and on budget. Services include space planning, modern finishes, lighting design, mechanical optimization, structural additions, permitting, and inspection coordination. Fast-tracked franchise builds completed in under 60 days from start to open doors. Serving Vancouver, Burnaby, Surrey, Abbotsford, and across Greater Vancouver.
+
+### Insurance Restoration
+Claims-funded reconstruction after fire, water, and storm damage for houses, condos, strata buildings, and commercial spaces across the Lower Mainland, Fraser Valley, and Vancouver Island. GP Contracting Group coordinates directly with insurers and adjusters from damage assessment through permits, rebuild, and claim closure. Property owners choose their own contractor in BC. Lifetime workmanship warranty on all reconstruction. Warranty contact: PJ Saini, +1 (778) 891 9076, info@gpcontracting.ca.
 
 ### Restaurant and Bar Construction
 Purpose-built hospitality environments designed around kitchen efficiency, guest flow, and operational durability. GP Contracting Group manages commercial kitchen layouts, Type 1 and Type 2 hood systems, grease interceptors, health authority compliance, and equipment rough-ins. Repeat clients include major franchise operators across British Columbia.
@@ -45,9 +48,6 @@ Suspended acoustic ceiling systems (T-bar) and electrical infrastructure upgrade
 
 ### Accessibility and Outdoor Living
 Accessibility renovations including wheelchair ramps, barrier-free bathroom conversions, grab bar installation, automatic door systems, widened doorways, and aging-in-place modifications for residential and commercial properties. Custom outdoor recreation spaces including backyard basketball courts and multi-sport surfaces with site grading, drainage, surfacing, fencing, and lighting.
-
-### Tenant Improvements
-Full build-outs and fit-outs for restaurants, retail spaces, fitness facilities, and offices. GP Contracting Group works directly with tenants, property owners, and landlords to deliver spaces ready for business on time and on budget. Services include space planning, modern finishes, lighting design, mechanical optimization, permitting, and inspection coordination.
 
 ---
 
@@ -86,7 +86,7 @@ GP Contracting Group is a family-owned construction company grounded in a legacy
 
 **Phone:** +1 (778) 891 9076
 **Email:** info@gpcontracting.ca
-**Address:** Richmond, BC, Canada
+**Address:** Unit 138 - 11782 River Rd, Richmond, BC, Canada
 **Website:** https://gp-contracting.vercel.app
 **Services:** https://gp-contracting.vercel.app/services
 **About:** https://gp-contracting.vercel.app/about

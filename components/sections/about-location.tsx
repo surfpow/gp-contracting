@@ -21,7 +21,10 @@ export function AboutLocation() {
   const { longitude, latitude } = GP_OFFICE_COORDINATES;
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20">
+    <section
+      id="contact"
+      className="scroll-mt-28 bg-[#f9f9f9] px-4 py-16 md:scroll-mt-32 md:px-8 md:py-20"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <p className="text-sm font-medium tracking-widest text-brand-navy uppercase">

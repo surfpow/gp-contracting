@@ -56,6 +56,12 @@
   --brand-navy: #2d3470;
   --brand-navy-light: color-mix(in srgb, var(--brand-navy) 40%, white);
   --brand-dark: #121826;
+  /* Motion tokens — strong ease-out for UI/marketing entrances */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-press: 150ms;
+  --duration-ui: 200ms;
+  --duration-marketing: 400ms;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

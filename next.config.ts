@@ -30,6 +30,16 @@ const nextConfig: NextConfig = {
         destination: "/projects",
         permanent: true,
       },
+      {
+        source: "/services/commercial/commercial-construction",
+        destination: "/services/tenant-improvements",
+        permanent: true,
+      },
+      {
+        source: "/services/specialized/insurance-restoration",
+        destination: "/services/insurance-restoration",
+        permanent: true,
+      },
     ];
   },
 };

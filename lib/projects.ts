@@ -218,11 +218,3 @@ export const recentProjectGallery: ProjectGalleryItem[] = [
     height: 768,
   },
 ];
-
-/** Shape consumed by the home page hero parallax. */
-export const heroParallaxProjects = recentProjectGallery.map((item) => ({
-  title: item.title,
-  link: PROJECTS_HREF,
-  thumbnail: item.src,
-  objectPosition: item.objectPosition,
-}));

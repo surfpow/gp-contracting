@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Barlow, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { LocalBusinessJsonLd } from "@/components/local-business-json-ld";
+import { TransitionProvider } from "@/components/transition-provider";
 import { SITE_URL } from "@/lib/service-schema";
 
 const barlow = Barlow({
@@ -34,7 +35,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <LocalBusinessJsonLd />
-        {children}
+        <TransitionProvider>{children}</TransitionProvider>
       </body>
     </html>
   );

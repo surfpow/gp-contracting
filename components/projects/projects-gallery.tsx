@@ -220,7 +220,7 @@ export function ProjectsGallery({ items }: ProjectsGalleryProps) {
     <>
       <div
         ref={containerRef}
-        className="mx-auto max-w-7xl columns-1 gap-4 px-4 sm:columns-2 md:px-8 lg:columns-3 lg:gap-6 xl:columns-4"
+        className="mx-auto max-w-7xl columns-1 gap-1 px-4 sm:columns-2 md:px-8 lg:columns-3 xl:columns-4"
       >
         {items.map((item, index) => (
           <motion.figure
@@ -229,7 +229,7 @@ export function ProjectsGallery({ items }: ProjectsGalleryProps) {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={revealVariants}
-            className="mb-4 break-inside-avoid lg:mb-6"
+            className="mb-1 break-inside-avoid"
           >
             <button
               type="button"

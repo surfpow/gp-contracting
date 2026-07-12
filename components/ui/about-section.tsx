@@ -4,6 +4,7 @@ import { TimelineContent } from "@/components/ui/timeline-animation";
 import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
 import { Button } from "@/components/ui/button";
 import { servicePrimaryButtonClass } from "@/components/services/service-page-ctas";
+import { CONTACT_HREF } from "@/lib/contact";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -315,7 +316,7 @@ export default function AboutSection3() {
               >
                 <Button asChild className={servicePrimaryButtonClass}>
                   <Link
-                    href="/#contact"
+                    href={CONTACT_HREF}
                     className="group inline-flex items-center justify-center gap-2.5"
                   >
                     Get A Free Consultation
