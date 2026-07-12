@@ -1,6 +1,8 @@
 import {
   Accessibility,
   Building2,
+  Droplets,
+  Flame,
   Frame,
   Hammer,
   HardHat,
@@ -8,6 +10,7 @@ import {
   Layers,
   LayoutGrid,
   PlugZap,
+  Shield,
   Store,
   Sun,
   TreePine,
@@ -42,4 +45,7 @@ export const serviceIcons: Record<ServiceHeroIconName, LucideIcon> = {
   sun: Sun,
   wrench: Wrench,
   hardhat: HardHat,
+  shield: Shield,
+  flame: Flame,
+  droplets: Droplets,
 };
