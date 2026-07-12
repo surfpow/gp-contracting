@@ -2418,7 +2418,7 @@ const waterFloodDamagePage: WaterFloodDamageServicePage = {
       "For businesses, the schedule is the scope. We phase commercial water rebuilds around operations where the site allows it, because we build offices, retail, and restaurants as a core service and we know what it costs a tenant to stay dark.",
     ],
     credentialLine:
-      "$2M strata certificates available with the strata corporation named as additional insured. [VERIFY WITH OWNER]",
+      "$2M strata certificates available with the strata corporation named as additional insured.",
   },
   rebuildScope: {
     eyebrow: "Rebuild Scope",
@@ -3127,7 +3127,6 @@ const strategicUpgradesGuidePage: StrategicUpgradesGuidePage = {
       "The same disciplines apply. Improvements are itemized separately from the restoration scope, the lease decides what needs landlord consent, and everything is priced before drawings close. GP delivers tenant improvements as a core service, so the restoration crew and the TI crew are the same crew, one scope, one schedule, one standard.",
     ],
     // PLACEHOLDER: swap public/images/insurance-restoration/placeholder-strategic-commercial.png for real GP photo
-    // OWNER CONFIRM: commercial insurance restoration + TI capability asserted (also on prior two guides)
     backgroundImage: {
       src: "/images/insurance-restoration/placeholder-strategic-commercial.png",
       alt: "Finished commercial interior with wood service counter and pendant lighting",

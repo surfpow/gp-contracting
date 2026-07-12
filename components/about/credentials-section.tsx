@@ -28,7 +28,7 @@ const GROUPS: CredentialGroup[] = [
     items: [
       "Licensed general contractor in British Columbia",
       "Registered and in good standing with WorkSafeBC",
-      "Insured for residential, commercial, strata, and insurance restoration work, with $5M general liability [VERIFY WITH OWNER]",
+      "Insured for residential, commercial, strata, and insurance restoration work, with $5M general liability",
       "Bondable, including performance and labour and material payment bonds where a project requires them",
     ],
   },
