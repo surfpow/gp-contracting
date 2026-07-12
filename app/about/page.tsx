@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
+import { JsonLd } from "@/components/json-ld";
 import { About } from "@/components/sections/about";
 import { SitePageShell } from "@/components/site-page-shell";
+import { buildAboutPageSchema } from "@/lib/service-schema";
 
 export const metadata: Metadata = {
   title: "About | GP Contracting Group",
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <SitePageShell>
+      <JsonLd data={buildAboutPageSchema()} />
       <About />
     </SitePageShell>
   );
