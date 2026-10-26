@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, PlusIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -38,13 +38,6 @@ export type ParallaxScrollFeatureSectionProps = {
   className?: string;
   contentClassName?: string;
 };
-
-/** Homepage rows: width lives on the drawing-frame wrapper instead of the panel. */
-const HOME_IMAGE_PANEL_CLASSNAME =
-  "relative aspect-[3/4] w-full min-h-[360px] overflow-hidden md:min-h-[520px]";
-
-const REGISTRATION_MARK_CLASSNAME =
-  "absolute z-10 hidden size-6 text-brand-navy/60 md:block";
 
 function FeatureSectionRow({
   section,
@@ -126,31 +119,6 @@ function FeatureSectionRow({
     />
   );
 
-  const imagePanel = (
-    <ScrollRevealImagePanel
-      shouldReduceMotion={shouldReduceMotion}
-      opacity={opacity}
-      clipPath={clipPath}
-      className={
-        showCtas ? HOME_IMAGE_PANEL_CLASSNAME : SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME
-      }
-    >
-      {image}
-      {showCtas && (
-        <>
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-dark/25 via-transparent to-transparent"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 ring-1 ring-white/15 ring-inset"
-          />
-        </>
-      )}
-    </ScrollRevealImagePanel>
-  );
-
   return (
     <div
       ref={ref}
@@ -171,46 +139,26 @@ function FeatureSectionRow({
         {textContent}
       </ScrollRevealContentPanel>
 
-      {showCtas ? (
-        <div className="relative w-full shrink-0 md:w-[40%]">
-          {/* Offset drawing frame: reads as an empty outline until the photo wipes in. */}
-          <div
-            aria-hidden="true"
-            className={cn(
-              "pointer-events-none absolute inset-0 translate-x-2.5 translate-y-2.5 border border-brand-navy/25 bg-brand-navy/[0.05] md:translate-y-5",
-              section.reverse ? "md:-translate-x-5" : "md:translate-x-5",
-            )}
-          >
-            <PlusIcon
-              className={cn(
-                REGISTRATION_MARK_CLASSNAME,
-                "-bottom-[12.5px]",
-                section.reverse ? "-left-[12.5px]" : "-right-[12.5px]",
-              )}
-              strokeWidth={1}
+      <ScrollRevealImagePanel
+        shouldReduceMotion={shouldReduceMotion}
+        opacity={opacity}
+        clipPath={clipPath}
+        className={SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME}
+      >
+        {image}
+        {showCtas && (
+          <>
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-dark/25 via-transparent to-transparent"
             />
-            <PlusIcon
-              className={cn(
-                REGISTRATION_MARK_CLASSNAME,
-                "-top-[12.5px]",
-                section.reverse ? "-left-[12.5px]" : "-right-[12.5px]",
-              )}
-              strokeWidth={1}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 ring-1 ring-white/15 ring-inset"
             />
-            <PlusIcon
-              className={cn(
-                REGISTRATION_MARK_CLASSNAME,
-                "-bottom-[12.5px]",
-                section.reverse ? "-right-[12.5px]" : "-left-[12.5px]",
-              )}
-              strokeWidth={1}
-            />
-          </div>
-          {imagePanel}
-        </div>
-      ) : (
-        imagePanel
-      )}
+          </>
+        )}
+      </ScrollRevealImagePanel>
     </div>
   );
 }
