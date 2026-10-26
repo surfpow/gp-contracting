@@ -4,12 +4,12 @@ import type { Logo } from "@/components/ui/logo-cloud-2";
  * Full color on touch devices (no hover). On fine-pointer hover devices,
  * start muted/grayscale and restore color on group hover.
  */
-const SERVICE_LOGO_COLOR =
+export const SERVICE_LOGO_COLOR =
   "object-contain opacity-100 grayscale-0 md:opacity-70 md:grayscale md:transition md:duration-300 md:group-hover:opacity-100 md:group-hover:grayscale-0";
 
 /**
  * Shared homepage partner marks, reused on relevant service pages.
- * Homepage `LogoCloud` default grid remains unchanged.
+ * The homepage `LogoCloud` default grid applies the same `SERVICE_LOGO_COLOR` treatment.
  */
 export const PARTNER_LOGOS = {
   marbleSlab: {

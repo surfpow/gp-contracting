@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { PlusIcon } from "lucide-react";
 
+import { SERVICE_LOGO_COLOR } from "@/lib/partner-logos";
 import { cn } from "@/lib/utils";
 
 export type Logo = {
@@ -17,6 +18,9 @@ type LogoCloudProps = React.ComponentProps<"div"> & {
   /** When provided, renders these logos instead of the default partner grid. */
   logos?: Logo[];
 };
+
+/** Homepage partner grid cells: hover group for the logo color and a taller cell. */
+const HOME_LOGO_CELL = "group md:py-12";
 
 export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
   if (logos && logos.length > 0) {
@@ -87,12 +91,11 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
       <div className="-translate-x-1/2 -top-px pointer-events-none absolute left-1/2 w-screen border-t" />
 
       <LogoCard
-        className="relative border-r border-b bg-secondary dark:bg-secondary/30"
+        className={`${HOME_LOGO_CELL} relative border-r border-b bg-secondary dark:bg-secondary/30`}
         logo={{
           src: "/logo-marbleslab.png",
           alt: "Marble Slab Creamery Logo",
-          imgClassName:
-            "h-4 w-auto origin-center scale-[1.85] md:h-5 md:scale-[1.85]",
+          imgClassName: `h-4 w-auto origin-center scale-[1.85] md:h-5 md:scale-[1.85] ${SERVICE_LOGO_COLOR}`,
         }}
       >
         <PlusIcon
@@ -102,21 +105,20 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
       </LogoCard>
 
       <LogoCard
-        className="border-b md:border-r"
+        className={`${HOME_LOGO_CELL} border-b md:border-r`}
         logo={{
           src: "/logo-dominos.png",
           alt: "Domino's Pizza Logo",
-          imgClassName:
-            "h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5]",
+          imgClassName: `h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5] ${SERVICE_LOGO_COLOR}`,
         }}
       />
 
       <LogoCard
-        className="relative border-r border-b md:bg-secondary dark:md:bg-secondary/30"
+        className={`${HOME_LOGO_CELL} relative border-r border-b md:bg-secondary dark:md:bg-secondary/30`}
         logo={{
           src: "/logo-td.png",
           alt: "TD Canada Trust Logo",
-          imgClassName: "h-4 w-auto origin-center scale-[2] md:h-5 md:scale-[2]",
+          imgClassName: `h-4 w-auto origin-center scale-[2] md:h-5 md:scale-[2] ${SERVICE_LOGO_COLOR}`,
         }}
       >
         <PlusIcon
@@ -130,22 +132,20 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
       </LogoCard>
 
       <LogoCard
-        className="relative border-b bg-secondary md:bg-background dark:bg-secondary/30 md:dark:bg-background"
+        className={`${HOME_LOGO_CELL} relative border-b bg-secondary md:bg-background dark:bg-secondary/30 md:dark:bg-background`}
         logo={{
           src: "/logo-evas.png",
           alt: "Eva's Original Logo",
-          imgClassName:
-            "h-4 w-auto origin-center scale-[3.5] md:h-5 md:scale-[3.5]",
+          imgClassName: `h-4 w-auto origin-center scale-[3.5] md:h-5 md:scale-[3.5] ${SERVICE_LOGO_COLOR}`,
         }}
       />
 
       <LogoCard
-        className="relative border-r border-b bg-secondary md:border-b-0 md:bg-background dark:bg-secondary/30 md:dark:bg-background"
+        className={`${HOME_LOGO_CELL} relative border-r border-b bg-secondary md:border-b-0 md:bg-background dark:bg-secondary/30 md:dark:bg-background`}
         logo={{
           src: "/logo-barburrito.png",
           alt: "BarBurrito Logo",
-          imgClassName:
-            "h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5]",
+          imgClassName: `h-4 w-auto origin-center scale-[1.5] md:h-5 md:scale-[1.5] ${SERVICE_LOGO_COLOR}`,
         }}
       >
         <PlusIcon
@@ -155,32 +155,29 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
       </LogoCard>
 
       <LogoCard
-        className="border-b bg-background md:border-r md:border-b-0 md:bg-secondary dark:md:bg-secondary/30"
+        className={`${HOME_LOGO_CELL} border-b bg-background md:border-r md:border-b-0 md:bg-secondary dark:md:bg-secondary/30`}
         logo={{
           src: "/logo-crazyzhang.png",
           alt: "Crazy Zhang Fusion Tea & BBQ Logo",
-          imgClassName:
-            "h-4 w-auto origin-center scale-[4.25] md:h-5 md:scale-[4.25]",
+          imgClassName: `h-4 w-auto origin-center scale-[4.25] md:h-5 md:scale-[4.25] ${SERVICE_LOGO_COLOR}`,
         }}
       />
 
       <LogoCard
-        className="border-r"
+        className={`${HOME_LOGO_CELL} border-r`}
         logo={{
           src: "/logo-uppal.png",
           alt: "Uppal Building Supplies Logo",
-          imgClassName:
-            "h-5 w-auto origin-center scale-[1.35] md:h-6 md:scale-[1.35]",
+          imgClassName: `h-5 w-auto origin-center scale-[1.35] md:h-6 md:scale-[1.35] ${SERVICE_LOGO_COLOR}`,
         }}
       />
 
       <LogoCard
-        className="bg-secondary dark:bg-secondary/30"
+        className={`${HOME_LOGO_CELL} bg-secondary dark:bg-secondary/30`}
         logo={{
           src: "/logo-countrylumber.png",
           alt: "Country Lumber Logo",
-          imgClassName:
-            "h-6 w-auto origin-center scale-[1.65] md:h-7 md:scale-[1.65]",
+          imgClassName: `h-6 w-auto origin-center scale-[1.65] md:h-7 md:scale-[1.65] ${SERVICE_LOGO_COLOR}`,
         }}
       />
 

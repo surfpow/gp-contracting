@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, PlusIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -39,6 +39,13 @@ export type ParallaxScrollFeatureSectionProps = {
   contentClassName?: string;
 };
 
+/** Homepage rows: width lives on the drawing-frame wrapper instead of the panel. */
+const HOME_IMAGE_PANEL_CLASSNAME =
+  "relative aspect-[3/4] w-full min-h-[360px] overflow-hidden md:min-h-[520px]";
+
+const REGISTRATION_MARK_CLASSNAME =
+  "absolute z-10 hidden size-6 text-brand-navy/60 md:block";
+
 function FeatureSectionRow({
   section,
   showCtas,
@@ -65,7 +72,7 @@ function FeatureSectionRow({
         className={cn(
           "font-serif tracking-tight text-neutral-900",
           showCtas
-            ? "text-4xl md:text-5xl lg:text-6xl"
+            ? "text-4xl leading-[1.05] text-balance md:text-5xl lg:text-6xl"
             : "text-2xl md:text-3xl lg:text-4xl",
         )}
       >
@@ -74,7 +81,7 @@ function FeatureSectionRow({
       <p
         className={cn(
           "max-w-lg text-base leading-relaxed text-neutral-600 md:text-lg",
-          showCtas ? "mt-6 md:mt-10" : "mt-5 md:mt-6",
+          showCtas ? "mt-6 text-pretty md:mt-10" : "mt-5 md:mt-6",
         )}
       >
         {section.description}
@@ -119,6 +126,31 @@ function FeatureSectionRow({
     />
   );
 
+  const imagePanel = (
+    <ScrollRevealImagePanel
+      shouldReduceMotion={shouldReduceMotion}
+      opacity={opacity}
+      clipPath={clipPath}
+      className={
+        showCtas ? HOME_IMAGE_PANEL_CLASSNAME : SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME
+      }
+    >
+      {image}
+      {showCtas && (
+        <>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-dark/25 via-transparent to-transparent"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 ring-1 ring-white/15 ring-inset"
+          />
+        </>
+      )}
+    </ScrollRevealImagePanel>
+  );
+
   return (
     <div
       ref={ref}
@@ -139,14 +171,46 @@ function FeatureSectionRow({
         {textContent}
       </ScrollRevealContentPanel>
 
-      <ScrollRevealImagePanel
-        shouldReduceMotion={shouldReduceMotion}
-        opacity={opacity}
-        clipPath={clipPath}
-        className={SCROLL_REVEAL_IMAGE_PANEL_CLASSNAME}
-      >
-        {image}
-      </ScrollRevealImagePanel>
+      {showCtas ? (
+        <div className="relative w-full shrink-0 md:w-[40%]">
+          {/* Offset drawing frame: reads as an empty outline until the photo wipes in. */}
+          <div
+            aria-hidden="true"
+            className={cn(
+              "pointer-events-none absolute inset-0 translate-x-2.5 translate-y-2.5 border border-brand-navy/25 bg-brand-navy/[0.05] md:translate-y-5",
+              section.reverse ? "md:-translate-x-5" : "md:translate-x-5",
+            )}
+          >
+            <PlusIcon
+              className={cn(
+                REGISTRATION_MARK_CLASSNAME,
+                "-bottom-[12.5px]",
+                section.reverse ? "-left-[12.5px]" : "-right-[12.5px]",
+              )}
+              strokeWidth={1}
+            />
+            <PlusIcon
+              className={cn(
+                REGISTRATION_MARK_CLASSNAME,
+                "-top-[12.5px]",
+                section.reverse ? "-left-[12.5px]" : "-right-[12.5px]",
+              )}
+              strokeWidth={1}
+            />
+            <PlusIcon
+              className={cn(
+                REGISTRATION_MARK_CLASSNAME,
+                "-bottom-[12.5px]",
+                section.reverse ? "-right-[12.5px]" : "-left-[12.5px]",
+              )}
+              strokeWidth={1}
+            />
+          </div>
+          {imagePanel}
+        </div>
+      ) : (
+        imagePanel
+      )}
     </div>
   );
 }
@@ -185,7 +249,21 @@ export function ParallaxScrollFeatureSection({
   const withCtas = showCtas ?? rows === undefined;
 
   return (
-    <section id={rows ? undefined : "services"} className={cn("bg-neutral-50", className)}>
+    <section
+      id={rows ? undefined : "services"}
+      className={cn(
+        "bg-neutral-50",
+        withCtas && "relative isolate overflow-x-clip",
+        className,
+      )}
+    >
+      {withCtas && (
+        // Faint blueprint grid behind the header, fading out toward the rows.
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[720px] bg-[linear-gradient(to_right,rgba(45,52,112,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(45,52,112,0.06)_1px,transparent_1px)] bg-[size:72px_72px] bg-[position:center_top] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
+        />
+      )}
       <div
         className={cn(
           "flex flex-col px-4 md:px-0",
@@ -196,15 +274,29 @@ export function ParallaxScrollFeatureSection({
         <div
           className={cn(
             "mx-auto max-w-2xl md:mb-16",
-            withCtas ? "mb-8 text-center" : "mb-14 max-w-3xl text-left md:mb-20 md:px-10",
+            withCtas
+              ? "mb-8 max-w-4xl text-center"
+              : "mb-14 max-w-3xl text-left md:mb-20 md:px-10",
           )}
         >
           <p className="text-sm font-medium tracking-widest text-brand-navy uppercase">
             {eyebrow}
           </p>
-          <h2 className="mt-4 font-serif text-3xl tracking-tight text-neutral-900 md:text-4xl">
+          <h2
+            className={cn(
+              "mt-4 font-serif text-3xl tracking-tight text-neutral-900 md:text-4xl",
+              withCtas && "text-4xl text-balance md:text-5xl lg:text-6xl",
+            )}
+          >
             {heading}
           </h2>
+          {withCtas && (
+            // Plumb line leading from the heading down into the rows.
+            <div
+              aria-hidden="true"
+              className="mx-auto mt-10 h-16 w-px bg-gradient-to-b from-brand-navy/60 to-transparent md:h-24"
+            />
+          )}
         </div>
         <div className={withCtas ? undefined : "flex flex-col gap-16 md:gap-24"}>
           {resolvedRows.map((section) => (
